@@ -1,0 +1,159 @@
+2020-01-07 10:26:10,340 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:26:10,430 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:26:10,430 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:26:10,430 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:26:10,479 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:43:04,379 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:43:04,412 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:43:04,412 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:43:04,412 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:43:05,115 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 10:43:05,124 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:43:17,767 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:43:17,869 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:45:41,408 ERROR int HttpAPI::Init() - "LIBSetHeaderEx res: 2003"
+2020-01-07 10:45:41,607 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:45:41,632 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:45:41,632 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:45:41,633 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:45:41,733 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:47:31,630 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:47:31,662 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:47:31,662 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:47:31,665 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:47:31,766 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:47:31,861 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 10:49:12,577 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:49:12,609 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:49:12,611 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:49:12,611 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:49:12,712 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:49:12,806 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 10:55:14,247 DEBUG void FlightEnquires::on_queryPushButton_clicked() - Queried Flight Not Found!!
+2020-01-07 10:55:20,847 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:55:20,876 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:55:20,879 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:55:20,879 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:55:21,508 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 10:55:21,518 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:55:21,536 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 10:55:28,615 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:55:28,709 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:55:28,801 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 10:58:01,638 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:58:01,672 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:58:01,672 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:58:01,672 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:58:01,776 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:58:01,873 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 10:59:08,336 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 10:59:08,368 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 10:59:08,368 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 10:59:08,368 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 10:59:08,474 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 10:59:08,569 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 11:01:18,344 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 11:01:18,376 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:01:18,376 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:01:18,376 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:01:18,481 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 11:01:18,575 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 11:03:08,747 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 11:03:08,781 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:03:08,781 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:03:08,781 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:03:08,883 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 11:03:08,976 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 11:06:15,000 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:06:15,000 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:06:15,000 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:06:15,628 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 11:06:43,077 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:06:43,077 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:06:43,077 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:16:27,040 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:16:27,040 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:16:27,040 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:16:27,662 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 11:17:42,028 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:17:42,028 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:17:42,028 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:23:39,988 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:23:39,988 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:23:39,988 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:24:11,976 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:24:11,976 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:24:11,976 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:24:43,868 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:24:43,868 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:24:43,868 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:25:26,819 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:25:26,819 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:25:26,819 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:26:27,675 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:26:27,675 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:26:27,675 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 11:26:28,298 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 11:28:36,402 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 11:28:36,402 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 11:28:36,402 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 13:48:37,232 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 13:48:37,232 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 13:48:37,232 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 13:48:37,855 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:38,487 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:38,516 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:40,966 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:40,991 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:41,013 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:41,932 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:41,955 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:41,976 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:42,636 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:42,655 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:42,674 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:42,881 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:42,900 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:42,919 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,127 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,149 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,168 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,374 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,396 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,417 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,614 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,633 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,651 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,853 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,872 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:43,890 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,089 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,109 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,129 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,331 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,349 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,368 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,562 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,582 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:48:44,602 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:49:45,242 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 13:49:45,242 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 13:49:45,242 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 13:49:45,264 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:49:45,286 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:49:45,305 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:50:13,328 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 13:50:13,328 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 13:50:13,328 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 13:50:13,350 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:50:13,370 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:50:13,389 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:51:47,359 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-07 13:51:47,359 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-07 13:51:47,359 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-07 13:51:47,384 DEBUG void FlightEnquires::on_queryPushButton_clicked() - pixmap:  "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-07 13:51:47,384 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:51:47,410 DEBUG void FlightEnquires::on_queryPushButton_clicked() - pixmap:  "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-07 13:51:47,410 WARN   - QPixmap::scaled: Pixmap is a null pixmap
+2020-01-07 13:51:47,428 DEBUG void FlightEnquires::on_queryPushButton_clicked() - pixmap:  "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200107&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-07 13:51:47,428 WARN   - QPixmap::scaled: Pixmap is a null pixmap

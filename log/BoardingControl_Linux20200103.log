@@ -1,0 +1,566 @@
+2020-01-03 09:42:19,167 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":1,"pageSize":20,"queryType":0,"reqId":"6d59e4d55e9e4ae08d350b6b4063be74"})
+2020-01-03 09:42:19,199 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":null,"msg":"gateNo and flightDate not match","num":0,"reqId":"20200103094211694","results":null,"status":400,"total":0})
+2020-01-03 09:45:15,387 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"","gateNo":"T1AF10","isCount":1,"pageNum":1,"pageSize":20,"queryType":0,"reqId":"09e892752db74c3da271cec0ca1a79c9"})
+2020-01-03 09:45:15,406 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":null,"msg":"bad params<flightNo is empty>","num":0,"reqId":"20200103094507899","results":null,"status":400,"total":0})
+2020-01-03 09:46:13,115 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":1,"pageSize":20,"queryType":0,"reqId":"7cbbdae9b1424476bcc66c4ba7daab58"})
+2020-01-03 09:46:13,309 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":20,"reqId":"7cbbdae9b1424476bcc66c4ba7daab58","results":[{"boardingNumber":"0","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"c402388382b34b9abf7350f6ba0e881f","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=0&seatId=000A","repeatFlag":0,"seatNumber":"000A"},{"boardingNumber":"1","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"cf0a521bf4b747ca95eede55f2ab055c","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=1&seatId=001A","repeatFlag":0,"seatNumber":"001A"},{"boardingNumber":"10","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"5e7fa94178cf45be8a37006d5f2f67c9","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=10&seatId=010A","repeatFlag":0,"seatNumber":"010A"},{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"},{"boardingNumber":"103","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"3def71a853594b6dac2c2a5fae4879a5","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=103&seatId=103A","repeatFlag":0,"seatNumber":"103A"},{"boardingNumber":"104","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"4d35a50ba55841b598e992a8f20402e2","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=104&seatId=104A","repeatFlag":0,"seatNumber":"104A"},{"boardingNumber":"105","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"94b614b746054877baea7bb3381b335e","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=105&seatId=105A","repeatFlag":0,"seatNumber":"105A"},{"boardingNumber":"106","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"a23967134c2040e29f9fe599144c8957","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=106&seatId=106A","repeatFlag":0,"seatNumber":"106A"},{"boardingNumber":"107","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"708ed2ab3b9c40de9e5dabfb8557f528","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=107&seatId=107A","repeatFlag":0,"seatNumber":"107A"},{"boardingNumber":"108","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"3e22abbc6d614141acf47cd4319cb30c","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=108&seatId=108A","repeatFlag":0,"seatNumber":"108A"},{"boardingNumber":"109","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"80f8970bb546481bb1acd6d319e6786b","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=109&seatId=109A","repeatFlag":0,"seatNumber":"109A"},{"boardingNumber":"11","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"73f8715542124de588cc649aaa5dbdbc","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=11&seatId=011A","repeatFlag":0,"seatNumber":"011A"},{"boardingNumber":"110","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"19716455c16f421185da67e8ea8eae9b","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=110&seatId=110A","repeatFlag":0,"seatNumber":"110A"},{"boardingNumber":"111","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"0db9c1a029734714877d79ac8700bed9","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=111&seatId=111A","repeatFlag":0,"seatNumber":"111A"},{"boardingNumber":"112","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"a03db56efce54cd3863bf0c3902546a1","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=112&seatId=112A","repeatFlag":0,"seatNumber":"112A"},{"boardingNumber":"113","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"9e85286dbf0444f0b745a30fa4844f50","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=113&seatId=113A","repeatFlag":0,"seatNumber":"113A"},{"boardingNumber":"114","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"bc3ee8bcd5874c97a4728f50b058ef5b","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=114&seatId=114A","repeatFlag":0,"seatNumber":"114A"},{"boardingNumber":"115","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"fc40824c1d974bbf8934fb4807a2af22","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=115&seatId=115A","repeatFlag":0,"seatNumber":"115A"}],"status":0,"total":350})
+2020-01-03 09:58:34,163 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":1,"pageSize":20,"queryType":1,"reqId":"ad23b533cc59490f9ad9e9134eb8f911"})
+2020-01-03 09:58:34,365 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":0,"manualNum":0,"midwayNum":0,"orgDepNum":0,"recognizeNum":170,"transferNum":0},"msg":"Success","num":20,"reqId":"ad23b533cc59490f9ad9e9134eb8f911","results":[{"boardingNumber":"0","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"c402388382b34b9abf7350f6ba0e881f","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=0&seatId=000A","repeatFlag":0,"seatNumber":"000A"},{"boardingNumber":"1","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"cf0a521bf4b747ca95eede55f2ab055c","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=1&seatId=001A","repeatFlag":0,"seatNumber":"001A"},{"boardingNumber":"10","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"5e7fa94178cf45be8a37006d5f2f67c9","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=10&seatId=010A","repeatFlag":0,"seatNumber":"010A"},{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"},{"boardingNumber":"103","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"3def71a853594b6dac2c2a5fae4879a5","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=103&seatId=103A","repeatFlag":0,"seatNumber":"103A"},{"boardingNumber":"104","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"4d35a50ba55841b598e992a8f20402e2","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=104&seatId=104A","repeatFlag":0,"seatNumber":"104A"},{"boardingNumber":"105","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"94b614b746054877baea7bb3381b335e","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=105&seatId=105A","repeatFlag":0,"seatNumber":"105A"},{"boardingNumber":"106","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"a23967134c2040e29f9fe599144c8957","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=106&seatId=106A","repeatFlag":0,"seatNumber":"106A"},{"boardingNumber":"107","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"708ed2ab3b9c40de9e5dabfb8557f528","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=107&seatId=107A","repeatFlag":0,"seatNumber":"107A"},{"boardingNumber":"108","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"3e22abbc6d614141acf47cd4319cb30c","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=108&seatId=108A","repeatFlag":0,"seatNumber":"108A"},{"boardingNumber":"109","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"80f8970bb546481bb1acd6d319e6786b","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=109&seatId=109A","repeatFlag":0,"seatNumber":"109A"},{"boardingNumber":"11","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"73f8715542124de588cc649aaa5dbdbc","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=11&seatId=011A","repeatFlag":0,"seatNumber":"011A"},{"boardingNumber":"110","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"19716455c16f421185da67e8ea8eae9b","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=110&seatId=110A","repeatFlag":0,"seatNumber":"110A"},{"boardingNumber":"111","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"0db9c1a029734714877d79ac8700bed9","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=111&seatId=111A","repeatFlag":0,"seatNumber":"111A"},{"boardingNumber":"112","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"a03db56efce54cd3863bf0c3902546a1","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=112&seatId=112A","repeatFlag":0,"seatNumber":"112A"},{"boardingNumber":"113","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"9e85286dbf0444f0b745a30fa4844f50","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=113&seatId=113A","repeatFlag":0,"seatNumber":"113A"},{"boardingNumber":"114","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"bc3ee8bcd5874c97a4728f50b058ef5b","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=114&seatId=114A","repeatFlag":0,"seatNumber":"114A"},{"boardingNumber":"115","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"fc40824c1d974bbf8934fb4807a2af22","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=115&seatId=115A","repeatFlag":0,"seatNumber":"115A"}],"status":0,"total":170})
+2020-01-03 10:00:24,422 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":1,"pageSize":20,"queryType":2,"reqId":"f6ba53ceeed94052af2a4b7cf267b590"})
+2020-01-03 10:00:24,615 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":0,"faceNums":0,"manualNum":0,"midwayNum":0,"orgDepNum":0,"recognizeNum":0,"transferNum":0},"msg":"Success","num":20,"reqId":"f6ba53ceeed94052af2a4b7cf267b590","results":[{"boardingNumber":"170","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"93c860491c9d476dad5eeaf1b5b9c26c","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=170&seatId=170A","repeatFlag":0,"seatNumber":"170A"},{"boardingNumber":"171","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"3df340536fb64356919e3075ed16ded3","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=171&seatId=171A","repeatFlag":0,"seatNumber":"171A"},{"boardingNumber":"172","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"10e12efd510c49c08c0a1555fe7722df","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=172&seatId=172A","repeatFlag":0,"seatNumber":"172A"},{"boardingNumber":"173","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"6208983580a34ef3b7e95d1908e2015d","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=173&seatId=173A","repeatFlag":0,"seatNumber":"173A"},{"boardingNumber":"174","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"9548973b6e0f4ae795ad3022f7c26d9d","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=174&seatId=174A","repeatFlag":0,"seatNumber":"174A"},{"boardingNumber":"175","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"5a5da7587cb94952ab143b21e87d8a8e","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=175&seatId=175A","repeatFlag":0,"seatNumber":"175A"},{"boardingNumber":"176","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"08aa63e9b09440f6960a4ac6ac98ad96","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=176&seatId=176A","repeatFlag":0,"seatNumber":"176A"},{"boardingNumber":"177","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"a655ff0c7dfd4dd8bbb3619e90d09bb8","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=177&seatId=177A","repeatFlag":0,"seatNumber":"177A"},{"boardingNumber":"178","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"ab92c90df7a343eba01e1392b1a53379","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=178&seatId=178A","repeatFlag":0,"seatNumber":"178A"},{"boardingNumber":"179","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"34a1430e98fe41debdc9b6ec49fb2ed9","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=179&seatId=179A","repeatFlag":0,"seatNumber":"179A"},{"boardingNumber":"180","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"34093718a97845afb3a98304b7133804","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=180&seatId=180A","repeatFlag":0,"seatNumber":"180A"},{"boardingNumber":"181","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"5c9489ea7a494975845742155eabb044","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=181&seatId=181A","repeatFlag":0,"seatNumber":"181A"},{"boardingNumber":"182","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"015e9a9e33494b249832a23a45e411e1","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=182&seatId=182A","repeatFlag":0,"seatNumber":"182A"},{"boardingNumber":"183","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"c57790fcb9cf48f8bc89e652a3bae925","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=183&seatId=183A","repeatFlag":0,"seatNumber":"183A"},{"boardingNumber":"184","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"1678885929e64fc1a396aa796eab40e4","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=184&seatId=184A","repeatFlag":0,"seatNumber":"184A"},{"boardingNumber":"185","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"75058214537a4c8d9b043c2b9024dbf9","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=185&seatId=185A","repeatFlag":0,"seatNumber":"185A"},{"boardingNumber":"186","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"b9ba8cc4ceae46b799977f40d008e1d0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=186&seatId=186A","repeatFlag":0,"seatNumber":"186A"},{"boardingNumber":"187","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"8d86334517ad48f89e82ba71b7e52121","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=187&seatId=187A","repeatFlag":0,"seatNumber":"187A"},{"boardingNumber":"188","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"693858c0fa194b44a7c53a0b33252ee0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=188&seatId=188A","repeatFlag":0,"seatNumber":"188A"},{"boardingNumber":"189","boardingStatus":0,"cardNo":null,"flightNumber":"AB1250","id":"e3bbfa637eb846b0bf68865597cb7365","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=189&seatId=189A","repeatFlag":0,"seatNumber":"189A"}],"status":0,"total":180})
+2020-01-03 10:01:49,358 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"a52a76ac0fef46f3956e938dcb391788"})
+2020-01-03 10:01:49,553 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"a52a76ac0fef46f3956e938dcb391788","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 10:08:45,374 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"53cdf77fb4a842e4affddb69b41578e7"})
+2020-01-03 10:08:45,567 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"53cdf77fb4a842e4affddb69b41578e7","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 10:11:53,739 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"5962d33a10ea4f68afff54a78f832ae7"})
+2020-01-03 10:11:53,931 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"5962d33a10ea4f68afff54a78f832ae7","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 10:13:01,644 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"165a6bc968ba4619a1e1b67c0bf5e970"})
+2020-01-03 10:13:01,838 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"165a6bc968ba4619a1e1b67c0bf5e970","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 10:32:03,242 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"042980bd05d54d61a42dbc088eb4ac92"})
+2020-01-03 10:32:03,425 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"042980bd05d54d61a42dbc088eb4ac92","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 10:40:09,671 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"58c97533bcff45888090b2d4b011e426"})
+2020-01-03 10:40:09,865 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"58c97533bcff45888090b2d4b011e426","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 10:41:55,959 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"e9073acab5c34b5695d31005c029318d"})
+2020-01-03 10:41:56,149 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"e9073acab5c34b5695d31005c029318d","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 10:50:32,791 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"72317bba157843d49eb2eabd53aa4ddc"})
+2020-01-03 10:50:32,972 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"72317bba157843d49eb2eabd53aa4ddc","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 11:20:36,130 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"f9261b0559ef4f019e2133bb95d2c54f"})
+2020-01-03 11:20:36,322 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"f9261b0559ef4f019e2133bb95d2c54f","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 13:56:44,144 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"1e0c03ee509141368e13c290736f1483"})
+2020-01-03 13:56:44,324 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"1e0c03ee509141368e13c290736f1483","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 13:59:38,432 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"0af9365fcf6446739826c99f77e5b667"})
+2020-01-03 13:59:38,622 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"0af9365fcf6446739826c99f77e5b667","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 14:42:42,764 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"941827ebfd9f4321bd47480e8839a394"})
+2020-01-03 14:42:42,953 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"941827ebfd9f4321bd47480e8839a394","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,954 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,955 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,956 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,957 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,958 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,959 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,960 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,961 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,962 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,963 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:42:42,964 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:45:07,114 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - request:  QJsonObject({"boardingGate":"02A","date":"2020-01-03","flightNo":"AB1250","gateNo":"T1AF10","isCount":1,"pageNum":2,"pageSize":3,"queryType":0,"reqId":"17caa3d6fed741e88d09cc561f1aedf7"})
+2020-01-03 14:45:07,307 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:45:07,307 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:45:07,307 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:47:10,930 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"e9001e9b38ef471d95bd9ffadb0ea983","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 14:47:10,930 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:47:10,930 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:47:10,930 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:53:29,082 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"e643938b60344e7ea849f3679a0dea2a","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 14:53:29,082 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:53:29,082 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:53:29,082 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:54:54,567 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"98e2cc8b546648b092606587997b6788","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 14:54:54,567 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:54:54,567 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:54:54,567 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:57:41,265 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - result.update(document)--------------------------
+2020-01-03 14:57:41,265 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"de1b3a09720240d5a38af7ea6eef9bd0","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 14:57:41,265 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:57:41,265 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:57:41,265 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:58:54,388 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - result.update(document)--------------------------
+2020-01-03 14:58:54,388 DEBUG void FlightReviewInterface::update(QJsonDocument&) - docObj.contains("results")-----------------------
+2020-01-03 14:58:54,388 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"a98fa51e636844dcb642601c8030a2f7","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 14:58:54,389 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:58:54,389 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 14:58:54,389 DEBUG void FlightEnquires::on_queryPushButton_clicked() - ""
+2020-01-03 15:01:42,235 DEBUG FlightReviewResponse HttpAPI::get(const FlightReviewRequest&) - HTTP FLIGHT REVIEW RESPONSE: 
+ QJsonDocument({"dataInfo":{"boardingNum":170,"faceNums":350,"manualNum":0,"midwayNum":0,"orgDepNum":350,"recognizeNum":0,"transferNum":0},"msg":"Success","num":3,"reqId":"5b80b789c005432e86aeb8214d8780ef","results":[{"boardingNumber":"100","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"1606096f78554be692d40e09bda6cba0","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A","repeatFlag":0,"seatNumber":"100A"},{"boardingNumber":"101","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"dcf008837cdf4eacb8ac080038389894","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A","repeatFlag":0,"seatNumber":"101A"},{"boardingNumber":"102","boardingStatus":1,"cardNo":null,"flightNumber":"AB1250","id":"747b260dc2544d13aea2e69e3b201001","passengerName":null,"photoPath":"http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A","repeatFlag":0,"seatNumber":"102A"}],"status":0,"total":350})
+2020-01-03 15:01:42,235 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:01:42,235 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:01:42,235 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:19:39,010 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:19:39,010 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:19:39,010 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:27:32,921 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:27:32,921 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:27:32,921 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:29:35,613 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:29:35,648 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:29:35,649 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:29:35,650 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:29:35,755 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:29:35,846 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:33:50,707 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:33:50,734 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:33:50,734 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:33:50,734 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:33:50,764 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:33:50,821 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:38:17,794 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:38:17,826 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:38:17,826 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:38:17,826 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:38:17,857 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:38:17,884 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:40:17,287 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:40:17,319 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:40:17,319 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:40:17,319 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:40:17,422 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:40:17,518 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:41:42,724 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:41:42,754 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:41:42,754 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:41:42,754 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:41:42,851 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:41:42,946 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:43:06,822 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:43:06,854 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:43:06,855 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:43:06,855 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:43:06,953 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:43:07,048 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:43:07,980 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:43:08,071 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:43:08,167 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:43:08,430 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:43:08,523 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:43:08,614 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:43:08,892 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:43:08,984 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:43:09,076 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:46:19,705 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:46:19,742 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:46:19,742 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:46:19,742 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:46:19,847 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:46:19,942 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:46:34,157 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:46:34,250 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:46:34,342 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:46:49,946 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:46:50,042 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:46:50,136 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:52:58,028 ERROR int HttpAPI::Init() - "LIBSetHeaderEx res: 2003"
+2020-01-03 15:52:58,206 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:52:58,242 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:52:58,242 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:52:58,242 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:52:58,269 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:52:58,287 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:54:12,839 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:54:12,876 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:54:12,876 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:54:12,876 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:54:12,978 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:54:13,070 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 15:56:22,202 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 15:56:22,235 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 15:56:22,235 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 15:56:22,235 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 15:56:22,340 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 15:56:22,437 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 16:05:24,256 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 16:05:24,288 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:05:24,288 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:05:24,288 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:05:24,314 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:05:24,373 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 16:07:00,206 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 16:07:00,234 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:07:00,234 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:07:00,236 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:07:00,336 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:07:00,431 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 16:08:05,027 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 16:08:05,053 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:08:05,054 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:08:05,055 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:08:05,153 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:08:05,249 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 16:09:17,290 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 16:09:17,317 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:09:17,318 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:09:17,318 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:09:17,420 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:09:17,513 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 16:11:00,296 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=100&seatId=100A"
+2020-01-03 16:11:00,329 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:11:00,330 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:11:00,330 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:11:00,433 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:11:00,528 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 16:12:32,742 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:12:32,771 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:12:32,771 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:12:32,771 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:12:32,876 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"
+2020-01-03 16:12:32,973 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=103&seatId=103A"
+2020-01-03 16:12:33,067 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=104&seatId=104A"
+2020-01-03 16:13:27,468 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:13:27,501 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:13:27,501 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:13:27,501 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:14:43,512 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=101&seatId=101A"
+2020-01-03 16:14:43,544 WARN   - QSslSocket: cannot resolve SSL_set_alpn_protos
+2020-01-03 16:14:43,544 WARN   - QSslSocket: cannot resolve SSL_CTX_set_alpn_select_cb
+2020-01-03 16:14:43,544 WARN   - QSslSocket: cannot resolve SSL_get0_alpn_selected
+2020-01-03 16:14:43,643 DEBUG void FlightEnquires::on_queryPushButton_clicked() - "http://175.168.1.199:9091/data-platform-server/api/v1/resource/cache-img?flightDate=20200103&flightNo=AB1250&bdNo=102&seatId=102A"

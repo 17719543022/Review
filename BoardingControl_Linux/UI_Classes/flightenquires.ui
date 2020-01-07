@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FlightEnquires</class>
+ <widget class="QWidget" name="FlightEnquires">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>1280</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>航班回查</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(1, 65, 109);</string>
+  </property>
+  <widget class="QWidget" name="flightQueryWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>117</y>
+     <width>800</width>
+     <height>964</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="flightWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>53</y>
+      <width>770</width>
+      <height>308</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/6航班回查/Images/6航班回查/航班号.png);</string>
+    </property>
+    <widget class="QLabel" name="planeLabel">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>22</y>
+       <width>155</width>
+       <height>109</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+background-image: url(:/6航班回查/Images/6航班回查/矢量剪影飞机.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="flightNoLabel">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>10</y>
+       <width>501</width>
+       <height>109</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>80</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+color: rgb(0, 228, 255);</string>
+     </property>
+     <property name="text">
+      <string>CA9281</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>99</x>
+       <y>150</y>
+       <width>301</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>共享航班：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>397</x>
+       <y>150</y>
+       <width>371</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>26</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+color: rgb(15, 255, 121);</string>
+     </property>
+     <property name="text">
+      <string>CA9281</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>225</y>
+       <width>250</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>呼和浩特</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>225</y>
+       <width>250</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>40</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>重庆</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>266</x>
+       <y>250</y>
+       <width>237</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+background-image: url(:/6航班回查/Images/6航班回查/形状-2.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>208</y>
+       <width>770</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>21</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>乌兰察布</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="passengersWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>400</y>
+      <width>770</width>
+      <height>564</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/6航班回查/Images/6航班回查/bg.png);</string>
+    </property>
+    <widget class="QWidget" name="passengerWidget_1" native="true">
+     <property name="geometry">
+      <rect>
+       <x>800</x>
+       <y>10</y>
+       <width>800</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+</string>
+     </property>
+     <widget class="QLabel" name="photoLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>0</y>
+        <width>131</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/6航班回查/Images/6航班回查/照片.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nameTitleLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>5</y>
+        <width>121</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>旅客姓名：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="flightTitleLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>65</y>
+        <width>171</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>航班号／序号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="seatTitleLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>125</y>
+        <width>131</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>座位号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nameLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>315</x>
+        <y>5</y>
+        <width>451</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>张定军</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="flightLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>365</x>
+        <y>65</y>
+        <width>401</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>CA2318/001</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="seatLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>125</y>
+        <width>471</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>079</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="passengerWidget_2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>800</x>
+       <y>196</y>
+       <width>800</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+</string>
+     </property>
+     <widget class="QLabel" name="photoLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>0</y>
+        <width>131</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/6航班回查/Images/6航班回查/照片.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nameTitleLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>5</y>
+        <width>121</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>旅客姓名：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nameLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>315</x>
+        <y>5</y>
+        <width>451</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>张定军</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="flightTitleLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>65</y>
+        <width>171</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>航班号／序号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="flightLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>365</x>
+        <y>65</y>
+        <width>401</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>CA2318/001</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="sitTitleLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>125</y>
+        <width>91</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>座位号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="sitLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>125</y>
+        <width>471</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>079</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="passengerWidget_3" native="true">
+     <property name="geometry">
+      <rect>
+       <x>800</x>
+       <y>382</y>
+       <width>800</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+</string>
+     </property>
+     <widget class="QLabel" name="photoLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>0</y>
+        <width>131</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/6航班回查/Images/6航班回查/照片.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nameTitleLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>5</y>
+        <width>121</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>旅客姓名：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nameLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>315</x>
+        <y>5</y>
+        <width>451</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>张定军</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="flightTitleLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>65</y>
+        <width>171</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>航班号／序号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="flightLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>365</x>
+        <y>65</y>
+        <width>401</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>CA2318/001</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="sitTitleLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>125</y>
+        <width>101</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>座位号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="sitLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>125</y>
+        <width>471</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string>079</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="splitLabel_1">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>187</y>
+       <width>740</width>
+       <height>1</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: 0;
+background: 0;
+border-radius: 0;
+border-width: 1px;
+border-style: dashed;
+border-color: rgb(0, 198, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="splitLabel_2">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>374</y>
+       <width>740</width>
+       <height>1</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: 0;
+background: 0;
+border-radius: 0;
+border-width: 1px;
+border-style: dashed;
+border-color: rgb(0, 198, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="orgDepTableWidget">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>2</y>
+       <width>766</width>
+       <height>560</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;</string>
+     </property>
+     <property name="columnCount">
+      <number>1</number>
+     </property>
+     <column/>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="inputWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>7</y>
+      <width>800</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <widget class="QPushButton" name="queryPushButton">
+     <property name="geometry">
+      <rect>
+       <x>630</x>
+       <y>0</y>
+       <width>122</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+background-image: url(:/6航班回查/Images/6航班回查/查询.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QWidget" name="queryLineWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>89</x>
+       <y>0</y>
+       <width>363</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: rgb(63, 95, 120);
+color: rgb(255, 255, 255);
+border-radius: 4px;</string>
+     </property>
+     <widget class="QLineEdit" name="queryLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>4</x>
+        <y>1</y>
+        <width>355</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="placeholderText">
+       <string>请输入航班号</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>361</y>
+      <width>770</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <widget class="QPushButton" name="orgDepPushButton">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>0</y>
+       <width>250</width>
+       <height>39</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+border-radius: 4;
+color: rgb(255, 255, 255);
+background-color: rgb(88, 129, 157);</string>
+     </property>
+     <property name="text">
+      <string>建库人数：0</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="boardingPushButton">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>0</y>
+       <width>250</width>
+       <height>39</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+border-radius: 4;
+color: rgb(0, 228, 255);
+background-color: rgb(0, 36, 60);</string>
+     </property>
+     <property name="text">
+      <string>已登机人数：0</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="notboardingPushButton">
+     <property name="geometry">
+      <rect>
+       <x>518</x>
+       <y>0</y>
+       <width>250</width>
+       <height>39</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+border-radius: 4;
+color: rgb(0, 228, 255);
+background-color: rgb(0, 36, 60);</string>
+     </property>
+     <property name="text">
+      <string>未登机人数：0</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

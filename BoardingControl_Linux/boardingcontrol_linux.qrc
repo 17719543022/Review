@@ -1,0 +1,102 @@
+<RCC>
+    <qresource prefix="/4全流程记录">
+        <file>Images/4全流程记录/4  全流程记录.jpg</file>
+        <file>Images/4全流程记录/A1门.png</file>
+        <file>Images/4全流程记录/A2门.png</file>
+        <file>Images/4全流程记录/B1门.png</file>
+        <file>Images/4全流程记录/B2门.png</file>
+        <file>Images/4全流程记录/bg.png</file>
+        <file>Images/4全流程记录/logo-拷贝.png</file>
+        <file>Images/4全流程记录/中转采集.png</file>
+        <file>Images/4全流程记录/人工复核通过.png</file>
+        <file>Images/4全流程记录/人工验证通过.png</file>
+        <file>Images/4全流程记录/勾选.png</file>
+        <file>Images/4全流程记录/备降采集2.png</file>
+        <file>Images/4全流程记录/已报警.png</file>
+        <file>Images/4全流程记录/常闭（1号）.png</file>
+        <file>Images/4全流程记录/常闭（2号）.png</file>
+        <file>Images/4全流程记录/待核验.png</file>
+        <file>Images/4全流程记录/暂停（1号）.png</file>
+        <file>Images/4全流程记录/暂停（2号）.png</file>
+        <file>Images/4全流程记录/未勾选.png</file>
+        <file>Images/4全流程记录/未复核.png</file>
+        <file>Images/4全流程记录/未建库.png</file>
+        <file>Images/4全流程记录/未验证.png</file>
+        <file>Images/4全流程记录/照片-.png</file>
+        <file>Images/4全流程记录/登机牌已采集.png</file>
+        <file>Images/4全流程记录/系统复核通过.png</file>
+        <file>Images/4全流程记录/系统验证不通过.png</file>
+        <file>Images/4全流程记录/系统验证通过.png</file>
+        <file>Images/4全流程记录/经停采集.png</file>
+        <file>Images/4全流程记录/证件失效-拷贝.png</file>
+        <file>Images/4全流程记录/证件失效.png</file>
+        <file>Images/4全流程记录/采集成功.png</file>
+    </qresource>
+    <qresource prefix="/2系统首页">
+        <file>Images/2系统首页/下拉窗口/人像采集-拷贝.png</file>
+        <file>Images/2系统首页/下拉窗口/人像采集.png</file>
+        <file>Images/2系统首页/下拉窗口/全流程记录-拷贝.png</file>
+        <file>Images/2系统首页/下拉窗口/全流程记录.png</file>
+        <file>Images/2系统首页/下拉窗口/实时登机-拷贝.png</file>
+        <file>Images/2系统首页/下拉窗口/实时登机.png</file>
+        <file>Images/2系统首页/下拉窗口/系统首页-拷贝.png</file>
+        <file>Images/2系统首页/下拉窗口/系统首页.png</file>
+        <file>Images/2系统首页/下拉窗口/航班回查-拷贝.png</file>
+        <file>Images/2系统首页/下拉窗口/航班回查.png</file>
+        <file>Images/2系统首页/下拉窗口/退出登录-拷贝.png</file>
+        <file>Images/2系统首页/下拉窗口/退出登录.png</file>
+        <file>Images/2系统首页/弹窗/BG.png</file>
+        <file>Images/2系统首页/弹窗/关--闭-拷贝.png</file>
+        <file>Images/2系统首页/弹窗/取消-拷贝-2.png</file>
+        <file>Images/2系统首页/弹窗/取消-拷贝.png</file>
+        <file>Images/2系统首页/弹窗/确--认-拷贝-2.png</file>
+        <file>Images/2系统首页/弹窗/确--认-拷贝.png</file>
+        <file>Images/2系统首页/2  系统首页.jpg</file>
+        <file>Images/2系统首页/2  系统首页2.jpg</file>
+        <file>Images/2系统首页/2  系统首页3.jpg</file>
+        <file>Images/2系统首页/A1门.png</file>
+        <file>Images/2系统首页/A2门.png</file>
+        <file>Images/2系统首页/B1门.png</file>
+        <file>Images/2系统首页/B2门.png</file>
+        <file>Images/2系统首页/bg-拷贝.png</file>
+        <file>Images/2系统首页/logo-拷贝.png</file>
+        <file>Images/2系统首页/人像采集1.png</file>
+        <file>Images/2系统首页/全流程记录1.png</file>
+        <file>Images/2系统首页/实时登机1.png</file>
+        <file>Images/2系统首页/常闭（1号）.png</file>
+        <file>Images/2系统首页/常闭（2号）.png</file>
+        <file>Images/2系统首页/按钮底框.png</file>
+        <file>Images/2系统首页/暂停（1号）.png</file>
+        <file>Images/2系统首页/暂停（2号）.png</file>
+        <file>Images/2系统首页/航班回查1.png</file>
+        <file>Images/2系统首页/设置.png</file>
+        <file>Images/2系统首页/返回.png</file>
+    </qresource>
+    <qresource prefix="/6航班回查">
+        <file>Images/6航班回查/3.2.2  人数统计 .jpg</file>
+        <file>Images/6航班回查/6  航班回查.jpg</file>
+        <file>Images/6航班回查/A1门.png</file>
+        <file>Images/6航班回查/A2门.png</file>
+        <file>Images/6航班回查/B1门.png</file>
+        <file>Images/6航班回查/B2门.png</file>
+        <file>Images/6航班回查/bg.png</file>
+        <file>Images/6航班回查/logo-拷贝.png</file>
+        <file>Images/6航班回查/已登机人数-拷贝.png</file>
+        <file>Images/6航班回查/已登机人数.png</file>
+        <file>Images/6航班回查/常闭（1号）.png</file>
+        <file>Images/6航班回查/常闭（2号）.png</file>
+        <file>Images/6航班回查/建库人数-拷贝.png</file>
+        <file>Images/6航班回查/建库人数.png</file>
+        <file>Images/6航班回查/形状-2.png</file>
+        <file>Images/6航班回查/暂停（1号）.png</file>
+        <file>Images/6航班回查/暂停（2号）.png</file>
+        <file>Images/6航班回查/未登机人数-拷贝.png</file>
+        <file>Images/6航班回查/未登机人数.png</file>
+        <file>Images/6航班回查/查询.png</file>
+        <file>Images/6航班回查/照片.png</file>
+        <file>Images/6航班回查/矢量剪影飞机-拷贝.png</file>
+        <file>Images/6航班回查/矢量剪影飞机.png</file>
+        <file>Images/6航班回查/矩形-4363.png</file>
+        <file>Images/6航班回查/航班号.png</file>
+    </qresource>
+</RCC>
