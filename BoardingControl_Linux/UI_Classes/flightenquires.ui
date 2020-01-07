@@ -751,16 +751,23 @@ background: 0;
        <x>15</x>
        <y>187</y>
        <width>740</width>
-       <height>1</height>
+       <height>2</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">image: 0;
 background: 0;
 border-radius: 0;
-border-width: 1px;
+border-width: 1.2px;
 border-style: dashed;
-border-color: rgb(0, 198, 255);</string>
+border-color: rgb(135, 183, 194);</string>
      </property>
      <property name="text">
       <string/>
@@ -770,9 +777,9 @@ border-color: rgb(0, 198, 255);</string>
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>374</y>
+       <y>373</y>
        <width>740</width>
-       <height>1</height>
+       <height>2</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -781,7 +788,7 @@ background: 0;
 border-radius: 0;
 border-width: 1px;
 border-style: dashed;
-border-color: rgb(0, 198, 255);</string>
+border-color: rgb(135, 183, 194);</string>
      </property>
      <property name="text">
       <string/>
