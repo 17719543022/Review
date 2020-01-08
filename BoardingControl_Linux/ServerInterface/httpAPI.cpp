@@ -230,8 +230,8 @@ FlightReviewResponse HttpAPI::get(const FlightReviewRequest& request)
         json.insert("flightNo", request.input);
         json.insert("date", QDateTime::currentDateTime().toString("yyyy-MM-dd"));
         json.insert("queryType", request.queryType);
-        json.insert("pageNum", 2);
-        json.insert("pageSize", 4);
+        json.insert("pageNum", 1);
+        json.insert("pageSize", 1000);
         json.insert("isCount", 1);
         json.insert("gateNo", LocalSettings::config->value("Device/gateNo").toString());
         json.insert("boardingGate", LocalSettings::config->value("Device/boardingGate").toString());

@@ -9,6 +9,22 @@ WorkflowRecording::WorkflowRecording(QWidget *parent) :
 {
     ui->setupUi(this);
     this->hide();
+
+    ui->flowTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->flowTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->flowTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->flowTableWidget->verticalHeader()->setVisible(false);
+    ui->flowTableWidget->horizontalHeader()->setVisible(false);
+    ui->flowTableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->flowTableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->flowTableWidget->setStyleSheet("image: 0; border: 0; background: transparent;");
+    ui->flowTableWidget->setShowGrid(false);
+    ui->flowTableWidget->setColumnCount(5);
+    ui->flowTableWidget->setColumnWidth(0, 16);
+    ui->flowTableWidget->setColumnWidth(1, 150);
+    ui->flowTableWidget->setColumnWidth(2, 150);
+    ui->flowTableWidget->setColumnWidth(3, 130);
+    ui->flowTableWidget->setColumnWidth(4, 270);
 }
 
 WorkflowRecording::~WorkflowRecording()

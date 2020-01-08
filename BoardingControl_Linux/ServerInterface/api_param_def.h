@@ -107,6 +107,7 @@ struct FlightReviewInterface {
     int num;
     int total;
     DataInfo dataInfo;
+    int validSize;
     FlightReviewResult results[1000];
 
     FlightReviewInterface() {
@@ -115,6 +116,7 @@ struct FlightReviewInterface {
         msg = QString();
         num = -1;
         total = -1;
+        validSize = -1;
     }
 
     void update(QJsonDocument &doc) {
@@ -152,6 +154,7 @@ struct FlightReviewInterface {
             QJsonValue resultsJson = docObj.value("results");
             if (!resultsJson.isNull() && resultsJson.isArray()) {
                 QJsonArray array = resultsJson.toArray();
+                validSize = array.size();
                 for (int i = 0; i < array.size() && i < 1000; i++) {
                     results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
                     results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();

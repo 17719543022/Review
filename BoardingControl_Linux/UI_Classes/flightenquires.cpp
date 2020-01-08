@@ -15,6 +15,7 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     notboardingNum(0)
 {
     ui->setupUi(this);
+    this->hide();
 
     ui->orgDepTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->orgDepTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -131,12 +132,10 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
 
 void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget *table)
 {
-    table->setRowCount(0);
-    table->setColumnCount(2);
-
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < response.interface.validSize; i++) {
         table->setRowHeight(i, 186);
         table->insertRow(i);
+        qDebug() << "table->insertRow(" << i << ")";
         table->setRowHeight(i, 186);
 
 //        QPixmap pixmap = getQPixmapSync(response.interface.results[i].photoPath);
