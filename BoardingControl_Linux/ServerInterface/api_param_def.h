@@ -176,7 +176,7 @@ struct FlightReviewRequest {
 struct FlightReviewResponse {
     QJsonDocument doc;
     int errorCode;
-    bool isFound;
+    bool founded;
     FlightReviewInterface interface;
 
     void dump() {
@@ -197,7 +197,7 @@ struct FlightReviewResponse {
             resultsJson = docObj.value("results");
         }
         if (dataInfoJson == QJsonValue() || resultsJson == QJsonValue()) {
-            isFound = true;
+            founded = false;
         }
 
         interface.update(doc);
@@ -206,7 +206,7 @@ struct FlightReviewResponse {
     FlightReviewResponse() {
         doc = QJsonDocument();
         errorCode = -1;
-        isFound = false;
+        founded = true;
     }
 };
 

@@ -8,10 +8,13 @@
 
 FlightEnquires::FlightEnquires(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::FlightEnquires)
+    ui(new Ui::FlightEnquires),
+    flight(QString()),
+    orgDepNum(0),
+    boardingNum(0),
+    notboardingNum(0)
 {
     ui->setupUi(this);
-//    this->hide();
 
     ui->orgDepTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->orgDepTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -25,6 +28,32 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     ui->orgDepTableWidget->setColumnCount(2);
     ui->orgDepTableWidget->setColumnWidth(0, 16);
     ui->orgDepTableWidget->setColumnWidth(1, 750);
+
+    ui->boardingTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->boardingTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->boardingTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->boardingTableWidget->verticalHeader()->setVisible(false);
+    ui->boardingTableWidget->horizontalHeader()->setVisible(false);
+    ui->boardingTableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->boardingTableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->boardingTableWidget->setStyleSheet("image: 0; border: 0; background: transparent;");
+    ui->boardingTableWidget->setShowGrid(false);
+    ui->boardingTableWidget->setColumnCount(2);
+    ui->boardingTableWidget->setColumnWidth(0, 16);
+    ui->boardingTableWidget->setColumnWidth(1, 750);
+
+    ui->notboardingTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->notboardingTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->notboardingTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->notboardingTableWidget->verticalHeader()->setVisible(false);
+    ui->notboardingTableWidget->horizontalHeader()->setVisible(false);
+    ui->notboardingTableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->notboardingTableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->notboardingTableWidget->setStyleSheet("image: 0; border: 0; background: transparent;");
+    ui->notboardingTableWidget->setShowGrid(false);
+    ui->notboardingTableWidget->setColumnCount(2);
+    ui->notboardingTableWidget->setColumnWidth(0, 16);
+    ui->notboardingTableWidget->setColumnWidth(1, 750);
 }
 
 FlightEnquires::~FlightEnquires()
@@ -34,28 +63,81 @@ FlightEnquires::~FlightEnquires()
 
 void FlightEnquires::on_queryPushButton_clicked()
 {
-    FlightReviewRequest request;
-    request.input = ui->queryLineEdit->text();
-    request.queryType = 0;
+    flight = ui->queryLineEdit->text();
 
-    FlightReviewResponse response = HttpAPI::instance()->get(request);
-
-    if (response.isFound) {
-        qDebug() << "Queried Flight Not Found!!";
-        return;
+    if (Ui::DisplayType::DisplayNullErr == query(Ui::QueryType::DepositoryQuery)) {
+        // TODO
     }
+}
 
-    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.orgDepNum));
-    ui->boardingPushButton->setText("已登机人数：" + QString::number(response.interface.dataInfo.boardingNum));
-    ui->notboardingPushButton->setText("未登机人数：" + QString::number(response.interface.dataInfo.orgDepNum - response.interface.dataInfo.boardingNum));
+void FlightEnquires::on_orgDepPushButton_clicked()
+{
+    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
+    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
 
-    ui->orgDepTableWidget->setRowCount(0);
-    ui->orgDepTableWidget->setColumnCount(2);
+    ui->orgDepTableWidget->show();
+    ui->boardingTableWidget->hide();
+    ui->notboardingTableWidget->hide();
+
+    query(Ui::QueryType::DepositoryQuery);
+}
+
+void FlightEnquires::on_boardingPushButton_clicked()
+{
+    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
+    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+
+    ui->orgDepTableWidget->hide();
+    ui->boardingTableWidget->show();
+    ui->notboardingTableWidget->hide();
+
+    query(Ui::QueryType::BoardingQuery);
+}
+
+void FlightEnquires::on_notboardingPushButton_clicked()
+{
+    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
+
+    ui->orgDepTableWidget->hide();
+    ui->boardingTableWidget->hide();
+    ui->notboardingTableWidget->show();
+
+    query(Ui::QueryType::NotBoardingQuery);
+}
+
+QPixmap FlightEnquires::getQPixmapSync(QString str)
+{
+    const QUrl url = QUrl::fromUserInput(str);
+
+    QNetworkRequest request(url);
+    QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
+    QNetworkReply* reply = naManager->get(request);
+
+    QEventLoop eventLoop;
+    connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
+    eventLoop.exec(QEventLoop::ExcludeUserInputEvents);
+
+    QByteArray byteArray = reply->readAll();
+
+    QPixmap pixmap;
+    pixmap.loadFromData(byteArray);
+
+    return pixmap;
+}
+
+void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget *table)
+{
+    table->setRowCount(0);
+    table->setColumnCount(2);
 
     for (int i = 0; i < 3; i++) {
-        ui->orgDepTableWidget->setRowHeight(i, 186);
-        ui->orgDepTableWidget->insertRow(i);
-        ui->orgDepTableWidget->setRowHeight(i, 186);
+        table->setRowHeight(i, 186);
+        table->insertRow(i);
+        table->setRowHeight(i, 186);
 
 //        QPixmap pixmap = getQPixmapSync(response.interface.results[i].photoPath);
         QImage img;
@@ -66,7 +148,7 @@ void FlightEnquires::on_queryPushButton_clicked()
                          , Qt::SmoothTransformation);
         QPixmap pixmap = QPixmap::fromImage(img);
         QLabel *photoLabel = new QLabel();
-        photoLabel->setFixedWidth(131);
+        photoLabel->setFixedWidth(147);
         photoLabel->setPixmap(pixmap);
         photoLabel->setAlignment(Qt::AlignCenter);
 
@@ -96,17 +178,14 @@ void FlightEnquires::on_queryPushButton_clicked()
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QHBoxLayout *nameHBoxLayOut = new QHBoxLayout;
-        nameHBoxLayOut->setMargin(10);
         nameHBoxLayOut->addWidget(nameTitleLabel);
         nameHBoxLayOut->addWidget(nameLabel);
 
         QHBoxLayout *flightHBoxLayOut = new QHBoxLayout;
-        flightHBoxLayOut->setMargin(10);
         flightHBoxLayOut->addWidget(flightTitleLabel);
         flightHBoxLayOut->addWidget(flightLabel);
 
         QHBoxLayout *seatHBoxLayOut = new QHBoxLayout;
-        seatHBoxLayOut->setMargin(10);
         seatHBoxLayOut->addWidget(seatTitleLabel);
         seatHBoxLayOut->addWidget(seatLabel);
 
@@ -120,47 +199,61 @@ void FlightEnquires::on_queryPushButton_clicked()
         itemLayOut->addWidget(photoLabel);
         itemLayOut->addLayout(textVBoxLayOut, 0, 1);
 
-        ui->orgDepTableWidget->setCellWidget(i, 1, itemWidget);
+        table->setCellWidget(i, 1, itemWidget);
     }
 }
 
-void FlightEnquires::on_orgDepPushButton_clicked()
+int FlightEnquires::query(int queryType)
 {
-    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
-    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
-    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
-}
+    FlightReviewRequest request;
+    request.input = flight;
+    request.queryType = queryType;
 
-void FlightEnquires::on_boardingPushButton_clicked()
-{
-    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
-    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
-    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
-}
+    FlightReviewResponse response = HttpAPI::instance()->get(request);
 
-void FlightEnquires::on_notboardingPushButton_clicked()
-{
-    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
-    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
-    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
-}
+    if (!response.founded) {
+        qDebug() << "Queried Flight Not Found!!";
 
-QPixmap FlightEnquires::getQPixmapSync(QString str)
-{
-    const QUrl url = QUrl::fromUserInput(str);
+        orgDepNum = 0;
+        boardingNum = 0;
+        notboardingNum = 0;
+        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
+        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
+        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
+        ui->orgDepTableWidget->clear();
+        ui->boardingTableWidget->clear();
+        ui->notboardingTableWidget->clear();
 
-    QNetworkRequest request(url);
-    QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
-    QNetworkReply* reply = naManager->get(request);
+        return Ui::DisplayType::DisplayNullErr;
+    }
 
-    QEventLoop eventLoop;
-    connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
-    eventLoop.exec(QEventLoop::ExcludeUserInputEvents);
+    if (queryType == Ui::QueryType::DepositoryQuery) {
+        orgDepNum = response.interface.dataInfo.orgDepNum;
+        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
+        boardingNum = response.interface.dataInfo.boardingNum;
+        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
+        notboardingNum = response.interface.dataInfo.orgDepNum - response.interface.dataInfo.boardingNum;
+        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
 
-    QByteArray byteArray = reply->readAll();
+        tableUp(response, ui->orgDepTableWidget);
+    }
 
-    QPixmap pixmap;
-    pixmap.loadFromData(byteArray);
+    if (queryType == Ui::QueryType::BoardingQuery) {
+        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
+        boardingNum = response.interface.dataInfo.boardingNum;
+        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
+        notboardingNum = orgDepNum - boardingNum;
+        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
 
-    return pixmap;
+        tableUp(response, ui->boardingTableWidget);
+    }
+    if (queryType == Ui::QueryType::NotBoardingQuery) {
+        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
+        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
+        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
+
+        tableUp(response, ui->notboardingTableWidget);
+    }
+
+    return Ui::DisplayType::DisplayNormal;
 }

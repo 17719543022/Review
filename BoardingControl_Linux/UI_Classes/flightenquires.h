@@ -2,9 +2,22 @@
 #define FLIGHTENQUIRES_H
 
 #include <QWidget>
+#include <QTableWidget>
+#include "ServerInterface/api_param_def.h"
 
 namespace Ui {
 class FlightEnquires;
+
+enum QueryType {
+    DepositoryQuery,
+    BoardingQuery,
+    NotBoardingQuery
+};
+
+enum DisplayType {
+    DisplayNormal,
+    DisplayNullErr
+};
 }
 
 class FlightEnquires : public QWidget
@@ -25,10 +38,22 @@ private slots:
     void on_notboardingPushButton_clicked();
 
 private:
+    int query(int queryType);
+
+    void tableUp(const FlightReviewResponse &response, QTableWidget *table);
+
     QPixmap getQPixmapSync(QString str);
 
 private:
     Ui::FlightEnquires *ui;
+
+    QString flight;
+
+    int orgDepNum;
+
+    int boardingNum;
+
+    int notboardingNum;
 };
 
 #endif // FLIGHTENQUIRES_H
