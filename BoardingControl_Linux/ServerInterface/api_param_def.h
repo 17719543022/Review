@@ -422,6 +422,7 @@ struct FlowReviewRequest {
 struct FlowReviewResponse {
     QJsonDocument doc;
     int errorCode;
+    bool founded;
     FlowReviewInterface interface;
 
     void dump() {
@@ -430,7 +431,25 @@ struct FlowReviewResponse {
 
     void update(QJsonDocument &doc) {
         doc = doc;
+
+        QJsonObject docObj = doc.object();
+
+        QJsonValue resultJson;
+        if (docObj.contains("result")) {
+            resultJson = docObj.value("result");
+        }
+
+        if (resultJson == QJsonValue()) {
+            founded = false;
+        }
+
         interface.update(doc);
+    }
+
+    FlowReviewResponse () {
+        doc = QJsonDocument();
+        errorCode = -1;
+        founded = true;
     }
 };
 

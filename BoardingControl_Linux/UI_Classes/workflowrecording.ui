@@ -235,10 +235,10 @@ background: 0;</string>
     <widget class="QLabel" name="passengerLabel">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>60</y>
-       <width>108</width>
-       <height>38</height>
+       <x>0</x>
+       <y>0</y>
+       <width>168</width>
+       <height>158</height>
       </rect>
      </property>
      <property name="font">
@@ -255,7 +255,7 @@ background: 0;</string>
       <string>始发旅客</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="passengerNameLabel_1">
@@ -371,7 +371,7 @@ background: 0;</string>
       <string notr="true">color: rgb(0, 228, 255);</string>
      </property>
      <property name="text">
-      <string>张定军</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="passengerCodeLabel_2">
@@ -394,7 +394,7 @@ background: 0;</string>
       <string notr="true">color: rgb(0, 228, 255);</string>
      </property>
      <property name="text">
-      <string>123456789789456123</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="boardingNumberLabel_2">
@@ -417,7 +417,7 @@ background: 0;</string>
       <string notr="true">color: rgb(0, 228, 255);</string>
      </property>
      <property name="text">
-      <string>001</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="passengerFlightLabel_2">
@@ -440,7 +440,7 @@ background: 0;</string>
       <string notr="true">color: rgb(0, 228, 255);</string>
      </property>
      <property name="text">
-      <string>CA2318</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -1003,7 +1003,7 @@ background: 0;</string>
     <property name="geometry">
      <rect>
       <x>15</x>
-      <y>280</y>
+      <y>279</y>
       <width>740</width>
       <height>2</height>
      </rect>
@@ -1024,7 +1024,7 @@ border-color: rgb(135, 183, 194);</string>
     <property name="geometry">
      <rect>
       <x>15</x>
-      <y>508</y>
+      <y>505</y>
       <width>740</width>
       <height>2</height>
      </rect>
@@ -1045,7 +1045,7 @@ border-color: rgb(135, 183, 194);</string>
     <property name="geometry">
      <rect>
       <x>15</x>
-      <y>736</y>
+      <y>731</y>
       <width>740</width>
       <height>2</height>
      </rect>
@@ -1072,12 +1072,8 @@ border-color: rgb(135, 183, 194);</string>
      </rect>
     </property>
     <property name="columnCount">
-     <number>5</number>
+     <number>1</number>
     </property>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
     <column/>
    </widget>
   </widget>

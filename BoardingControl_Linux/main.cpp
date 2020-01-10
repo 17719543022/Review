@@ -23,11 +23,11 @@ int main(int argc, char *argv[])
 //   HomePage w;
 //   w.show();
 
-//    WorkflowRecording w;
-//    w.show();
+    WorkflowRecording w;
+    w.show();
 
-    FlightEnquires f;
-    f.show();
+//    FlightEnquires f;
+//    f.show();
 
     return a.exec();
 }

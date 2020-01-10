@@ -26,9 +26,8 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     ui->orgDepTableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->orgDepTableWidget->setStyleSheet("image: 0; border: 0; background: transparent;");
     ui->orgDepTableWidget->setShowGrid(false);
-    ui->orgDepTableWidget->setColumnCount(2);
-    ui->orgDepTableWidget->setColumnWidth(0, 16);
-    ui->orgDepTableWidget->setColumnWidth(1, 750);
+    ui->orgDepTableWidget->setColumnCount(1);
+    ui->orgDepTableWidget->setColumnWidth(0, 766);
 
     ui->boardingTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->boardingTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -39,9 +38,8 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     ui->boardingTableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->boardingTableWidget->setStyleSheet("image: 0; border: 0; background: transparent;");
     ui->boardingTableWidget->setShowGrid(false);
-    ui->boardingTableWidget->setColumnCount(2);
-    ui->boardingTableWidget->setColumnWidth(0, 16);
-    ui->boardingTableWidget->setColumnWidth(1, 750);
+    ui->boardingTableWidget->setColumnCount(1);
+    ui->boardingTableWidget->setColumnWidth(0, 766);
 
     ui->notboardingTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->notboardingTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -52,9 +50,8 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     ui->notboardingTableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->notboardingTableWidget->setStyleSheet("image: 0; border: 0; background: transparent;");
     ui->notboardingTableWidget->setShowGrid(false);
-    ui->notboardingTableWidget->setColumnCount(2);
-    ui->notboardingTableWidget->setColumnWidth(0, 16);
-    ui->notboardingTableWidget->setColumnWidth(1, 750);
+    ui->notboardingTableWidget->setColumnCount(1);
+    ui->notboardingTableWidget->setColumnWidth(0, 766);
 }
 
 FlightEnquires::~FlightEnquires()
@@ -65,6 +62,14 @@ FlightEnquires::~FlightEnquires()
 void FlightEnquires::on_queryPushButton_clicked()
 {
     flight = ui->queryLineEdit->text();
+
+    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
+    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+
+    ui->orgDepTableWidget->show();
+    ui->boardingTableWidget->hide();
+    ui->notboardingTableWidget->hide();
 
     if (Ui::DisplayType::DisplayNullErr == query(Ui::QueryType::DepositoryQuery)) {
         // TODO
@@ -147,13 +152,14 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
                          , Qt::SmoothTransformation);
         QPixmap pixmap = QPixmap::fromImage(img);
         QLabel *photoLabel = new QLabel();
-        photoLabel->setFixedWidth(147);
         photoLabel->setPixmap(pixmap);
-        photoLabel->setAlignment(Qt::AlignCenter);
+        photoLabel->setFixedWidth(151);
+        photoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
         QLabel *nameTitleLabel = new QLabel();
         nameTitleLabel->setText("旅客姓名：");
-        nameTitleLabel->setFixedWidth(120);
+        nameTitleLabel->setFixedWidth(140);
+        nameTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         nameTitleLabel->setStyleSheet("image: 0; border: 0; background: 0; font: 19pt; color: rgb(255, 255, 255);");
         QLabel *nameLabel = new QLabel();
 //        nameLabel->setText(response.interface.results[i].passengerName);
@@ -161,16 +167,18 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
         nameLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *flightTitleLabel = new QLabel();
-        flightTitleLabel->setFixedWidth(170);
         flightTitleLabel->setText("航班号／序号：");
+        flightTitleLabel->setFixedWidth(190);
+        flightTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         flightTitleLabel->setStyleSheet("image: 0; border: 0; background: 0; font: 19pt; color: rgb(255, 255, 255);");
         QLabel *flightLabel = new QLabel();
         flightLabel->setText(response.interface.results[i].flightNumber);
         flightLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *seatTitleLabel = new QLabel();
-        seatTitleLabel->setFixedWidth(92);
         seatTitleLabel->setText("座位号：");
+        seatTitleLabel->setFixedWidth(112);
+        seatTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         seatTitleLabel->setStyleSheet("image: 0; border: 0; background: 0; font: 19pt; color: rgb(255, 255, 255);");
         QLabel *seatLabel = new QLabel();
         seatLabel->setText(response.interface.results[i].seatNumber);
@@ -198,7 +206,7 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
         itemLayOut->addWidget(photoLabel);
         itemLayOut->addLayout(textVBoxLayOut, 0, 1);
 
-        table->setCellWidget(i, 1, itemWidget);
+        table->setCellWidget(i, 0, itemWidget);
     }
 }
 
