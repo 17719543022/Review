@@ -318,11 +318,24 @@ struct UserInfo {
 };
 
 struct FlowReviewResult {
+    bool hasUserInfo;
     UserInfo userInfo;
+    bool hasSecurityInfo;
     SecurityInfo securityInfo;
+    bool hasReviewInfo;
     ReviewInfo reviewInfo;
+    bool hasTransferInfo;
     TransferInfo transferInfo;
+    bool hasBoardingInfo;
     BoardingInfo boardingInfo;
+
+    FlowReviewResult() {
+        hasUserInfo = false;
+        hasSecurityInfo = false;
+        hasReviewInfo = false;
+        hasTransferInfo = false;
+        hasBoardingInfo = false;
+    }
 };
 
 struct FlowReviewInterface {
@@ -358,6 +371,7 @@ struct FlowReviewInterface {
                 for (int i = 0; i < array.size() && i < 10; i++) {
                     QJsonValue userInfo = array.at(i).toObject().value("userInfo");
                     if (!userInfo.isNull()) {
+                        result[i].hasUserInfo = true;
                         result[i].userInfo.certificateNumber = userInfo.toObject().value("certificateNumber").toString();
                         result[i].userInfo.passengerName = userInfo.toObject().value("passengerName").toString();
                         result[i].userInfo.passengerEnglishName = userInfo.toObject().value("passengerEnglishName").toString();
@@ -366,9 +380,12 @@ struct FlowReviewInterface {
                         result[i].userInfo.flightDay = userInfo.toObject().value("flightDay").toString();
                         result[i].userInfo.seatId = userInfo.toObject().value("seatId").toString();
                         result[i].userInfo.isFocus = userInfo.toObject().value("isFocus").toInt();
+                    } else {
+                        result[i].hasUserInfo = false;
                     }
                     QJsonValue securityInfo = array.at(i).toObject().value("securityInfo");
                     if (!securityInfo.isNull()) {
+                        result[i].hasSecurityInfo = true;
                         result[i].securityInfo.passType = securityInfo.toObject().value("passType").toInt();
                         result[i].securityInfo.passStatus = securityInfo.toObject().value("passStatus").toInt();
                         result[i].securityInfo.passTime = securityInfo.toObject().value("passTime").toString();
@@ -376,9 +393,12 @@ struct FlowReviewInterface {
                         result[i].securityInfo.deviceId = securityInfo.toObject().value("deviceId").toString();
                         result[i].securityInfo.channelName = securityInfo.toObject().value("channelName").toString();
                         result[i].securityInfo.photoPath = securityInfo.toObject().value("photoPath").toString();
+                    } else {
+                        result[i].hasSecurityInfo = false;
                     }
                     QJsonValue reviewInfo = array.at(i).toObject().value("reviewInfo");
                     if (!reviewInfo.isNull()) {
+                        result[i].hasReviewInfo = true;
                         result[i].reviewInfo.passType = reviewInfo.toObject().value("passType").toInt();
                         result[i].reviewInfo.passStatus = reviewInfo.toObject().value("passStatus").toInt();
                         result[i].reviewInfo.passTime = reviewInfo.toObject().value("passTime").toString();
@@ -386,18 +406,24 @@ struct FlowReviewInterface {
                         result[i].reviewInfo.deviceId = reviewInfo.toObject().value("deviceId").toString();
                         result[i].reviewInfo.channelName = reviewInfo.toObject().value("channelName").toString();
                         result[i].reviewInfo.photoPath = reviewInfo.toObject().value("photoPath").toString();
+                    } else {
+                        result[i].hasReviewInfo = false;
                     }
                     QJsonValue transferInfo = array.at(i).toObject().value("transferInfo");
                     if (!transferInfo.isNull()) {
+                        result[i].hasTransferInfo = true;
                         result[i].transferInfo.sourceType = transferInfo.toObject().value("sourceType").toInt();
                         result[i].transferInfo.photoPath = transferInfo.toObject().value("photoPath").toString();
                         result[i].transferInfo.collectTime = transferInfo.toObject().value("collectTime").toString();
                         result[i].transferInfo.gateNo = transferInfo.toObject().value("gateNo").toString();
                         result[i].transferInfo.deviceId = transferInfo.toObject().value("deviceId").toString();
                         result[i].transferInfo.channelName = transferInfo.toObject().value("channelName").toString();
+                    } else {
+                        result[i].hasTransferInfo = false;
                     }
                     QJsonValue boardingInfo = array.at(i).toObject().value("boardingInfo");
                     if (!boardingInfo.isNull()) {
+                        result[i].hasBoardingInfo = true;
                         result[i].boardingInfo.passType = boardingInfo.toObject().value("passType").toInt();
                         result[i].boardingInfo.passStatus = boardingInfo.toObject().value("passStatus").toInt();
                         result[i].boardingInfo.passTime = boardingInfo.toObject().value("passTime").toString();
@@ -405,6 +431,8 @@ struct FlowReviewInterface {
                         result[i].boardingInfo.deviceId = boardingInfo.toObject().value("deviceId").toString();
                         result[i].boardingInfo.channelName = boardingInfo.toObject().value("channelName").toString();
                         result[i].boardingInfo.photoPath = boardingInfo.toObject().value("photoPath").toString();
+                    } else {
+                        result[i].hasBoardingInfo = false;
                     }
                 }
             }

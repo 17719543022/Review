@@ -51,254 +51,351 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         qDebug() << "Queried Passenger Not Found!!";
     }
 
-    ui->passengerNameLabel_2->setText(response.interface.result[0].userInfo.passengerName);
-    ui->passengerCodeLabel_2->setText(response.interface.result[0].userInfo.certificateNumber);
-    ui->passengerFlightLabel_2->setText(response.interface.result[0].userInfo.flightNo);
-    ui->boardingNumberLabel_2->setText(response.interface.result[0].userInfo.seatId);
+    if (response.interface.result[0].hasUserInfo) {
+        ui->passengerNameLabel_2->setText(response.interface.result[0].userInfo.passengerName);
+        ui->passengerCodeLabel_2->setText(response.interface.result[0].userInfo.certificateNumber);
+        ui->passengerFlightLabel_2->setText(response.interface.result[0].userInfo.flightNo);
+        ui->boardingNumberLabel_2->setText(response.interface.result[0].userInfo.seatId);
+    }
+
+    int widgetIndex = 0;
+
+    // 中转/经停采集
+    if (response.interface.result[0].hasTransferInfo) {
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
+        ui->flowTableWidget->insertRow(widgetIndex);
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
+
+        QLabel *transferLabel = new QLabel();
+        transferLabel->setText("人证验证");
+        transferLabel->setFixedSize(151, 226);
+        transferLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        transferLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
+
+        QImage transferPhotoImage;
+        transferPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
+        transferPhotoImage = transferPhotoImage.scaled(131
+                                                       , 171
+                                                       , Qt::IgnoreAspectRatio
+                                                       , Qt::SmoothTransformation);
+        QPixmap transferPhotoPixmap = QPixmap::fromImage(transferPhotoImage);
+        QLabel *transferPhotoLabel = new QLabel();
+        transferPhotoLabel->setPixmap(transferPhotoPixmap);
+        transferPhotoLabel->setFixedWidth(151);
+        transferPhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        QLabel *transferGateTitleLabel = new QLabel();
+        transferGateTitleLabel->setText("通过位置：");
+        transferGateTitleLabel->setFixedSize(120, 38);
+        transferGateTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+
+        QLabel *transferTimeTitleLabel = new QLabel();
+        transferTimeTitleLabel->setText("通过时间：");
+        transferTimeTitleLabel->setFixedSize(120, 38);
+        transferTimeTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+
+        QVBoxLayout *transferTitleVBoxLayout = new QVBoxLayout;
+        transferTitleVBoxLayout->addWidget(transferGateTitleLabel);
+        transferTitleVBoxLayout->addWidget(transferTimeTitleLabel);
+
+        QLabel *transferGateValueLabel = new QLabel();
+        transferGateValueLabel->setText("2号自助验证闸机");
+        transferGateValueLabel->setFixedSize(200,38);
+        transferGateValueLabel->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+
+        QLabel *transferTimeValueLabel_1 = new QLabel();
+        transferTimeValueLabel_1->setText("2019／09／12");
+        transferTimeValueLabel_1->setFixedSize(200, 38);
+        transferTimeValueLabel_1->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+
+        QLabel *transferTimeValueLabel_2 = new QLabel();
+        transferTimeValueLabel_2->setText("15：32：26");
+        transferTimeValueLabel_2->setFixedSize(200, 38);
+        transferTimeValueLabel_2->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+
+        QImage transferModalImage;
+        transferModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+        transferModalImage = transferModalImage.scaled(169
+                                                       , 50
+                                                       , Qt::IgnoreAspectRatio
+                                                       , Qt::SmoothTransformation);
+        QPixmap transferModalPixmap = QPixmap::fromImage(transferModalImage);
+        QLabel *transferModalLabel = new QLabel();
+        transferModalLabel->setFixedSize(169, 50);
+        transferModalLabel->setPixmap(transferModalPixmap);
+        transferModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
+
+        QVBoxLayout *transferValueVBoxLayout = new QVBoxLayout;
+        transferValueVBoxLayout->addWidget(transferGateValueLabel);
+        transferValueVBoxLayout->addWidget(transferTimeValueLabel_1);
+        transferValueVBoxLayout->addWidget(transferTimeValueLabel_2);
+        transferValueVBoxLayout->addWidget(transferModalLabel);
+
+        QHBoxLayout *transferHBoxLayOut = new QHBoxLayout;
+        transferHBoxLayOut->addWidget(transferLabel);
+        transferHBoxLayOut->addWidget(transferPhotoLabel);
+        transferHBoxLayOut->addLayout(transferTitleVBoxLayout);
+
+        QWidget *transferWidget = new QWidget();
+        QGridLayout *transferLayOut = new QGridLayout(transferWidget);
+        transferLayOut->addLayout(transferHBoxLayOut, 0, 0);
+        transferLayOut->addLayout(transferValueVBoxLayout, 0, 1);
+
+        ui->flowTableWidget->setCellWidget(widgetIndex, 0, transferWidget);
+        widgetIndex = widgetIndex + 1;
+    }
 
     // 人证验证
-    ui->flowTableWidget->setRowHeight(0, 226);
-    ui->flowTableWidget->insertRow(0);
-    ui->flowTableWidget->setRowHeight(0, 226);
+    if (response.interface.result[0].hasSecurityInfo) {
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
+        ui->flowTableWidget->insertRow(widgetIndex);
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
 
-    QLabel *securityLabel = new QLabel();
-    securityLabel->setText("人证验证");
-    securityLabel->setFixedSize(151, 226);
-    securityLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    securityLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
+        QLabel *securityLabel = new QLabel();
+        securityLabel->setText("人证验证");
+        securityLabel->setFixedSize(151, 226);
+        securityLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        securityLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-    QImage securityPhotoImage;
-    securityPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
-    securityPhotoImage = securityPhotoImage.scaled(131
-                                                   , 171
-                                                   , Qt::IgnoreAspectRatio
-                                                   , Qt::SmoothTransformation);
-    QPixmap securityPhotoPixmap = QPixmap::fromImage(securityPhotoImage);
-    QLabel *securityPhotoLabel = new QLabel();
-    securityPhotoLabel->setPixmap(securityPhotoPixmap);
-    securityPhotoLabel->setFixedWidth(151);
-    securityPhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        QImage securityPhotoImage;
+        securityPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
+        securityPhotoImage = securityPhotoImage.scaled(131
+                                                       , 171
+                                                       , Qt::IgnoreAspectRatio
+                                                       , Qt::SmoothTransformation);
+        QPixmap securityPhotoPixmap = QPixmap::fromImage(securityPhotoImage);
+        QLabel *securityPhotoLabel = new QLabel();
+        securityPhotoLabel->setPixmap(securityPhotoPixmap);
+        securityPhotoLabel->setFixedWidth(151);
+        securityPhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
-    QLabel *securityGateTitleLabel = new QLabel();
-    securityGateTitleLabel->setText("通过位置：");
-    securityGateTitleLabel->setFixedSize(120, 38);
-    securityGateTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+        QLabel *securityGateTitleLabel = new QLabel();
+        securityGateTitleLabel->setText("通过位置：");
+        securityGateTitleLabel->setFixedSize(120, 38);
+        securityGateTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
 
-    QLabel *securityTimeTitleLabel = new QLabel();
-    securityTimeTitleLabel->setText("通过时间：");
-    securityTimeTitleLabel->setFixedSize(120, 38);
-    securityTimeTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+        QLabel *securityTimeTitleLabel = new QLabel();
+        securityTimeTitleLabel->setText("通过时间：");
+        securityTimeTitleLabel->setFixedSize(120, 38);
+        securityTimeTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
 
-    QVBoxLayout *securityTitleVBoxLayout = new QVBoxLayout;
-    securityTitleVBoxLayout->addWidget(securityGateTitleLabel);
-    securityTitleVBoxLayout->addWidget(securityTimeTitleLabel);
+        QVBoxLayout *securityTitleVBoxLayout = new QVBoxLayout;
+        securityTitleVBoxLayout->addWidget(securityGateTitleLabel);
+        securityTitleVBoxLayout->addWidget(securityTimeTitleLabel);
 
-    QLabel *securityGateValueLabel = new QLabel();
-    securityGateValueLabel->setText("2号自助验证闸机");
-    securityGateValueLabel->setFixedSize(200,38);
-    securityGateValueLabel->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *securityGateValueLabel = new QLabel();
+        securityGateValueLabel->setText("2号自助验证闸机");
+        securityGateValueLabel->setFixedSize(200,38);
+        securityGateValueLabel->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QLabel *securityTimeValueLabel_1 = new QLabel();
-    securityTimeValueLabel_1->setText("2019／09／12");
-    securityTimeValueLabel_1->setFixedSize(200, 38);
-    securityTimeValueLabel_1->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *securityTimeValueLabel_1 = new QLabel();
+        securityTimeValueLabel_1->setText("2019／09／12");
+        securityTimeValueLabel_1->setFixedSize(200, 38);
+        securityTimeValueLabel_1->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QLabel *securityTimeValueLabel_2 = new QLabel();
-    securityTimeValueLabel_2->setText("15：32：26");
-    securityTimeValueLabel_2->setFixedSize(200, 38);
-    securityTimeValueLabel_2->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *securityTimeValueLabel_2 = new QLabel();
+        securityTimeValueLabel_2->setText("15：32：26");
+        securityTimeValueLabel_2->setFixedSize(200, 38);
+        securityTimeValueLabel_2->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QImage securityModalImage;
-    securityModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
-    securityModalImage = securityModalImage.scaled(169
-                                                   , 50
-                                                   , Qt::IgnoreAspectRatio
-                                                   , Qt::SmoothTransformation);
-    QPixmap securityModalPixmap = QPixmap::fromImage(securityModalImage);
-    QLabel *securityModalLabel = new QLabel();
-    securityModalLabel->setFixedSize(169, 50);
-    securityModalLabel->setPixmap(securityModalPixmap);
-    securityModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
+        QImage securityModalImage;
+        securityModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+        securityModalImage = securityModalImage.scaled(169
+                                                       , 50
+                                                       , Qt::IgnoreAspectRatio
+                                                       , Qt::SmoothTransformation);
+        QPixmap securityModalPixmap = QPixmap::fromImage(securityModalImage);
+        QLabel *securityModalLabel = new QLabel();
+        securityModalLabel->setFixedSize(169, 50);
+        securityModalLabel->setPixmap(securityModalPixmap);
+        securityModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
 
-    QVBoxLayout *securityValueVBoxLayout = new QVBoxLayout;
-    securityValueVBoxLayout->addWidget(securityGateValueLabel);
-    securityValueVBoxLayout->addWidget(securityTimeValueLabel_1);
-    securityValueVBoxLayout->addWidget(securityTimeValueLabel_2);
-    securityValueVBoxLayout->addWidget(securityModalLabel);
+        QVBoxLayout *securityValueVBoxLayout = new QVBoxLayout;
+        securityValueVBoxLayout->addWidget(securityGateValueLabel);
+        securityValueVBoxLayout->addWidget(securityTimeValueLabel_1);
+        securityValueVBoxLayout->addWidget(securityTimeValueLabel_2);
+        securityValueVBoxLayout->addWidget(securityModalLabel);
 
-    QHBoxLayout *securityHBoxLayOut = new QHBoxLayout;
-    securityHBoxLayOut->addWidget(securityLabel);
-    securityHBoxLayOut->addWidget(securityPhotoLabel);
-    securityHBoxLayOut->addLayout(securityTitleVBoxLayout);
+        QHBoxLayout *securityHBoxLayOut = new QHBoxLayout;
+        securityHBoxLayOut->addWidget(securityLabel);
+        securityHBoxLayOut->addWidget(securityPhotoLabel);
+        securityHBoxLayOut->addLayout(securityTitleVBoxLayout);
 
-    QWidget *securityWidget = new QWidget();
-    QGridLayout *securityLayOut = new QGridLayout(securityWidget);
-    securityLayOut->addLayout(securityHBoxLayOut, 0, 0);
-    securityLayOut->addLayout(securityValueVBoxLayout, 0, 1);
+        QWidget *securityWidget = new QWidget();
+        QGridLayout *securityLayOut = new QGridLayout(securityWidget);
+        securityLayOut->addLayout(securityHBoxLayOut, 0, 0);
+        securityLayOut->addLayout(securityValueVBoxLayout, 0, 1);
 
-    ui->flowTableWidget->setCellWidget(0, 0, securityWidget);
+        ui->flowTableWidget->setCellWidget(widgetIndex, 0, securityWidget);
+        widgetIndex = widgetIndex + 1;
+    }
 
     // 通道复核
-    ui->flowTableWidget->setRowHeight(1, 226);
-    ui->flowTableWidget->insertRow(1);
-    ui->flowTableWidget->setRowHeight(1, 226);
+    if (response.interface.result[0].hasReviewInfo) {
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
+        ui->flowTableWidget->insertRow(widgetIndex);
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
 
-    QLabel *reviewgLabel = new QLabel();
-    reviewgLabel->setText("通道复核");
-    reviewgLabel->setFixedSize(151, 226);
-    reviewgLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    reviewgLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
+        QLabel *reviewLabel = new QLabel();
+        reviewLabel->setText("通道复核");
+        reviewLabel->setFixedSize(151, 226);
+        reviewLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        reviewLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-    QImage reviewgPhotoImage;
-    reviewgPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
-    reviewgPhotoImage = reviewgPhotoImage.scaled(131
-                                                 , 171
-                                                 , Qt::IgnoreAspectRatio
-                                                 , Qt::SmoothTransformation);
-    QPixmap reviewgPhotoPixmap = QPixmap::fromImage(reviewgPhotoImage);
-    QLabel *reviewgPhotoLabel = new QLabel();
-    reviewgPhotoLabel->setPixmap(reviewgPhotoPixmap);
-    reviewgPhotoLabel->setFixedWidth(151);
-    reviewgPhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        QImage reviewPhotoImage;
+        reviewPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
+        reviewPhotoImage = reviewPhotoImage.scaled(131
+                                                     , 171
+                                                     , Qt::IgnoreAspectRatio
+                                                     , Qt::SmoothTransformation);
+        QPixmap reviewPhotoPixmap = QPixmap::fromImage(reviewPhotoImage);
+        QLabel *reviewPhotoLabel = new QLabel();
+        reviewPhotoLabel->setPixmap(reviewPhotoPixmap);
+        reviewPhotoLabel->setFixedWidth(151);
+        reviewPhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
-    QLabel *reviewgGateTitleLabel = new QLabel();
-    reviewgGateTitleLabel->setText("通过位置：");
-    reviewgGateTitleLabel->setFixedSize(120, 38);
-    reviewgGateTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+        QLabel *reviewGateTitleLabel = new QLabel();
+        reviewGateTitleLabel->setText("通过位置：");
+        reviewGateTitleLabel->setFixedSize(120, 38);
+        reviewGateTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
 
-    QLabel *reviewgTimeTitleLabel = new QLabel();
-    reviewgTimeTitleLabel->setText("通过时间：");
-    reviewgTimeTitleLabel->setFixedSize(120, 38);
-    reviewgTimeTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+        QLabel *reviewTimeTitleLabel = new QLabel();
+        reviewTimeTitleLabel->setText("通过时间：");
+        reviewTimeTitleLabel->setFixedSize(120, 38);
+        reviewTimeTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
 
-    QVBoxLayout *reviewgTitleVBoxLayout = new QVBoxLayout;
-    reviewgTitleVBoxLayout->addWidget(reviewgGateTitleLabel);
-    reviewgTitleVBoxLayout->addWidget(reviewgTimeTitleLabel);
+        QVBoxLayout *reviewTitleVBoxLayout = new QVBoxLayout;
+        reviewTitleVBoxLayout->addWidget(reviewGateTitleLabel);
+        reviewTitleVBoxLayout->addWidget(reviewTimeTitleLabel);
 
-    QLabel *reviewgGateValueLabel = new QLabel();
-    reviewgGateValueLabel->setText("2号自助验证闸机");
-    reviewgGateValueLabel->setFixedSize(200,38);
-    reviewgGateValueLabel->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *reviewGateValueLabel = new QLabel();
+        reviewGateValueLabel->setText("2号自助验证闸机");
+        reviewGateValueLabel->setFixedSize(200,38);
+        reviewGateValueLabel->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QLabel *reviewgTimeValueLabel_1 = new QLabel();
-    reviewgTimeValueLabel_1->setText("2019／09／12");
-    reviewgTimeValueLabel_1->setFixedSize(200, 38);
-    reviewgTimeValueLabel_1->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *reviewTimeValueLabel_1 = new QLabel();
+        reviewTimeValueLabel_1->setText("2019／09／12");
+        reviewTimeValueLabel_1->setFixedSize(200, 38);
+        reviewTimeValueLabel_1->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QLabel *reviewgTimeValueLabel_2 = new QLabel();
-    reviewgTimeValueLabel_2->setText("15：32：26");
-    reviewgTimeValueLabel_2->setFixedSize(200, 38);
-    reviewgTimeValueLabel_2->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *reviewTimeValueLabel_2 = new QLabel();
+        reviewTimeValueLabel_2->setText("15：32：26");
+        reviewTimeValueLabel_2->setFixedSize(200, 38);
+        reviewTimeValueLabel_2->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QImage reviewgModalImage;
-    reviewgModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
-    reviewgModalImage = reviewgModalImage.scaled(169
-                                                 , 50
-                                                 , Qt::IgnoreAspectRatio
-                                                 , Qt::SmoothTransformation);
-    QPixmap reviewgModalPixmap = QPixmap::fromImage(reviewgModalImage);
-    QLabel *reviewgModalLabel = new QLabel();
-    reviewgModalLabel->setFixedSize(169, 50);
-    reviewgModalLabel->setPixmap(reviewgModalPixmap);
-    reviewgModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
+        QImage reviewModalImage;
+        reviewModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+        reviewModalImage = reviewModalImage.scaled(169
+                                                     , 50
+                                                     , Qt::IgnoreAspectRatio
+                                                     , Qt::SmoothTransformation);
+        QPixmap reviewModalPixmap = QPixmap::fromImage(reviewModalImage);
+        QLabel *reviewModalLabel = new QLabel();
+        reviewModalLabel->setFixedSize(169, 50);
+        reviewModalLabel->setPixmap(reviewModalPixmap);
+        reviewModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
 
-    QVBoxLayout *reviewgValueVBoxLayout = new QVBoxLayout;
-    reviewgValueVBoxLayout->addWidget(reviewgGateValueLabel);
-    reviewgValueVBoxLayout->addWidget(reviewgTimeValueLabel_1);
-    reviewgValueVBoxLayout->addWidget(reviewgTimeValueLabel_2);
-    reviewgValueVBoxLayout->addWidget(reviewgModalLabel);
+        QVBoxLayout *reviewValueVBoxLayout = new QVBoxLayout;
+        reviewValueVBoxLayout->addWidget(reviewGateValueLabel);
+        reviewValueVBoxLayout->addWidget(reviewTimeValueLabel_1);
+        reviewValueVBoxLayout->addWidget(reviewTimeValueLabel_2);
+        reviewValueVBoxLayout->addWidget(reviewModalLabel);
 
-    QHBoxLayout *reviewgHBoxLayOut = new QHBoxLayout;
-    reviewgHBoxLayOut->addWidget(reviewgLabel);
-    reviewgHBoxLayOut->addWidget(reviewgPhotoLabel);
-    reviewgHBoxLayOut->addLayout(reviewgTitleVBoxLayout);
+        QHBoxLayout *reviewHBoxLayOut = new QHBoxLayout;
+        reviewHBoxLayOut->addWidget(reviewLabel);
+        reviewHBoxLayOut->addWidget(reviewPhotoLabel);
+        reviewHBoxLayOut->addLayout(reviewTitleVBoxLayout);
 
-    QWidget *reviewgWidget = new QWidget();
-    QGridLayout *reviewgLayOut = new QGridLayout(reviewgWidget);
-    reviewgLayOut->addLayout(reviewgHBoxLayOut, 0, 0);
-    reviewgLayOut->addLayout(reviewgValueVBoxLayout, 0, 1);
+        QWidget *reviewWidget = new QWidget();
+        QGridLayout *reviewLayOut = new QGridLayout(reviewWidget);
+        reviewLayOut->addLayout(reviewHBoxLayOut, 0, 0);
+        reviewLayOut->addLayout(reviewValueVBoxLayout, 0, 1);
 
-    ui->flowTableWidget->setCellWidget(1, 0, reviewgWidget);
+        ui->flowTableWidget->setCellWidget(widgetIndex, 0, reviewWidget);
+        widgetIndex = widgetIndex + 1;
+    }
 
     // 登机口复核
-    ui->flowTableWidget->setRowHeight(2, 226);
-    ui->flowTableWidget->insertRow(2);
-    ui->flowTableWidget->setRowHeight(2, 226);
+    if (response.interface.result[0].hasBoardingInfo) {
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
+        ui->flowTableWidget->insertRow(widgetIndex);
+        ui->flowTableWidget->setRowHeight(widgetIndex, 226);
 
-    QLabel *revieweLabel = new QLabel();
-    revieweLabel->setText("登机口复核");
-    revieweLabel->setFixedSize(151, 226);
-    revieweLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    revieweLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
+        QLabel *boardingLabel = new QLabel();
+        boardingLabel->setText("登机口复核");
+        boardingLabel->setFixedSize(151, 226);
+        boardingLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        boardingLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-    QImage reviewePhotoImage;
-    reviewePhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
-    reviewePhotoImage = reviewePhotoImage.scaled(131
-                                                 , 171
-                                                 , Qt::IgnoreAspectRatio
-                                                 , Qt::SmoothTransformation);
-    QPixmap reviewePhotoPixmap = QPixmap::fromImage(reviewePhotoImage);
-    QLabel *reviewePhotoLabel = new QLabel();
-    reviewePhotoLabel->setPixmap(reviewePhotoPixmap);
-    reviewePhotoLabel->setFixedWidth(151);
-    reviewePhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        QImage boardingPhotoImage;
+        boardingPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
+        boardingPhotoImage = boardingPhotoImage.scaled(131
+                                                       , 171
+                                                       , Qt::IgnoreAspectRatio
+                                                       , Qt::SmoothTransformation);
+        QPixmap boardingPhotoPixmap = QPixmap::fromImage(boardingPhotoImage);
+        QLabel *boardingPhotoLabel = new QLabel();
+        boardingPhotoLabel->setPixmap(boardingPhotoPixmap);
+        boardingPhotoLabel->setFixedWidth(151);
+        boardingPhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
-    QLabel *revieweGateTitleLabel = new QLabel();
-    revieweGateTitleLabel->setText("通过位置：");
-    revieweGateTitleLabel->setFixedSize(120, 38);
-    revieweGateTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+        QLabel *boardingGateTitleLabel = new QLabel();
+        boardingGateTitleLabel->setText("通过位置：");
+        boardingGateTitleLabel->setFixedSize(120, 38);
+        boardingGateTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
 
-    QLabel *revieweTimeTitleLabel = new QLabel();
-    revieweTimeTitleLabel->setText("通过时间：");
-    revieweTimeTitleLabel->setFixedSize(120, 38);
-    revieweTimeTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
+        QLabel *boardingTimeTitleLabel = new QLabel();
+        boardingTimeTitleLabel->setText("通过时间：");
+        boardingTimeTitleLabel->setFixedSize(120, 38);
+        boardingTimeTitleLabel->setStyleSheet("font: 19pt; color: rgb(255, 255, 255);");
 
-    QVBoxLayout *revieweTitleVBoxLayout = new QVBoxLayout;
-    revieweTitleVBoxLayout->addWidget(revieweGateTitleLabel);
-    revieweTitleVBoxLayout->addWidget(revieweTimeTitleLabel);
+        QVBoxLayout *boardingTitleVBoxLayout = new QVBoxLayout;
+        boardingTitleVBoxLayout->addWidget(boardingGateTitleLabel);
+        boardingTitleVBoxLayout->addWidget(boardingTimeTitleLabel);
 
-    QLabel *revieweGateValueLabel = new QLabel();
-    revieweGateValueLabel->setText("2号自助验证闸机");
-    revieweGateValueLabel->setFixedSize(200,38);
-    revieweGateValueLabel->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *boardingGateValueLabel = new QLabel();
+        boardingGateValueLabel->setText("2号自助验证闸机");
+        boardingGateValueLabel->setFixedSize(200,38);
+        boardingGateValueLabel->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QLabel *revieweTimeValueLabel_1 = new QLabel();
-    revieweTimeValueLabel_1->setText("2019／09／12");
-    revieweTimeValueLabel_1->setFixedSize(200, 38);
-    revieweTimeValueLabel_1->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *boardingTimeValueLabel_1 = new QLabel();
+        boardingTimeValueLabel_1->setText("2019／09／12");
+        boardingTimeValueLabel_1->setFixedSize(200, 38);
+        boardingTimeValueLabel_1->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QLabel *revieweTimeValueLabel_2 = new QLabel();
-    revieweTimeValueLabel_2->setText("15：32：26");
-    revieweTimeValueLabel_2->setFixedSize(200, 38);
-    revieweTimeValueLabel_2->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
+        QLabel *boardingTimeValueLabel_2 = new QLabel();
+        boardingTimeValueLabel_2->setText("15：32：26");
+        boardingTimeValueLabel_2->setFixedSize(200, 38);
+        boardingTimeValueLabel_2->setStyleSheet("font: bold 19pt; color: rgb(0, 228, 255);");
 
-    QImage revieweModalImage;
-    revieweModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
-    revieweModalImage = revieweModalImage.scaled(169
-                                                 , 50
-                                                 , Qt::IgnoreAspectRatio
-                                                 , Qt::SmoothTransformation);
-    QPixmap revieweModalPixmap = QPixmap::fromImage(revieweModalImage);
-    QLabel *revieweModalLabel = new QLabel();
-    revieweModalLabel->setFixedSize(169, 50);
-    revieweModalLabel->setPixmap(revieweModalPixmap);
-    revieweModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
+        QImage boardingModalImage;
+        boardingModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+        boardingModalImage = boardingModalImage.scaled(169
+                                                       , 50
+                                                       , Qt::IgnoreAspectRatio
+                                                       , Qt::SmoothTransformation);
+        QPixmap boardingModalPixmap = QPixmap::fromImage(boardingModalImage);
+        QLabel *boardingModalLabel = new QLabel();
+        boardingModalLabel->setFixedSize(169, 50);
+        boardingModalLabel->setPixmap(boardingModalPixmap);
+        boardingModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
 
-    QVBoxLayout *revieweValueVBoxLayout = new QVBoxLayout;
-    revieweValueVBoxLayout->addWidget(revieweGateValueLabel);
-    revieweValueVBoxLayout->addWidget(revieweTimeValueLabel_1);
-    revieweValueVBoxLayout->addWidget(revieweTimeValueLabel_2);
-    revieweValueVBoxLayout->addWidget(revieweModalLabel);
+        QVBoxLayout *boardingValueVBoxLayout = new QVBoxLayout;
+        boardingValueVBoxLayout->addWidget(boardingGateValueLabel);
+        boardingValueVBoxLayout->addWidget(boardingTimeValueLabel_1);
+        boardingValueVBoxLayout->addWidget(boardingTimeValueLabel_2);
+        boardingValueVBoxLayout->addWidget(boardingModalLabel);
 
-    QHBoxLayout *revieweHBoxLayOut = new QHBoxLayout;
-    revieweHBoxLayOut->addWidget(revieweLabel);
-    revieweHBoxLayOut->addWidget(reviewePhotoLabel);
-    revieweHBoxLayOut->addLayout(revieweTitleVBoxLayout);
+        QHBoxLayout *boardingHBoxLayOut = new QHBoxLayout;
+        boardingHBoxLayOut->addWidget(boardingLabel);
+        boardingHBoxLayOut->addWidget(boardingPhotoLabel);
+        boardingHBoxLayOut->addLayout(boardingTitleVBoxLayout);
 
-    QWidget *revieweWidget = new QWidget();
-    QGridLayout *revieweLayOut = new QGridLayout(revieweWidget);
-    revieweLayOut->addLayout(revieweHBoxLayOut, 0, 0);
-    revieweLayOut->addLayout(revieweValueVBoxLayout, 0, 1);
+        QWidget *boardingWidget = new QWidget();
+        QGridLayout *boardingLayOut = new QGridLayout(boardingWidget);
+        boardingLayOut->addLayout(boardingHBoxLayOut, 0, 0);
+        boardingLayOut->addLayout(boardingValueVBoxLayout, 0, 1);
 
-    ui->flowTableWidget->setCellWidget(2, 0, revieweWidget);
+        ui->flowTableWidget->setCellWidget(widgetIndex, 0, boardingWidget);
+    }
 }
