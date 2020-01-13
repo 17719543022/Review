@@ -253,55 +253,6 @@ color: rgb(255, 255, 255);</string>
     <property name="styleSheet">
      <string notr="true">image: url(:/6航班回查/Images/6航班回查/bg.png);</string>
     </property>
-    <widget class="QLabel" name="splitLabel_1">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>187</y>
-       <width>740</width>
-       <height>2</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">image: 0;
-background: 0;
-border-radius: 0;
-border-width: 1.2px;
-border-style: dashed;
-border-color: rgb(135, 183, 194);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="splitLabel_2">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>373</y>
-       <width>740</width>
-       <height>2</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">image: 0;
-background: 0;
-border-radius: 0;
-border-width: 1px;
-border-style: dashed;
-border-color: rgb(135, 183, 194);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QTableWidget" name="orgDepTableWidget">
      <property name="geometry">
       <rect>

@@ -86,7 +86,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         transferPhotoLabel->setGeometry(180, 0, 150, 226);
         transferPhotoLabel->setPixmap(transferPhotoPixmap);
         transferPhotoLabel->setFixedSize(150, 226);
-        transferPhotoLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        transferPhotoLabel->setAlignment(Qt::AlignCenter);
 
         QLabel *transferGateTitleLabel = new QLabel(transferWidget);
         transferGateTitleLabel->setGeometry(330, 14, 144, 38);
