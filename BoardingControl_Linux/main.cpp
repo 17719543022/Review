@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
 //    w.show();
 
     FlightEnquires f;
-    f.show();
+//    f.show();
+    f.statistics("AB1250");
 
     return a.exec();
 }

@@ -220,6 +220,8 @@ FlightReviewResponse HttpAPI::get(const FlightReviewRequest& request)
 {
     FlightReviewResponse result;
 
+    result.queryType = request.queryType;
+
     try {
         QByteArray bytes;
         QJsonObject json;

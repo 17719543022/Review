@@ -6,14 +6,24 @@
 #include <QNetworkReply>
 #include <QVBoxLayout>
 
+RemovePushButton::RemovePushButton(QWidget *parent, int index) :
+    QPushButton (parent),
+    index(index)
+{
+
+}
+
 FlightEnquires::FlightEnquires(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FlightEnquires),
     flight(QString()),
+    isStatisticsMode(false),
     orgDepNum(0),
     boardingNum(0),
     notboardingNum(0)
 {
+    signalMapper = new QSignalMapper(this);
+
     ui->setupUi(this);
     this->hide();
 
@@ -52,6 +62,17 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     ui->notboardingTableWidget->setShowGrid(false);
     ui->notboardingTableWidget->setColumnCount(1);
     ui->notboardingTableWidget->setColumnWidth(0, 766);
+}
+
+void FlightEnquires::statistics(QString flight)
+{
+    this->flight = flight;
+    this->isStatisticsMode = true;
+
+    ui->inputWidget->hide();
+    this->on_orgDepPushButton_clicked();
+
+    this->show();
 }
 
 FlightEnquires::~FlightEnquires()
@@ -113,6 +134,11 @@ void FlightEnquires::on_notboardingPushButton_clicked()
     ui->notboardingTableWidget->show();
 
     query(Ui::QueryType::NotBoardingQuery);
+}
+
+void FlightEnquires::removeRow(int widgetIndex)
+{
+    qDebug() << "FlightEnquires::removeRow: " << widgetIndex;
 }
 
 QPixmap FlightEnquires::getQPixmapSync(QString str)
@@ -200,6 +226,19 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
         seatLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
+        if (isStatisticsMode
+                && response.queryType == Ui::QueryType::DepositoryQuery)
+        {
+            RemovePushButton *removePushButton = new RemovePushButton(itemWidget, widgetIndex);
+            removePushButton->setGeometry(600, 134, 140, 40);
+            removePushButton->setText("删    除");
+            removePushButton->setFixedSize(140, 40);
+            removePushButton->setStyleSheet("image: 0; border: 0; border-radius: 4; background: rgb(255, 0, 0); font: 19pt; color: rgb(255, 255, 255);");
+
+            connect(removePushButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+            signalMapper->setMapping(removePushButton, widgetIndex);
+        }
+
         table->setCellWidget(widgetIndex, 0, itemWidget);
         widgetIndex = widgetIndex + 1;
 
@@ -217,6 +256,8 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
             widgetIndex = widgetIndex + 1;
         }
     }
+
+    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(removeRow(int)));
 }
 
 int FlightEnquires::query(int queryType)

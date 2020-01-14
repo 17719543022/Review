@@ -178,6 +178,7 @@ struct FlightReviewRequest {
 
 struct FlightReviewResponse {
     QJsonDocument doc;
+    int queryType;
     int errorCode;
     bool founded;
     FlightReviewInterface interface;
@@ -208,6 +209,7 @@ struct FlightReviewResponse {
 
     FlightReviewResponse() {
         doc = QJsonDocument();
+        queryType = -1;
         errorCode = -1;
         founded = true;
     }
