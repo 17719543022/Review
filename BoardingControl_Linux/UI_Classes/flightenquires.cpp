@@ -92,9 +92,9 @@ void FlightEnquires::on_queryPushButton_clicked()
     ui->boardingTableWidget->hide();
     ui->notboardingTableWidget->hide();
 
-    if (Ui::DisplayType::DisplayNullErr == query(Ui::QueryType::DepositoryQuery)) {
-        // TODO
-    }
+    if (Ui::DisplayType::DisplayNullErr == query()) {
+         // TODO
+     }
 }
 
 void FlightEnquires::on_orgDepPushButton_clicked()
@@ -106,8 +106,6 @@ void FlightEnquires::on_orgDepPushButton_clicked()
     ui->orgDepTableWidget->show();
     ui->boardingTableWidget->hide();
     ui->notboardingTableWidget->hide();
-
-    query(Ui::QueryType::DepositoryQuery);
 }
 
 void FlightEnquires::on_boardingPushButton_clicked()
@@ -119,8 +117,6 @@ void FlightEnquires::on_boardingPushButton_clicked()
     ui->orgDepTableWidget->hide();
     ui->boardingTableWidget->show();
     ui->notboardingTableWidget->hide();
-
-    query(Ui::QueryType::BoardingQuery);
 }
 
 void FlightEnquires::on_notboardingPushButton_clicked()
@@ -132,8 +128,6 @@ void FlightEnquires::on_notboardingPushButton_clicked()
     ui->orgDepTableWidget->hide();
     ui->boardingTableWidget->hide();
     ui->notboardingTableWidget->show();
-
-    query(Ui::QueryType::NotBoardingQuery);
 }
 
 void FlightEnquires::removeRow(int widgetIndex)
@@ -161,11 +155,27 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
     return pixmap;
 }
 
-void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget *table)
+void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab)
 {
     int widgetIndex = 0;
 
     for (int i = 0; i < response.interface.validSize; i++) {
+        if (tab == Ui::DisplayTab::DepositoryTab
+                && response.interface.results[i].id == "") {
+            continue;
+        }
+
+        if (tab == Ui::DisplayTab::BoardingTab
+                && response.interface.results[i].boardingStatus != 1) {
+            continue;
+        }
+
+        if (tab == Ui::DisplayTab::NotBoardingTab
+                && !(response.interface.results[i].id != ""
+                    && response.interface.results[i].boardingStatus == 0)) {
+            continue;
+        }
+
         table->setRowHeight(widgetIndex, 186);
         table->insertRow(widgetIndex);
         table->setRowHeight(widgetIndex, 186);
@@ -226,9 +236,7 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
         seatLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
-        if (isStatisticsMode
-                && response.queryType == Ui::QueryType::DepositoryQuery)
-        {
+        if (isStatisticsMode) {
             RemovePushButton *removePushButton = new RemovePushButton(itemWidget, widgetIndex);
             removePushButton->setGeometry(600, 134, 140, 40);
             removePushButton->setText("删    除");
@@ -260,11 +268,14 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(removeRow(int)));
 }
 
-int FlightEnquires::query(int queryType)
+int FlightEnquires::query()
 {
     FlightReviewRequest request;
     request.input = flight;
-    request.queryType = queryType;
+    request.queryType = 3;
+    orgDepNum = 0;
+    boardingNum = 0;
+    notboardingNum = 0;
 
     FlightReviewResponse response = HttpAPI::instance()->get(request);
 
@@ -284,33 +295,21 @@ int FlightEnquires::query(int queryType)
         return Ui::DisplayType::DisplayNullErr;
     }
 
-    if (queryType == Ui::QueryType::DepositoryQuery) {
-        orgDepNum = response.interface.dataInfo.orgDepNum;
-        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
-        boardingNum = response.interface.dataInfo.boardingNum;
-        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
-        notboardingNum = response.interface.dataInfo.orgDepNum - response.interface.dataInfo.boardingNum;
-        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
-
-        tableUp(response, ui->orgDepTableWidget);
+    orgDepNum = response.interface.dataInfo.orgDepNum;
+    ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
+    boardingNum = response.interface.dataInfo.boardingNum;
+    ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
+    for (int i = 0; i < response.interface.validSize; i++) {
+        if (response.interface.results[i].id != ""
+                && response.interface.results[i].boardingStatus == 0) {
+            notboardingNum += 1;
+        }
     }
+    ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
 
-    if (queryType == Ui::QueryType::BoardingQuery) {
-        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
-        boardingNum = response.interface.dataInfo.boardingNum;
-        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
-        notboardingNum = orgDepNum - boardingNum;
-        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
-
-        tableUp(response, ui->boardingTableWidget);
-    }
-    if (queryType == Ui::QueryType::NotBoardingQuery) {
-        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
-        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
-        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
-
-        tableUp(response, ui->notboardingTableWidget);
-    }
+    tableUp(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+    tableUp(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
+    tableUp(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 
     return Ui::DisplayType::DisplayNormal;
 }

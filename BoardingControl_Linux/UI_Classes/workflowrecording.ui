@@ -213,7 +213,7 @@ border-radius: 4px;</string>
        </font>
       </property>
       <property name="placeholderText">
-       <string>请输入身份证号/航班号#序号</string>
+       <string>请输入身份证号或航班号#序号</string>
       </property>
      </widget>
     </widget>

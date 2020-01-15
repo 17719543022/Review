@@ -10,10 +10,10 @@
 namespace Ui {
 class FlightEnquires;
 
-enum QueryType {
-    DepositoryQuery,
-    BoardingQuery,
-    NotBoardingQuery
+enum DisplayTab {
+    DepositoryTab,
+    BoardingTab,
+    NotBoardingTab
 };
 
 enum DisplayType {
@@ -58,9 +58,9 @@ private slots:
     void removeRow(int);
 
 private:
-    int query(int queryType);
+    int query();
 
-    void tableUp(const FlightReviewResponse &response, QTableWidget *table);
+    void tableUp(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab);
 
     QPixmap getQPixmapSync(QString str);
 

@@ -20,14 +20,14 @@ int main(int argc, char *argv[])
         qApp->exit();
     }
 
-   HomePage w;
-   w.show();
+//   HomePage w;
+//   w.show();
 
 //    WorkflowRecording w;
 //    w.show();
 
-//    FlightEnquires f;
-//    f.show();
+    FlightEnquires f;
+    f.show();
 //    f.statistics("AB1250");
 
     return a.exec();
