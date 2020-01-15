@@ -17,10 +17,7 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FlightEnquires),
     flight(QString()),
-    isStatisticsMode(false),
-    orgDepNum(0),
-    boardingNum(0),
-    notboardingNum(0)
+    isStatisticsMode(false)
 {
     signalMapper = new QSignalMapper(this);
 
@@ -273,39 +270,22 @@ int FlightEnquires::query()
     FlightReviewRequest request;
     request.input = flight;
     request.queryType = 3;
-    orgDepNum = 0;
-    boardingNum = 0;
-    notboardingNum = 0;
 
     FlightReviewResponse response = HttpAPI::instance()->get(request);
+
+    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
+    ui->boardingPushButton->setText("已登机人数：" + QString::number(response.interface.dataInfo.boardingNum));
+    ui->notboardingPushButton->setText("未登机人数：" + QString::number(response.interface.total - response.interface.dataInfo.boardingNum));
 
     if (!response.founded) {
         qDebug() << "Queried Flight Not Found!!";
 
-        orgDepNum = 0;
-        boardingNum = 0;
-        notboardingNum = 0;
-        ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
-        ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
-        ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
         ui->orgDepTableWidget->clear();
         ui->boardingTableWidget->clear();
         ui->notboardingTableWidget->clear();
 
         return Ui::DisplayType::DisplayNullErr;
     }
-
-    orgDepNum = response.interface.dataInfo.orgDepNum;
-    ui->orgDepPushButton->setText("建库人数：" + QString::number(orgDepNum));
-    boardingNum = response.interface.dataInfo.boardingNum;
-    ui->boardingPushButton->setText("已登机人数：" + QString::number(boardingNum));
-    for (int i = 0; i < response.interface.validSize; i++) {
-        if (response.interface.results[i].id != ""
-                && response.interface.results[i].boardingStatus == 0) {
-            notboardingNum += 1;
-        }
-    }
-    ui->notboardingPushButton->setText("未登机人数：" + QString::number(notboardingNum));
 
     tableUp(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
     tableUp(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);

@@ -72,12 +72,6 @@ private:
     QString flight;
 
     bool isStatisticsMode;
-
-    int orgDepNum;
-
-    int boardingNum;
-
-    int notboardingNum;
 };
 
 #endif // FLIGHTENQUIRES_H
