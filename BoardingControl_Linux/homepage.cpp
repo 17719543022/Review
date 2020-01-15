@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QTimeLine>
 
+#include <ServerInterface/mqmsg_parse.h>
+
 HomePage::HomePage(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::HomePage)
@@ -32,6 +34,9 @@ HomePage::HomePage(QWidget *parent) :
     timeLine->setFrameRange(0, 200);
     connect(timeLine, SIGNAL(frameChanged(int)), this, SLOT(frameChange(int)));
     connect(this, SIGNAL(timeLineStart()), timeLine, SLOT(start()));//use connection to be compatible with multiThread;
+
+
+    MsgParse *msg = new MsgParse(this);
 }
 
 HomePage::~HomePage()

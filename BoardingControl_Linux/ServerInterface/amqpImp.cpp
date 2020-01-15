@@ -6,64 +6,54 @@
 
 #define TIME_OUT 6 //s
 
-AmqpImp::AmqpImp(bool has_exchange):
-    _has_exchange(has_exchange)
+AmqpImp::AmqpImp(QObject* parent)
+    :QObject(parent)
 {
-    _exchange.id = (char*)malloc(128*sizeof(char));
-    _exchange.type = (char*)malloc(128*sizeof(char));
-    strcpy(_exchange.id, NOTIFY_EXCHANGE_NAME);
-    strcpy(_exchange.type, "fanout");
 }
 
 AmqpImp::~AmqpImp(void)
 {
-    close_channel();
-
-    if (_exchange.id != nullptr){
-       free(_exchange.id);
-       _exchange.id = nullptr;
-    }
-    if (_exchange.type != nullptr){
-        free(_exchange.type);
-        _exchange.type = nullptr;
-    }
+    this->close_channel();
 }
 
 //创建通道
-int AmqpImp::create_channel(const char* ip, int port, const char* vhost, const char* user_name, const char* password, ChannelType type,
-                            const char* areaId /*= nullptr*/, const char* deviceId /*= nullptr*/, consumer_msg_cb cb /*= nullptr*/, void* userData /*= nullptr*/)
+int AmqpImp::create_channel(const char* hostname, int port, const char* vhost, const char* user_name, const char* password, ChannelType type, const char* queue_id /*= nullptr*/,
+                            consumer_msg_cb cb /*= nullptr*/, void* userData /*= nullptr*/, const char* exchange_id /*= nullptr*/, const char* binding_key /*= nullptr*/, int sec_heartbeat /*= 0*/)
 {
-    setup_connection(ip, port, vhost, user_name, password);
+    setup_connection(hostname, port, vhost, user_name, password, sec_heartbeat);
 
     //打开通道
     amqp_channel_open(_conn_state, _channel);
     die_on_amqp_error(amqp_get_rpc_reply(_conn_state), "ERROR: [AmqpImp] Opening channel");
 
-    if(_has_exchange){
-        //passive 检测exchange是否存在，设为true，若队列存在则命令成功返回（调用其他参数不会影响exchange属性），若不存在不会创建exchange，返回错误。
-        //设为false，如果exchange不存在则创建exchange，调用成功返回。如果exchange已经存在，并且匹配现在exchange的话则成功返回，如果不匹配则exchange声明失败。
-        amqp_exchange_declare(_conn_state, _channel, amqp_cstring_bytes(_exchange.id), amqp_cstring_bytes(_exchange.type),
-                              _exchange.passive, _exchange.durable, _exchange.auto_delete, _exchange.internal, _exchange.arguments);
-        die_on_amqp_error(amqp_get_rpc_reply(_conn_state), "ERROR: [AmqpImp] declare exchange");
-    }
-
     //消费
     if(type == CHANNEL_CONSUMER)
     {
-        std::string str_MsgQueueName = areaId;
-        str_MsgQueueName.append("_");
-        str_MsgQueueName.append(deviceId);
+        if (exchange_id == nullptr){
+            exchange_id = DEFAULT_EXCHANGE_ID;
+        }
+        if (binding_key == nullptr){
+            binding_key = DEFAULT_BINDING_KEY;
+        }
+        //passive 检测exchange是否存在，设为true，若队列存在则命令成功返回（调用其他参数不会影响exchange属性），若不存在不会创建exchange，返回错误。
+        //设为false，如果exchange不存在则创建exchange，调用成功返回。如果exchange已经存在，并且匹配现在exchange的话则成功返回，如果不匹配则exchange声明失败。
+        amqp_exchange_declare(_conn_state,
+                                      _channel,
+                                      amqp_cstring_bytes(exchange_id),
+                                      amqp_cstring_bytes("fanout"), //type
+                                      1,  //passive 1-表明只能连接现有交换机，0-表示如果没有，则创建交换机
+                                      0,  //durable
+                                      1,  //auto delete
+                                      0,  //internal
+                                      amqp_empty_table);
+        die_on_amqp_error(amqp_get_rpc_reply(_conn_state), "ERROR: [AmqpImp] declare exchange");
 
         //创建消息接收队列绑定
-        queue_declare_and_bind(str_MsgQueueName.c_str(), NOTIFY_EXCHANGE_NAME, "", 0, 0);
+        queue_declare_and_bind(queue_id, exchange_id, binding_key, 0, 0);
 
         //声明消费
-        amqp_basic_consume(_conn_state, _channel, amqp_cstring_bytes(str_MsgQueueName.c_str()),
-                           amqp_empty_bytes,
-                           0,
-                           1,
-                           0,
-                           amqp_empty_table);
+        amqp_basic_consume(_conn_state, _channel, amqp_cstring_bytes(queue_id),
+                           amqp_empty_bytes, 0, 1, 0, amqp_empty_table);
         die_on_amqp_error(amqp_get_rpc_reply(_conn_state), "ERROR: [AmqpImp] Consuming");
 
         _msg_cb = cb;
@@ -76,42 +66,9 @@ int AmqpImp::create_channel(const char* ip, int port, const char* vhost, const c
 }
 
 //关闭通道
-void AmqpImp::close_channel()
+int AmqpImp::close_channel()
 {
-    if(_consume_thread.joinable())
-    {
-        _consum_loop = false;
-        _consume_thread.join();
-    }
-
-    if(_conn_state != nullptr)
-    {
-        amqp_rpc_reply_t rpc_reply = amqp_channel_close(_conn_state, _channel, AMQP_REPLY_SUCCESS);
-        die_on_amqp_error(rpc_reply, "ERROR: [AmqpImp] Closing channel");
-
-        close_and_destory_connection(_conn_state);
-        _conn_state = nullptr;
-    }
-}
-
-//设置交换机参数
-void AmqpImp::set_exchange(const char *exchange_id, const char *exchange_type, amqp_boolean_t passive, amqp_boolean_t durable, amqp_boolean_t auto_delete, amqp_boolean_t internal, amqp_table_t arguments)
-{
-    try
-    {
-        strcpy(_exchange.id, exchange_id);
-        strcpy(_exchange.type, exchange_type);
-        _exchange.passive = passive;
-        _exchange.durable = durable;
-        _exchange.auto_delete = auto_delete;
-        _exchange.internal = internal;
-        _exchange.arguments = arguments;
-    }
-    catch(std::exception &ex)
-    {
-        qCritical()<<ex.what()<<QString("设置交换机参数失败, id或type最大128字节");
-        exit(1);
-    }
+    return close_and_destory_connection();
 }
 
 //发送消息public
@@ -127,7 +84,7 @@ char* AmqpImp::get_message(const char* queue_name_, uint64_t* out_body_size)
 }
 
 //设置连接和通道,登录以及设置心跳参数
-int AmqpImp::setup_connection(const char* ip, int port, const char* vhost, const char* user_name, const char* password)
+int AmqpImp::setup_connection(const char* hostname, int port, const char* vhost, const char* user_name, const char* password, int sec_heartbeat /*= 0*/)
 {
     amqp_connection_state_t connect_state_ = nullptr;
     amqp_socket_t* socket = nullptr;
@@ -144,13 +101,13 @@ int AmqpImp::setup_connection(const char* ip, int port, const char* vhost, const
         die("ERROR: [AmqpImp] creating TCP socket");
     }
 
-    int ret = amqp_socket_open(socket, ip, port);
+    int ret = amqp_socket_open(socket, hostname, port);
     if( ret != AMQP_STATUS_OK)
     {
         die("ERROR: [AmqpImp] opening rabbitMq socket");
     }
 
-    amqp_rpc_reply_t rpc_reply = amqp_login(connect_state_, vhost, 1, AMQP_DEFAULT_FRAME_SIZE, 60, AMQP_SASL_METHOD_PLAIN, user_name, password);
+    amqp_rpc_reply_t rpc_reply = amqp_login(connect_state_, vhost, 1, AMQP_DEFAULT_FRAME_SIZE, sec_heartbeat, AMQP_SASL_METHOD_PLAIN, user_name, password);
     die_on_amqp_error(rpc_reply, "ERROR: [AmqpImp] login in");
 
     _conn_state = connect_state_;
@@ -158,21 +115,30 @@ int AmqpImp::setup_connection(const char* ip, int port, const char* vhost, const
 }
 
 //关闭销毁连接
-int AmqpImp::close_and_destory_connection(amqp_connection_state_t conn_state_)
+int AmqpImp::close_and_destory_connection()
 {
-    if(conn_state_ != nullptr)
+    if(_consume_thread.joinable())
     {
-        amqp_rpc_reply_t rpc_reply = amqp_connection_close(conn_state_, AMQP_REPLY_SUCCESS);
-        die_on_amqp_error(rpc_reply, "ERROR: [AmqpImp] Closing connection");
-
-        int ret = amqp_destroy_connection(conn_state_);
-        die_on_error(ret, "ERROR: [AmqpImp] Ending connection");
+        _consum_loop = false;
+        _consume_thread.join();
     }
-    return 0;
+
+    if(_conn_state != nullptr)
+    {
+        die_on_amqp_error(amqp_channel_close(_conn_state, _channel, AMQP_REPLY_SUCCESS), "ERROR: [AmqpImp] Closing channel");
+
+        die_on_amqp_error(amqp_connection_close(_conn_state, AMQP_REPLY_SUCCESS), "ERROR: [AmqpImp] Closing connection");
+
+        die_on_error(amqp_destroy_connection(_conn_state), "ERROR: [AmqpImp] Ending connection");
+
+        _conn_state = nullptr;
+    }
+
+        return 0;
 }
 
 //创建消息接收队列绑定
-int AmqpImp::queue_declare_and_bind(const char* queue_name, const char* exchange_name, const char* routingKey, int ttl, int msglen)
+int AmqpImp::queue_declare_and_bind(const char* queue_name, const char* exchange_id, const char* binding_key, int ttl, int msglen)
 {
     amqp_table_entry_t inner_entries[2];//额外参数
     amqp_table_t inner_table;
@@ -201,7 +167,7 @@ int AmqpImp::queue_declare_and_bind(const char* queue_name, const char* exchange
 
     //autoDelete: 设置是否自动删除。为true 则设置队列为自动删除。自动删除的前提是:至少有一个消费者连接到这个队列，之后所有与这个队列连接的消费者都断开时，才会自动删除。
     //不能把这个参数错误地理解为:当连接到此队列的所有客户端断开时，这个队列自动删除"，因为生产者客户端创建这个队列，或者没有消费者客户端与这个队列连接时，都不会自动删除这个队列。
-    amqp_queue_declare(_conn_state, _channel, amqp_cstring_bytes(queue_name),
+    amqp_queue_declare_ok_t *r = amqp_queue_declare(_conn_state, _channel, amqp_cstring_bytes(queue_name),
                        0, //passive
                        0, //durable
                        0, //exclusive
@@ -209,9 +175,16 @@ int AmqpImp::queue_declare_and_bind(const char* queue_name, const char* exchange
                        inner_table);
     die_on_amqp_error(amqp_get_rpc_reply(_conn_state), "ERROR: [AmqpImp] Declaring queue");
 
+    if (queue_name == nullptr){
+        amqp_bytes_t default_queue = amqp_bytes_malloc_dup(r->queue);
+        if (default_queue.bytes == NULL) {
+            fprintf(stderr, "Out of memory while copying queue name");
+            return 1;
+        }
+        amqp_queue_bind(_conn_state, _channel, default_queue, amqp_cstring_bytes(exchange_id), amqp_cstring_bytes(binding_key), amqp_empty_table);
+    }
+    else amqp_queue_bind(_conn_state, _channel, amqp_cstring_bytes(queue_name), amqp_cstring_bytes(exchange_id), amqp_cstring_bytes(binding_key), amqp_empty_table);
 
-    amqp_queue_bind(_conn_state, _channel, amqp_cstring_bytes(queue_name), amqp_cstring_bytes(exchange_name),
-                    amqp_cstring_bytes(routingKey), amqp_empty_table);
     die_on_amqp_error(amqp_get_rpc_reply(_conn_state), "ERROR: [AmqpImp] Binding queue");
 
     return 0;
@@ -266,7 +239,7 @@ char* AmqpImp::basic_get(const char* queue_name_, uint64_t* out_body_size)
 }
 
 //发布消息
-int AmqpImp::basic_publish(const char* message, const char* exchange, const char* rout_key)
+int AmqpImp::basic_publish(const char* message, const char* exchange, const char* binding_key)
 {
     amqp_bytes_t message_bytes = amqp_cstring_bytes(message);
     amqp_basic_properties_t properties;
@@ -275,7 +248,7 @@ int AmqpImp::basic_publish(const char* message, const char* exchange, const char
     properties.delivery_mode = AMQP_DELIVERY_NONPERSISTENT;
 
     int retval = amqp_basic_publish(_conn_state, _channel, amqp_cstring_bytes(exchange),
-                                    amqp_cstring_bytes(rout_key),
+                                    amqp_cstring_bytes(binding_key),
                                     /* mandatory=*/1,
                                     /* immediate=*/0, /* RabbitMQ 3.x does not support the "immediate" flag according to https://www.rabbitmq.com/specification.html */
                                     &properties, message_bytes);
@@ -288,7 +261,7 @@ void AmqpImp::consume_message()
 {
     if(_conn_state == nullptr)
     {
-        return ;
+        return;
     }
 
     amqp_frame_t frame;
@@ -306,7 +279,7 @@ void AmqpImp::consume_message()
             {
                 if (AMQP_STATUS_OK != amqp_simple_wait_frame(_conn_state, &frame))
                 {
-                    qCritical() << "ERROR: [AmqpImp::consume_message] wait frame error thread exit";
+                    qCritical() << "ERROR: [AmqpImp::consume_message] wait frame error, thread exit";
                     return;
                 }
 
@@ -337,7 +310,7 @@ void AmqpImp::consume_message()
                     }
                         break;
 
-                    case AMQP_CHANNEL_CLOSE_METHOD:
+                    case AMQP_CHANNEL_CLOSE_METHOD:/******************please set restart service options here;**************/
                         /* a channel.close method happens when a channel exception occurs,
                            * this can happen by publishing to an exchange that doesn't exist
                            * for example.
@@ -346,7 +319,7 @@ void AmqpImp::consume_message()
                            * any queues that were declared auto-delete, and restart any
                            * consumers that were attached to the previous channel.
                            */
-                        qCritical() << "ERROR: [AmqpImp::consume_message] consume message error AMQP_CHANNEL_CLOSE_METHOD";
+                        qCritical() << "ERROR: [AmqpImp::consume_message]  AMQP_CHANNEL_CLOSE_METHOD, channel shouled be reconnect !";
                         return;
 
                     case AMQP_CONNECTION_CLOSE_METHOD:
@@ -356,7 +329,7 @@ void AmqpImp::consume_message()
                            *
                            * In this case the whole connection must be restarted.
                            */
-                        qCritical() << "ERROR: [AmqpImp::consume_message] consume message error AMQP_CONNECTION_CLOSE_METHOD";
+                        qCritical() << "ERROR: [AmqpImp::consume_message] AMQP_CONNECTION_CLOSE_METHOD, connecting channel was closed";
                         return;
 
                     default:
@@ -389,9 +362,10 @@ void AmqpImp::consume_message()
 void AmqpImp::die(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
-  vfprintf(stderr, fmt, ap);
+  char str[256];
+  vsprintf(str, fmt, ap);
   va_end(ap);
-  fprintf(stderr, "\n");
+  qCritical()<<QString(str);
   exit(1);
 }
 

@@ -23,7 +23,7 @@ SOURCES += main.cpp\
     ServerInterface/amqpImp.cpp \
     rabbitmq_c/amqp_time.cpp \
     ServerInterface/httpAPI.cpp \
-    ServerInterface/mqmsg_parsing.cpp
+    ServerInterface/mqmsg_parse.cpp
 
 HEADERS  += \
     UI_Classes/flightenquires.h \
@@ -38,7 +38,7 @@ HEADERS  += \
     rabbitmq_c/amqp_time.h \
     ServerInterface/api_param_def.h \
     ServerInterface/httpAPI.h \
-    ServerInterface/mqmsg_parsing.h
+    ServerInterface/mqmsg_parse.h
 
 FORMS    += \
     UI_Classes/workflowrecording.ui \
