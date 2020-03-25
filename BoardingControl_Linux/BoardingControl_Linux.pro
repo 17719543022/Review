@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     ServerInterface/amqpImp.cpp \
     rabbitmq_c/amqp_time.cpp \
     ServerInterface/httpAPI.cpp \
-    ServerInterface/mqmsg_parse.cpp
+    ServerInterface/mqmsg_parse.cpp \
+    UI_Classes/messagedialog.cpp
 
 HEADERS  += \
     UI_Classes/flightenquires.h \
@@ -38,14 +39,16 @@ HEADERS  += \
     rabbitmq_c/amqp_time.h \
     ServerInterface/api_param_def.h \
     ServerInterface/httpAPI.h \
-    ServerInterface/mqmsg_parse.h
+    ServerInterface/mqmsg_parse.h \
+    UI_Classes/messagedialog.h
 
 FORMS    += \
     UI_Classes/workflowrecording.ui \
     UI_Classes/realtimeboarding.ui \
     UI_Classes/portraitcollection.ui \
     UI_Classes/flightenquires.ui \
-    homepage.ui
+    homepage.ui \
+    UI_Classes/messagedialog.ui
 
 #unix:!macx: LIBS +=/usr/local/lib/libssl.so.1.0.0
 unix:!macx: LIBS += -L$$PWD/../SDK/bin -Wl,--as-needed -lHTTP -ljsoncpp \

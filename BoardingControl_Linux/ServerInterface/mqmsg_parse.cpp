@@ -4,7 +4,6 @@
 #include <QJsonDocument>
 #include <QDebug>
 
-
 MsgParse::MsgParse(QObject* parent)
     :AmqpImp(parent)
 {
@@ -40,14 +39,26 @@ void MsgParse::initAmqp()
 
 }
 
-void CALLBACK MsgParse::msgRecivedCallBack(const char* jsonMsg, void* userData)
+void CALLBACK msgRecivedCallBack(const char* jsonMsg, void* userData)
 {
-    MsgParse *this_data = static_cast <MsgParse*> (userData);
     QByteArray byte_JsonMsg(jsonMsg);
-
-//    this_data->recive_msg(byte_JsonMsg);
-
     qDebug()<<"mq_msg:\n"<<byte_JsonMsg;//debug Info
+
+    int optType = 0;
+    QJsonObject docObj;
+    if (byte_JsonMsg != nullptr) {
+        QJsonParseError jsonParseError;
+        QJsonDocument doc = QJsonDocument::fromJson(byte_JsonMsg, &jsonParseError);
+
+        if (!doc.isNull() && jsonParseError.error == QJsonParseError::NoError)
+        {
+            docObj = doc.object();
+
+            if (docObj.contains("optType")) {
+                optType = docObj.value("optType").toInt();
+            }
+        }
+    }
 }
 
 /*

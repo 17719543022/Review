@@ -10,6 +10,8 @@
 #define RUN_IN_CALLBACK
 #define CALLBACK
 
+static void CALLBACK msgRecivedCallBack(const char* jsonMsg, void* userData);
+
 class MsgParse : public AmqpImp
 {
     Q_OBJECT
@@ -21,8 +23,6 @@ public:
 
 private:
     void initAmqp();
-
-    static void CALLBACK msgRecivedCallBack(const char* jsonMsg, void* userData);
 
     void RUN_IN_CALLBACK recive_msg(QByteArray &byte_jsonMsg);
 
@@ -58,6 +58,7 @@ public:
 private:
     QMutex m_mutex;
     QMetaObject::Connection ConnectionoptType;
+    QJsonObject jsonObject302;
 };
 
 inline MsgParse* MsgParse::instance()

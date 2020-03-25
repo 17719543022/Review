@@ -269,7 +269,7 @@ int FlightEnquires::query()
 {
     FlightReviewRequest request;
     request.input = flight;
-    request.queryType = 3;
+    request.queryType = 0;
 
     FlightReviewResponse response = HttpAPI::instance()->get(request);
 

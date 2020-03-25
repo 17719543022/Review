@@ -99,4 +99,163 @@
         <file>Images/6航班回查/矩形-4363.png</file>
         <file>Images/6航班回查/航班号.png</file>
     </qresource>
+    <qresource prefix="/3实时登机">
+        <file>Images/3实时登机/3.0-3.2/3.0-3.1  实时登机  .jpg</file>
+        <file>Images/3实时登机/3.0-3.2/3.0-3.1  实时登机2  .jpg</file>
+        <file>Images/3实时登机/3.0-3.2/3.0-3.1  实时登机3  .jpg</file>
+        <file>Images/3实时登机/3.0-3.2/3.0-3.1  实时登机4  .jpg</file>
+        <file>Images/3实时登机/3.0-3.2/3.0-3.1  实时登机5  .jpg</file>
+        <file>Images/3实时登机/3.0-3.2/A1门.png</file>
+        <file>Images/3实时登机/3.0-3.2/A2门.png</file>
+        <file>Images/3实时登机/3.0-3.2/B1门.png</file>
+        <file>Images/3实时登机/3.0-3.2/B2门.png</file>
+        <file>Images/3实时登机/3.0-3.2/bg.png</file>
+        <file>Images/3实时登机/3.0-3.2/logo-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/人数统计-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/人数统计.png</file>
+        <file>Images/3实时登机/3.0-3.2/关--闭.png</file>
+        <file>Images/3实时登机/3.0-3.2/其他航班-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/其他航班.png</file>
+        <file>Images/3实时登机/3.0-3.2/复核异常.png</file>
+        <file>Images/3实时登机/3.0-3.2/复核确实.png</file>
+        <file>Images/3实时登机/3.0-3.2/大弹窗BG.png</file>
+        <file>Images/3实时登机/3.0-3.2/安检验讫通过.png</file>
+        <file>Images/3实时登机/3.0-3.2/小弹窗BG.png</file>
+        <file>Images/3实时登机/3.0-3.2/常闭（1号）.png</file>
+        <file>Images/3实时登机/3.0-3.2/常闭（2号）.png</file>
+        <file>Images/3实时登机/3.0-3.2/建库人数.png</file>
+        <file>Images/3实时登机/3.0-3.2/建库人数1.png</file>
+        <file>Images/3实时登机/3.0-3.2/开-始-登-机-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/开-始-登-机.png</file>
+        <file>Images/3实时登机/3.0-3.2/形状-2.png</file>
+        <file>Images/3实时登机/3.0-3.2/按钮底框.png</file>
+        <file>Images/3实时登机/3.0-3.2/撤销航班-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/撤销航班.png</file>
+        <file>Images/3实时登机/3.0-3.2/暂停（1号）.png</file>
+        <file>Images/3实时登机/3.0-3.2/暂停（2号）.png</file>
+        <file>Images/3实时登机/3.0-3.2/未建库.png</file>
+        <file>Images/3实时登机/3.0-3.2/查---询-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/查---询.png</file>
+        <file>Images/3实时登机/3.0-3.2/照片-大.png</file>
+        <file>Images/3实时登机/3.0-3.2/登机时间.png</file>
+        <file>Images/3实时登机/3.0-3.2/矢量剪影飞机-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/矢量剪影飞机.png</file>
+        <file>Images/3实时登机/3.0-3.2/结-束-登-机-拷贝.png</file>
+        <file>Images/3实时登机/3.0-3.2/结-束-登-机.png</file>
+        <file>Images/3实时登机/3.0-3.2/航班号bg.png</file>
+        <file>Images/3实时登机/3.0-3.2/设置.png</file>
+        <file>Images/3实时登机/3.0-3.2/起飞时间.png</file>
+        <file>Images/3实时登机/3.0-3.2/返回.png</file>
+        <file>Images/3实时登机/3.0-3.2/通道.png</file>
+        <file>Images/3实时登机/3.2.1/1号通道.png</file>
+        <file>Images/3实时登机/3.2.1/2号通道.png</file>
+        <file>Images/3实时登机/3.2.1/3.0-3.1  实时登机4  .jpg</file>
+        <file>Images/3实时登机/3.2.1/3.2-3.2.1  实时登机  .jpg</file>
+        <file>Images/3实时登机/3.2.1/3.2-3.2.1  实时登机2  .jpg</file>
+        <file>Images/3实时登机/3.2.1/A1门.png</file>
+        <file>Images/3实时登机/3.2.1/A2门.png</file>
+        <file>Images/3实时登机/3.2.1/B1门.png</file>
+        <file>Images/3实时登机/3.2.1/B2门.png</file>
+        <file>Images/3实时登机/3.2.1/bg.png</file>
+        <file>Images/3实时登机/3.2.1/logo-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/中转采集.png</file>
+        <file>Images/3实时登机/3.2.1/人工复核通过.png</file>
+        <file>Images/3实时登机/3.2.1/人工验证通过.png</file>
+        <file>Images/3实时登机/3.2.1/人数统计-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/人数统计.png</file>
+        <file>Images/3实时登机/3.2.1/关--闭.png</file>
+        <file>Images/3实时登机/3.2.1/其他航班-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/其他航班.png</file>
+        <file>Images/3实时登机/3.2.1/勾选.png</file>
+        <file>Images/3实时登机/3.2.1/备降采集2.png</file>
+        <file>Images/3实时登机/3.2.1/复核异常.png</file>
+        <file>Images/3实时登机/3.2.1/复核确实.png</file>
+        <file>Images/3实时登机/3.2.1/安检验讫通过.png</file>
+        <file>Images/3实时登机/3.2.1/已报警.png</file>
+        <file>Images/3实时登机/3.2.1/常闭（1号）.png</file>
+        <file>Images/3实时登机/3.2.1/常闭（2号）.png</file>
+        <file>Images/3实时登机/3.2.1/开-始-登-机-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/开-始-登-机.png</file>
+        <file>Images/3实时登机/3.2.1/待核验.png</file>
+        <file>Images/3实时登机/3.2.1/拦---截-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/拦---截.png</file>
+        <file>Images/3实时登机/3.2.1/按钮底框.png</file>
+        <file>Images/3实时登机/3.2.1/撤销航班-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/撤销航班.png</file>
+        <file>Images/3实时登机/3.2.1/放---行-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/放---行.png</file>
+        <file>Images/3实时登机/3.2.1/旅客详情弹窗.png</file>
+        <file>Images/3实时登机/3.2.1/暂停（1号）.png</file>
+        <file>Images/3实时登机/3.2.1/暂停（2号）.png</file>
+        <file>Images/3实时登机/3.2.1/未勾选.png</file>
+        <file>Images/3实时登机/3.2.1/未复核.png</file>
+        <file>Images/3实时登机/3.2.1/未建库.png</file>
+        <file>Images/3实时登机/3.2.1/未建库1.png</file>
+        <file>Images/3实时登机/3.2.1/未验证.png</file>
+        <file>Images/3实时登机/3.2.1/查---询-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/查---询.png</file>
+        <file>Images/3实时登机/3.2.1/查询-2-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/查询2.png</file>
+        <file>Images/3实时登机/3.2.1/照片-大.png</file>
+        <file>Images/3实时登机/3.2.1/照片-小.png</file>
+        <file>Images/3实时登机/3.2.1/登机牌已采集.png</file>
+        <file>Images/3实时登机/3.2.1/矩形-4363.png</file>
+        <file>Images/3实时登机/3.2.1/系统复核通过.png</file>
+        <file>Images/3实时登机/3.2.1/系统验证不通过.png</file>
+        <file>Images/3实时登机/3.2.1/系统验证通过.png</file>
+        <file>Images/3实时登机/3.2.1/经停采集.png</file>
+        <file>Images/3实时登机/3.2.1/结-束-登-机-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/结-束-登-机.png</file>
+        <file>Images/3实时登机/3.2.1/设置.png</file>
+        <file>Images/3实时登机/3.2.1/证件失效-拷贝.png</file>
+        <file>Images/3实时登机/3.2.1/证件失效.png</file>
+        <file>Images/3实时登机/3.2.1/返回.png</file>
+        <file>Images/3实时登机/3.2.1/返回2.png</file>
+        <file>Images/3实时登机/3.2.1/通道.png</file>
+        <file>Images/3实时登机/3.2.1/采集成功.png</file>
+        <file>Images/3实时登机/3.2.2/3.0-3.1  实时登机  .jpg</file>
+        <file>Images/3实时登机/3.2.2/3.2.2  人数统计 .jpg</file>
+        <file>Images/3实时登机/3.2.2/3.2.2  人数统计 3.jpg</file>
+        <file>Images/3实时登机/3.2.2/A1门.png</file>
+        <file>Images/3实时登机/3.2.2/A2门.png</file>
+        <file>Images/3实时登机/3.2.2/B1门.png</file>
+        <file>Images/3实时登机/3.2.2/B2门.png</file>
+        <file>Images/3实时登机/3.2.2/bg.png</file>
+        <file>Images/3实时登机/3.2.2/logo-拷贝.png</file>
+        <file>Images/3实时登机/3.2.2/关--闭.png</file>
+        <file>Images/3实时登机/3.2.2/删--除-拷贝-3.png</file>
+        <file>Images/3实时登机/3.2.2/删--除.png</file>
+        <file>Images/3实时登机/3.2.2/取消-拷贝-2.png</file>
+        <file>Images/3实时登机/3.2.2/取消-拷贝.png</file>
+        <file>Images/3实时登机/3.2.2/小弹窗BG.png</file>
+        <file>Images/3实时登机/3.2.2/已登机人数-拷贝.png</file>
+        <file>Images/3实时登机/3.2.2/已登机人数.png</file>
+        <file>Images/3实时登机/3.2.2/常闭（1号）.png</file>
+        <file>Images/3实时登机/3.2.2/常闭（2号）.png</file>
+        <file>Images/3实时登机/3.2.2/建库人数-拷贝.png</file>
+        <file>Images/3实时登机/3.2.2/建库人数.png</file>
+        <file>Images/3实时登机/3.2.2/形状-2.png</file>
+        <file>Images/3实时登机/3.2.2/按钮底框.png</file>
+        <file>Images/3实时登机/3.2.2/暂停（1号）.png</file>
+        <file>Images/3实时登机/3.2.2/暂停（2号）.png</file>
+        <file>Images/3实时登机/3.2.2/未登机人数-拷贝.png</file>
+        <file>Images/3实时登机/3.2.2/未登机人数.png</file>
+        <file>Images/3实时登机/3.2.2/照片.png</file>
+        <file>Images/3实时登机/3.2.2/矢量剪影飞机-拷贝.png</file>
+        <file>Images/3实时登机/3.2.2/矢量剪影飞机.png</file>
+        <file>Images/3实时登机/3.2.2/确--认-拷贝-2.png</file>
+        <file>Images/3实时登机/3.2.2/确--认-拷贝.png</file>
+        <file>Images/3实时登机/3.2.2/航班号bg.png</file>
+        <file>Images/3实时登机/3.2.2/设置.png</file>
+        <file>Images/3实时登机/3.2.2/返回.png</file>
+        <file>Images/3实时登机/弹窗/关--闭.png</file>
+        <file>Images/3实时登机/弹窗/取消-拷贝-2.png</file>
+        <file>Images/3实时登机/弹窗/取消-拷贝.png</file>
+        <file>Images/3实时登机/弹窗/大弹窗BG.png</file>
+        <file>Images/3实时登机/弹窗/小弹窗BG.png</file>
+        <file>Images/3实时登机/弹窗/提交.png</file>
+        <file>Images/3实时登机/弹窗/确--认-拷贝-2.png</file>
+        <file>Images/3实时登机/弹窗/确--认-拷贝.png</file>
+        <file>Images/3实时登机/弹窗/输入框.png</file>
+    </qresource>
 </RCC>
