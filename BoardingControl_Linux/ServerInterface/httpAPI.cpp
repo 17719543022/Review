@@ -96,6 +96,7 @@ int HttpAPI::Init()
 
         char *headchr3 = header3.data();
         QString url3 = flightReviewServer + flightReviewUrl;
+        qDebug() << "url3: " << url3;
         char *url3chr = url3.toLatin1().data();
 
         res = LIBSetHeaderEx(url3chr, headchr3);

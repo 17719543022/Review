@@ -5,6 +5,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QVBoxLayout>
+#include "messagedialog.h"
 
 RemovePushButton::RemovePushButton(QWidget *parent, int index) :
     QPushButton (parent),
@@ -69,7 +70,7 @@ void FlightEnquires::statistics(QString flight)
     ui->inputWidget->hide();
     this->on_orgDepPushButton_clicked();
 
-    this->show();
+    this->query();
 }
 
 FlightEnquires::~FlightEnquires()
@@ -90,7 +91,8 @@ void FlightEnquires::on_queryPushButton_clicked()
     ui->notboardingTableWidget->hide();
 
     if (Ui::DisplayType::DisplayNullErr == query()) {
-         // TODO
+         MessageDialog msg(NULL, NULL, "请输入正确的航班号!", 1);
+         msg.exec();
      }
 }
 
@@ -285,6 +287,10 @@ int FlightEnquires::query()
         ui->notboardingTableWidget->clear();
 
         return Ui::DisplayType::DisplayNullErr;
+    }
+
+    for (int i = 0; i < 1000; i++) {
+        qDebug() << response.interface.results[i].updateTime;
     }
 
     tableUp(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
