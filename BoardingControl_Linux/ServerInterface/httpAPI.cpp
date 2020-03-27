@@ -96,7 +96,7 @@ int HttpAPI::Init()
 
         char *headchr3 = header3.data();
         QString url3 = flightReviewServer + flightReviewUrl;
-        qDebug() << "url3: " << url3;
+        qDebug() << "flightReviewServer + flightReviewUrl: " << url3;
         char *url3chr = url3.toLatin1().data();
 
         res = LIBSetHeaderEx(url3chr, headchr3);
@@ -239,6 +239,8 @@ FlightReviewResponse HttpAPI::get(const FlightReviewRequest& request)
         json.insert("gateNo", LocalSettings::config->value("Device/gateNo").toString());
         json.insert("boardingGate", LocalSettings::config->value("Device/boardingGate").toString());
 
+        qDebug() << "FlightReviewRequest: " << json;
+
         bytes.append(QJsonDocument(json).toJson());
 
         char *response;
@@ -326,7 +328,7 @@ FlowReviewResponse HttpAPI::get(const FlowReviewRequest& request)
             QJsonParseError jsonParseError;
             QJsonDocument document = QJsonDocument::fromJson(array, &jsonParseError);
 
-            qDebug() << "document: " << document;
+//            qDebug() << "document: " << document;
 
             if(!document.isNull() && jsonParseError.error == QJsonParseError::NoError)
             {

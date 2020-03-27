@@ -18,7 +18,13 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FlightEnquires),
     flight(QString()),
-    isStatisticsMode(false)
+    isStatisticsMode(false),
+    orgDepFilledNum(0),
+    orgDepFillIndex(0),
+    boardingFilledNum(0),
+    boardingFillIndex(0),
+    notboardingFilledNum(0),
+    notboardingFillIndex(0)
 {
     signalMapper = new QSignalMapper(this);
 
@@ -60,6 +66,10 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     ui->notboardingTableWidget->setShowGrid(false);
     ui->notboardingTableWidget->setColumnCount(1);
     ui->notboardingTableWidget->setColumnWidth(0, 766);
+
+    connect((QWidget*)ui->orgDepTableWidget->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_orgDepSlider_changed(int)));
+    connect((QWidget*)ui->boardingTableWidget->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_boardingSlider_changed(int)));
+    connect((QWidget*)ui->notboardingTableWidget->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_notBoardingSlider_changed(int)));
 }
 
 void FlightEnquires::statistics(QString flight)
@@ -91,7 +101,7 @@ void FlightEnquires::on_queryPushButton_clicked()
     ui->notboardingTableWidget->hide();
 
     if (Ui::DisplayType::DisplayNullErr == query()) {
-         MessageDialog msg(NULL, NULL, "请输入正确的航班号!", 1);
+         MessageDialog msg(this, NULL, "请输入正确的航班号!", 1);
          msg.exec();
      }
 }
@@ -129,9 +139,30 @@ void FlightEnquires::on_notboardingPushButton_clicked()
     ui->notboardingTableWidget->show();
 }
 
-void FlightEnquires::removeRow(int widgetIndex)
+void FlightEnquires::on_orgDepSlider_changed(int p)
 {
-    qDebug() << "FlightEnquires::removeRow: " << widgetIndex;
+    if (p > orgDepFilledNum * 2 - 6) {
+        tableFillGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+    }
+}
+
+void FlightEnquires::on_boardingSlider_changed(int p)
+{
+    if (p > boardingFilledNum * 2 - 6) {
+        tableFillGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
+    }
+}
+
+void FlightEnquires::on_notBoardingSlider_changed(int p)
+{
+    if (p > notboardingFilledNum * 2 - 6) {
+        tableFillGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
+    }
+}
+
+void FlightEnquires::on_removeRow_clicked(int widgetIndex)
+{
+     qDebug() << "FlightEnquires::on_removeRow_clicked: " << widgetIndex;
 }
 
 QPixmap FlightEnquires::getQPixmapSync(QString str)
@@ -154,25 +185,49 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
     return pixmap;
 }
 
-void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab)
+void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab)
 {
     int widgetIndex = 0;
+    int resultIndex = 0;
 
-    for (int i = 0; i < response.interface.validSize; i++) {
-        if (tab == Ui::DisplayTab::DepositoryTab
-                && response.interface.results[i].id == "") {
-            continue;
+    if (tab == Ui::DisplayTab::DepositoryTab) {
+        widgetIndex = orgDepFilledNum * 2;
+        resultIndex = orgDepFillIndex;
+    }
+    if (tab == Ui::DisplayTab::BoardingTab) {
+        widgetIndex = boardingFilledNum * 2;
+        resultIndex = boardingFillIndex;
+    }
+    if (tab == Ui::DisplayTab::NotBoardingTab) {
+        widgetIndex = notboardingFilledNum * 2;
+        resultIndex = notboardingFillIndex;
+    }
+
+    int batch = 0;
+    for (int i = resultIndex; (i < response.interface.validSize) && (batch < 3); i++) {
+        if (tab == Ui::DisplayTab::DepositoryTab) {
+            orgDepFillIndex += 1;
+
+            if (response.interface.results[i].id == "") {
+                continue;
+            }
         }
 
-        if (tab == Ui::DisplayTab::BoardingTab
-                && response.interface.results[i].boardingStatus != 1) {
-            continue;
+        if (tab == Ui::DisplayTab::BoardingTab) {
+            boardingFillIndex += 1;
+
+            if (response.interface.results[i].boardingStatus != 1) {
+                continue;
+            }
         }
 
-        if (tab == Ui::DisplayTab::NotBoardingTab
-                && !(response.interface.results[i].id != ""
-                    && response.interface.results[i].boardingStatus == 0)) {
-            continue;
+        if (tab == Ui::DisplayTab::NotBoardingTab) {
+            notboardingFillIndex += 1;
+
+            if (!(response.interface.results[i].id != ""
+                  && response.interface.results[i].boardingStatus == 0)) {
+                continue;
+            }
         }
 
         table->setRowHeight(widgetIndex, 186);
@@ -180,13 +235,11 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
         table->setRowHeight(widgetIndex, 186);
 
         QWidget *itemWidget = new QWidget();
-        QImage img;
-        img.load(":/6航班回查/Images/6航班回查/照片.png");
-        img = img.scaled(131
-                         , 171
-                         , Qt::IgnoreAspectRatio
-                         , Qt::SmoothTransformation);
-        QPixmap pixmap = QPixmap::fromImage(img);
+        QPixmap pixmap = getQPixmapSync(response.interface.results[i].photoPath);
+        pixmap = pixmap.scaled(131
+                               , 186
+                               , Qt::IgnoreAspectRatio
+                               , Qt::SmoothTransformation);
         QLabel *photoLabel = new QLabel(itemWidget);
         photoLabel->setGeometry(30, 0, 131, 186);
         photoLabel->setPixmap(pixmap);
@@ -202,7 +255,7 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
 
         QLabel *nameLabel = new QLabel(itemWidget);
         nameLabel->setGeometry(306, 14, 300, 38);
-        nameLabel->setText("张定军");
+        nameLabel->setText(response.interface.results[i].passengerName);
         nameLabel->setFixedSize(300, 38);
         nameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         nameLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -216,7 +269,7 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
 
         QLabel *flightLabel = new QLabel(itemWidget);
         flightLabel->setGeometry(356, 74, 300, 38);
-        flightLabel->setText(response.interface.results[i].flightNumber);
+        flightLabel->setText(response.interface.results[i].flightNumber + "/" + response.interface.results[i].boardingNumber);
         flightLabel->setFixedSize(300, 38);
         flightLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         flightLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -230,7 +283,8 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
 
         QLabel *seatLabel = new QLabel(itemWidget);
         seatLabel->setGeometry(278, 134, 300, 38);
-        seatLabel->setText(response.interface.results[i].seatNumber);
+//        seatLabel->setText(response.interface.results[i].seatNumber);
+        seatLabel->setText(QString::number(notboardingFilledNum + 1));
         seatLabel->setFixedSize(300, 38);
         seatLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -247,24 +301,40 @@ void FlightEnquires::tableUp(const FlightReviewResponse &response, QTableWidget 
         }
 
         table->setCellWidget(widgetIndex, 0, itemWidget);
-        widgetIndex = widgetIndex + 1;
+        batch += 1;
+        widgetIndex += 1;
 
-        if (i < response.interface.validSize - 1) {
-            table->setRowHeight(widgetIndex, 2);
-            table->insertRow(widgetIndex);
-            table->setRowHeight(widgetIndex, 2);
-
-            QWidget *splitWidget = new QWidget();
-            QLabel *splitLabel = new QLabel(splitWidget);
-            splitLabel->setGeometry(13, 0, 740, 2);
-            splitLabel->setStyleSheet("image: 0; background: 0; border-radius: 0; border-width: 1px; border-style: dashed; border-color: rgb(135, 183, 194);");
-
-            table->setCellWidget(widgetIndex, 0, splitWidget);
-            widgetIndex = widgetIndex + 1;
+        if (tab == Ui::DisplayTab::DepositoryTab) {
+            orgDepFilledNum += 1;
+            if (orgDepFilledNum == response.interface.dataInfo.faceNums) {
+                continue;
+            }
         }
-    }
+        if (tab == Ui::DisplayTab::BoardingTab) {
+            boardingFilledNum += 1;
+            if (boardingFilledNum == response.interface.dataInfo.boardingNum) {
+                continue;
+            }
+        }
+        if (tab == Ui::DisplayTab::NotBoardingTab) {
+            notboardingFilledNum += 1;
+            if (notboardingFilledNum == response.interface.total - response.interface.dataInfo.boardingNum) {
+                continue;
+            }
+        }
 
-    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(removeRow(int)));
+        table->setRowHeight(widgetIndex, 2);
+        table->insertRow(widgetIndex);
+        table->setRowHeight(widgetIndex, 2);
+
+        QWidget *splitWidget = new QWidget();
+        QLabel *splitLabel = new QLabel(splitWidget);
+        splitLabel->setGeometry(13, 0, 740, 2);
+        splitLabel->setStyleSheet("image: 0; background: 0; border-radius: 0; border-width: 1px; border-style: dashed; border-color: rgb(135, 183, 194);");
+
+        table->setCellWidget(widgetIndex, 0, splitWidget);
+        widgetIndex = widgetIndex + 1;
+    }
 }
 
 int FlightEnquires::query()
@@ -273,7 +343,7 @@ int FlightEnquires::query()
     request.input = flight;
     request.queryType = 0;
 
-    FlightReviewResponse response = HttpAPI::instance()->get(request);
+    response = HttpAPI::instance()->get(request);
 
     ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
     ui->boardingPushButton->setText("已登机人数：" + QString::number(response.interface.dataInfo.boardingNum));
@@ -289,13 +359,9 @@ int FlightEnquires::query()
         return Ui::DisplayType::DisplayNullErr;
     }
 
-    for (int i = 0; i < 1000; i++) {
-        qDebug() << response.interface.results[i].updateTime;
-    }
-
-    tableUp(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
-    tableUp(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
-    tableUp(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
+//    tableFillGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+//    tableFillGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
+    tableFillGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 
     return Ui::DisplayType::DisplayNormal;
 }

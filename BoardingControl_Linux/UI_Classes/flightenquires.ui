@@ -14,16 +14,19 @@
    <string>航班回查</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(1, 65, 109);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="flightQueryWidget" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>117</y>
+     <y>0</y>
      <width>800</width>
      <height>964</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(1, 65, 109);</string>
    </property>
    <widget class="QWidget" name="flightWidget" native="true">
     <property name="geometry">

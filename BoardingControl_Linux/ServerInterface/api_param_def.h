@@ -157,7 +157,7 @@ struct FlightReviewInterface {
             if (!resultsJson.isNull() && resultsJson.isArray()) {
                 QJsonArray array = resultsJson.toArray();
                 validSize = array.size();
-                for (int i = 0; i < array.size() && i < 1000; i++) {
+                for (int i = 0; i < validSize && i < 1000; i++) {
                     QString time = array.at(i).toObject().value("updateTime").toString();
                     if (i == 0) {
                         results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
@@ -196,6 +196,18 @@ struct FlightReviewInterface {
                                 results[j].seatNumber = array.at(i).toObject().value("seatNumber").toString();
                                 results[j].updateTime = array.at(i).toObject().value("updateTime").toString();
                                 break;
+                            }
+                            if (j == i - 1) {
+                                results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                                results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                                results[i].cardNo = array.at(i).toObject().value("cardNo").toString();
+                                results[i].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                                results[i].id = array.at(i).toObject().value("id").toString();
+                                results[i].passengerName = array.at(i).toObject().value("passengerName").toString();
+                                results[i].photoPath = array.at(i).toObject().value("photoPath").toString();
+                                results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                                results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                                results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
                             }
                         }
                     }

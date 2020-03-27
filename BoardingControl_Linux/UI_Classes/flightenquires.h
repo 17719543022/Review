@@ -55,12 +55,18 @@ private slots:
 
     void on_notboardingPushButton_clicked();
 
-    void removeRow(int);
+    void on_orgDepSlider_changed(int p);
+
+    void on_boardingSlider_changed(int p);
+
+    void on_notBoardingSlider_changed(int p);
+
+    void on_removeRow_clicked(int);
 
 private:
     int query();
 
-    void tableUp(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab);
+    void tableFillGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab);
 
     QPixmap getQPixmapSync(QString str);
 
@@ -69,9 +75,23 @@ private:
 
     QSignalMapper *signalMapper;
 
+    FlightReviewResponse response;
+
     QString flight;
 
     bool isStatisticsMode;
+
+    int orgDepFilledNum;
+
+    int orgDepFillIndex;
+
+    int boardingFilledNum;
+
+    int boardingFillIndex;
+
+    int notboardingFilledNum;
+
+    int notboardingFillIndex;
 };
 
 #endif // FLIGHTENQUIRES_H
