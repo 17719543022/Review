@@ -87,6 +87,7 @@ struct FlightReviewResult {
     int repeatFlag;
     QString seatNumber;
     QString updateTime;
+    bool isSameBoardingNumber;
 
     FlightReviewResult() {
         boardingNumber = QString();
@@ -99,6 +100,7 @@ struct FlightReviewResult {
         repeatFlag = -1;
         seatNumber = QString();
         updateTime = QString();
+        isSameBoardingNumber = true;
     }
 };
 
@@ -111,6 +113,8 @@ struct FlightReviewInterface {
     DataInfo dataInfo;
     int validSize;
     FlightReviewResult results[1000];
+    FlightReviewResult boarded[1000];
+    FlightReviewResult unboard[1000];
 
     FlightReviewInterface() {
         status = -1;
@@ -121,7 +125,7 @@ struct FlightReviewInterface {
         validSize = -1;
     }
 
-    void update(QJsonDocument &doc) {
+    void doUpdate(QJsonDocument &doc) {
         QJsonObject docObj = doc.object();
 
         if (docObj.contains("status")) {
@@ -139,6 +143,7 @@ struct FlightReviewInterface {
         if (docObj.contains("total")) {
             total = docObj.value("total").toInt();
         }
+
         if (docObj.contains("dataInfo")) {
             QJsonValue dataInfoJson = docObj.value("dataInfo");
             if (!dataInfoJson.isNull() && dataInfoJson.isObject()) {
@@ -152,27 +157,111 @@ struct FlightReviewInterface {
                 dataInfo.transferNum = dataInfoObj.value("transferNum").toInt();
             }
         }
+
         if (docObj.contains("results")) {
-            QJsonValue resultsJson = docObj.value("results");
-            if (!resultsJson.isNull() && resultsJson.isArray()) {
-                QJsonArray array = resultsJson.toArray();
-                validSize = array.size();
-                for (int i = 0; i < validSize && i < 1000; i++) {
-                    QString time = array.at(i).toObject().value("updateTime").toString();
-                    if (i == 0) {
-                        results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
-                        results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
-                        results[i].cardNo = array.at(i).toObject().value("cardNo").toString();
-                        results[i].flightNumber = array.at(i).toObject().value("flightNumber").toString();
-                        results[i].id = array.at(i).toObject().value("id").toString();
-                        results[i].passengerName = array.at(i).toObject().value("passengerName").toString();
-                        results[i].photoPath = array.at(i).toObject().value("photoPath").toString();
-                        results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
-                        results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
-                        results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
+            updateResults(docObj);
+            updateBoarded(docObj);
+            updateUnBoard(docObj);
+        }
+    }
+
+    void updateResults(QJsonObject &docObj) {
+        QJsonValue resultsJson = docObj.value("results");
+        if (!resultsJson.isNull() && resultsJson.isArray()) {
+            QJsonArray array = resultsJson.toArray();
+            validSize = array.size();
+            for (int i = 0; i < validSize && i < 1000; i++) {
+                QString time = array.at(i).toObject().value("updateTime").toString();
+                QString boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                if (i == 0) {
+                    results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                    results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                    results[i].cardNo = array.at(i).toObject().value("cardNo").toString();
+                    results[i].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                    results[i].id = array.at(i).toObject().value("id").toString();
+                    results[i].passengerName = array.at(i).toObject().value("passengerName").toString();
+                    results[i].photoPath = array.at(i).toObject().value("photoPath").toString();
+                    results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                    results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                    results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
+                    results[i].isSameBoardingNumber = false;
+                } else {
+                    bool isSameboardingNumber = false;
+                    int sameBoardingNumber = 0;
+                    for (int j = 0; j < i; j++) {
+                        if (boardingNumber == results[j].boardingNumber) {
+                            isSameboardingNumber = true;
+                            sameBoardingNumber = j;
+                            break;
+                        }
+                    }
+
+                    if (isSameboardingNumber) {
+                        QString tempBoardingNumber = results[sameBoardingNumber].boardingNumber;
+                        int tempBoardingStatus = results[sameBoardingNumber].boardingStatus;
+                        QString tempCardNo = results[sameBoardingNumber].cardNo;
+                        QString tempFlightNumber = results[sameBoardingNumber].flightNumber;
+                        QString tempId = results[sameBoardingNumber].id;
+                        QString tempPassengerName = results[sameBoardingNumber].passengerName;
+                        QString tempPhotoPath = results[sameBoardingNumber].photoPath;
+                        int tempRepeatFlag = results[sameBoardingNumber].repeatFlag;
+                        QString tempSeatNumber = results[sameBoardingNumber].seatNumber;
+                        QString tempUpdateTime = results[sameBoardingNumber].updateTime;
+
+                        for (int k = i; k > 0; k--) {
+                            if (k > sameBoardingNumber + 1) {
+                                results[k].boardingNumber = results[k - 1].boardingNumber;
+                                results[k].boardingStatus = results[k - 1].boardingStatus;
+                                results[k].cardNo = results[k - 1].cardNo;
+                                results[k].flightNumber = results[k - 1].flightNumber;
+                                results[k].id = results[k - 1].id;
+                                results[k].passengerName = results[k - 1].passengerName;
+                                results[k].photoPath = results[k - 1].photoPath;
+                                results[k].repeatFlag = results[k - 1].repeatFlag;
+                                results[k].seatNumber = results[k - 1].seatNumber;
+                                results[k].updateTime = results[k - 1].updateTime;
+                                results[k].isSameBoardingNumber = results[k - 1].isSameBoardingNumber;
+                            } else if (k >= 2) {
+                                results[k].boardingNumber = results[k - 2].boardingNumber;
+                                results[k].boardingStatus = results[k - 2].boardingStatus;
+                                results[k].cardNo = results[k - 2].cardNo;
+                                results[k].flightNumber = results[k - 2].flightNumber;
+                                results[k].id = results[k - 2].id;
+                                results[k].passengerName = results[k - 2].passengerName;
+                                results[k].photoPath = results[k - 2].photoPath;
+                                results[k].repeatFlag = results[k - 2].repeatFlag;
+                                results[k].seatNumber = results[k - 2].seatNumber;
+                                results[k].updateTime = results[k - 2].updateTime;
+                                results[k].isSameBoardingNumber = results[k - 2].isSameBoardingNumber;
+                            }
+                        }
+
+                        results[1].boardingNumber = tempBoardingNumber;
+                        results[1].boardingStatus = tempBoardingStatus;
+                        results[1].cardNo = tempCardNo;
+                        results[1].flightNumber = tempFlightNumber;
+                        results[1].id = tempId;
+                        results[1].passengerName = tempPassengerName;
+                        results[1].photoPath = tempPhotoPath;
+                        results[1].repeatFlag = tempRepeatFlag;
+                        results[1].seatNumber = tempSeatNumber;
+                        results[1].updateTime = tempUpdateTime;
+                        results[1].isSameBoardingNumber = true;
+
+                        results[0].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                        results[0].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                        results[0].cardNo = array.at(i).toObject().value("cardNo").toString();
+                        results[0].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                        results[0].id = array.at(i).toObject().value("id").toString();
+                        results[0].passengerName = array.at(i).toObject().value("passengerName").toString();
+                        results[0].photoPath = array.at(i).toObject().value("photoPath").toString();
+                        results[0].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                        results[0].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                        results[0].updateTime = array.at(i).toObject().value("updateTime").toString();
+                        results[0].isSameBoardingNumber = true;
                     } else {
                         for (int j = 0; j < i; j++) {
-                            if (time > results[j].updateTime) {
+                            if (time > results[j].updateTime && !results[j].isSameBoardingNumber) {
                                 for (int k = i - 1; k >= j; k--) {
                                     results[k + 1].boardingNumber = results[k].boardingNumber;
                                     results[k + 1].boardingStatus = results[k].boardingStatus;
@@ -184,6 +273,7 @@ struct FlightReviewInterface {
                                     results[k + 1].repeatFlag = results[k].repeatFlag;
                                     results[k + 1].seatNumber = results[k].seatNumber;
                                     results[k + 1].updateTime = results[k].updateTime;
+                                    results[k + 1].isSameBoardingNumber = results[k].isSameBoardingNumber;
                                 }
                                 results[j].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
                                 results[j].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
@@ -195,6 +285,7 @@ struct FlightReviewInterface {
                                 results[j].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
                                 results[j].seatNumber = array.at(i).toObject().value("seatNumber").toString();
                                 results[j].updateTime = array.at(i).toObject().value("updateTime").toString();
+                                results[j].isSameBoardingNumber = false;
                                 break;
                             }
                             if (j == i - 1) {
@@ -208,7 +299,148 @@ struct FlightReviewInterface {
                                 results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
                                 results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
                                 results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
+                                results[i].isSameBoardingNumber = false;
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void updateBoarded(QJsonObject &docObj) {
+        QJsonValue resultsJson = docObj.value("results");
+        if (!resultsJson.isNull() && resultsJson.isArray()) {
+            QJsonArray array = resultsJson.toArray();
+            validSize = array.size();
+            for (int i = 0; i < validSize && i < 1000; i++) {
+                QString time = array.at(i).toObject().value("updateTime").toString();
+                QString boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                if (i == 0) {
+                    results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                    results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                    results[i].cardNo = array.at(i).toObject().value("cardNo").toString();
+                    results[i].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                    results[i].id = array.at(i).toObject().value("id").toString();
+                    results[i].passengerName = array.at(i).toObject().value("passengerName").toString();
+                    results[i].photoPath = array.at(i).toObject().value("photoPath").toString();
+                    results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                    results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                    results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
+                    results[i].isSameBoardingNumber = false;
+                } else {
+                    for (int j = 0; j < i; j++) {
+                        if (results[j].isSameBoardingNumber) {
+                            continue;
+                        }
+                        if (time > results[j].updateTime) {
+                            for (int k = i - 1; k >= j; k--) {
+                                results[k + 1].boardingNumber = results[k].boardingNumber;
+                                results[k + 1].boardingStatus = results[k].boardingStatus;
+                                results[k + 1].cardNo = results[k].cardNo;
+                                results[k + 1].flightNumber = results[k].flightNumber;
+                                results[k + 1].id = results[k].id;
+                                results[k + 1].passengerName = results[k].passengerName;
+                                results[k + 1].photoPath = results[k].photoPath;
+                                results[k + 1].repeatFlag = results[k].repeatFlag;
+                                results[k + 1].seatNumber = results[k].seatNumber;
+                                results[k + 1].updateTime = results[k].updateTime;
+                            }
+                            results[j].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                            results[j].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                            results[j].cardNo = array.at(i).toObject().value("cardNo").toString();
+                            results[j].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                            results[j].id = array.at(i).toObject().value("id").toString();
+                            results[j].passengerName = array.at(i).toObject().value("passengerName").toString();
+                            results[j].photoPath = array.at(i).toObject().value("photoPath").toString();
+                            results[j].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                            results[j].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                            results[j].updateTime = array.at(i).toObject().value("updateTime").toString();
+                            results[j].isSameBoardingNumber = false;
+                            break;
+                        }
+                        if (j == i - 1) {
+                            results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                            results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                            results[i].cardNo = array.at(i).toObject().value("cardNo").toString();
+                            results[i].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                            results[i].id = array.at(i).toObject().value("id").toString();
+                            results[i].passengerName = array.at(i).toObject().value("passengerName").toString();
+                            results[i].photoPath = array.at(i).toObject().value("photoPath").toString();
+                            results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                            results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                            results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
+                            results[i].isSameBoardingNumber = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void updateUnBoard(QJsonObject &docObj) {
+        QJsonValue resultsJson = docObj.value("results");
+        if (!resultsJson.isNull() && resultsJson.isArray()) {
+            QJsonArray array = resultsJson.toArray();
+            validSize = array.size();
+            for (int i = 0; i < validSize && i < 1000; i++) {
+                QString time = array.at(i).toObject().value("updateTime").toString();
+                QString boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                if (i == 0) {
+                    results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                    results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                    results[i].cardNo = array.at(i).toObject().value("cardNo").toString();
+                    results[i].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                    results[i].id = array.at(i).toObject().value("id").toString();
+                    results[i].passengerName = array.at(i).toObject().value("passengerName").toString();
+                    results[i].photoPath = array.at(i).toObject().value("photoPath").toString();
+                    results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                    results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                    results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
+                    results[i].isSameBoardingNumber = false;
+                } else {
+                    for (int j = 0; j < i; j++) {
+                        if (results[j].isSameBoardingNumber) {
+                            continue;
+                        }
+                        if (time > results[j].updateTime) {
+                            for (int k = i - 1; k >= j; k--) {
+                                results[k + 1].boardingNumber = results[k].boardingNumber;
+                                results[k + 1].boardingStatus = results[k].boardingStatus;
+                                results[k + 1].cardNo = results[k].cardNo;
+                                results[k + 1].flightNumber = results[k].flightNumber;
+                                results[k + 1].id = results[k].id;
+                                results[k + 1].passengerName = results[k].passengerName;
+                                results[k + 1].photoPath = results[k].photoPath;
+                                results[k + 1].repeatFlag = results[k].repeatFlag;
+                                results[k + 1].seatNumber = results[k].seatNumber;
+                                results[k + 1].updateTime = results[k].updateTime;
+                            }
+                            results[j].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                            results[j].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                            results[j].cardNo = array.at(i).toObject().value("cardNo").toString();
+                            results[j].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                            results[j].id = array.at(i).toObject().value("id").toString();
+                            results[j].passengerName = array.at(i).toObject().value("passengerName").toString();
+                            results[j].photoPath = array.at(i).toObject().value("photoPath").toString();
+                            results[j].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                            results[j].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                            results[j].updateTime = array.at(i).toObject().value("updateTime").toString();
+                            results[j].isSameBoardingNumber = false;
+                            break;
+                        }
+                        if (j == i - 1) {
+                            results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                            results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
+                            results[i].cardNo = array.at(i).toObject().value("cardNo").toString();
+                            results[i].flightNumber = array.at(i).toObject().value("flightNumber").toString();
+                            results[i].id = array.at(i).toObject().value("id").toString();
+                            results[i].passengerName = array.at(i).toObject().value("passengerName").toString();
+                            results[i].photoPath = array.at(i).toObject().value("photoPath").toString();
+                            results[i].repeatFlag = array.at(i).toObject().value("repeatFlag").toInt();
+                            results[i].seatNumber = array.at(i).toObject().value("seatNumber").toString();
+                            results[i].updateTime = array.at(i).toObject().value("updateTime").toString();
+                            results[i].isSameBoardingNumber = false;
                         }
                     }
                 }
@@ -250,7 +482,7 @@ struct FlightReviewResponse {
             founded = false;
         }
 
-        interface.update(doc);
+        interface.doUpdate(doc);
     }
 
     FlightReviewResponse() {

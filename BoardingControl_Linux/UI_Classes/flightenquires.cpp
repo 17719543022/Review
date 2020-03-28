@@ -345,6 +345,10 @@ int FlightEnquires::query()
 
     response = HttpAPI::instance()->get(request);
 
+    for (int i = 0; i < response.interface.validSize; i++) {
+        qDebug() << response.interface.results[i].isSameBoardingNumber << "\t\t" << response.interface.results[i].updateTime << "\t\t" << response.interface.results[i].boardingNumber;
+    }
+
     ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
     ui->boardingPushButton->setText("已登机人数：" + QString::number(response.interface.dataInfo.boardingNum));
     ui->notboardingPushButton->setText("未登机人数：" + QString::number(response.interface.total - response.interface.dataInfo.boardingNum));
@@ -359,9 +363,9 @@ int FlightEnquires::query()
         return Ui::DisplayType::DisplayNullErr;
     }
 
-//    tableFillGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+    tableFillGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 //    tableFillGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
-    tableFillGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
+//    tableFillGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 
     return Ui::DisplayType::DisplayNormal;
 }

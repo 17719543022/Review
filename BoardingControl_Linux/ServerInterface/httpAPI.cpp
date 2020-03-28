@@ -262,7 +262,7 @@ FlightReviewResponse HttpAPI::get(const FlightReviewRequest& request)
             QJsonParseError jsonParseError;
             QJsonDocument document = QJsonDocument::fromJson(array, &jsonParseError);
 
-            qDebug() << "document: " << document;
+//            qDebug() << "document: " << document;
 
             if(!document.isNull() && jsonParseError.error == QJsonParseError::NoError)
             {
