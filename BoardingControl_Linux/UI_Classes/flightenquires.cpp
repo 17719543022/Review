@@ -187,6 +187,20 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
 
 void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab)
 {
+    FlightReviewResult results[1000];
+
+    for (int i = 0; i < response.interface.validSize; i++) {
+        if (tab == Ui::DisplayTab::DepositoryTab) {
+            results[i] = response.interface.results[i];
+        }
+        if (tab == Ui::DisplayTab::BoardingTab) {
+            results[i] = response.interface.boarded[i];
+        }
+        if (tab == Ui::DisplayTab::NotBoardingTab) {
+            results[i] = response.interface.unboard[i];
+        }
+    }
+
     int widgetIndex = 0;
     int resultIndex = 0;
 
@@ -208,7 +222,7 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
         if (tab == Ui::DisplayTab::DepositoryTab) {
             orgDepFillIndex += 1;
 
-            if (response.interface.results[i].id == "") {
+            if (results[i].id == "") {
                 continue;
             }
         }
@@ -216,7 +230,7 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
         if (tab == Ui::DisplayTab::BoardingTab) {
             boardingFillIndex += 1;
 
-            if (response.interface.results[i].boardingStatus != 1) {
+            if (results[i].boardingStatus != 1) {
                 continue;
             }
         }
@@ -224,8 +238,8 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
         if (tab == Ui::DisplayTab::NotBoardingTab) {
             notboardingFillIndex += 1;
 
-            if (!(response.interface.results[i].id != ""
-                  && response.interface.results[i].boardingStatus == 0)) {
+            if (!(results[i].id != ""
+                  && results[i].boardingStatus == 0)) {
                 continue;
             }
         }
@@ -236,7 +250,7 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
 
         QWidget *itemWidget = new QWidget();
 
-        if (response.interface.results[i].isSameBoardingNumber) {
+        if (results[i].isSameBoardingNumber) {
             QImage sameBoardingNumberBGImage;
             sameBoardingNumberBGImage.load(":/6航班回查/Images/6航班回查/矩形-4365.png");
             sameBoardingNumberBGImage = sameBoardingNumberBGImage.scaled(766
@@ -251,7 +265,7 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
             sameBoardingNumberBGLabel->setAlignment(Qt::AlignCenter);
         }
 
-        QPixmap pixmap = getQPixmapSync(response.interface.results[i].photoPath);
+        QPixmap pixmap = getQPixmapSync(results[i].photoPath);
         pixmap = pixmap.scaled(131
                                , 186
                                , Qt::IgnoreAspectRatio
@@ -271,7 +285,7 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
 
         QLabel *nameLabel = new QLabel(itemWidget);
         nameLabel->setGeometry(306, 14, 300, 38);
-        nameLabel->setText(response.interface.results[i].passengerName);
+        nameLabel->setText(results[i].passengerName);
         nameLabel->setFixedSize(300, 38);
         nameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         nameLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -285,7 +299,7 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
 
         QLabel *flightLabel = new QLabel(itemWidget);
         flightLabel->setGeometry(356, 74, 300, 38);
-        flightLabel->setText(response.interface.results[i].flightNumber + "/" + response.interface.results[i].boardingNumber);
+        flightLabel->setText(results[i].flightNumber + "/" + results[i].boardingNumber);
         flightLabel->setFixedSize(300, 38);
         flightLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         flightLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -299,8 +313,7 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
 
         QLabel *seatLabel = new QLabel(itemWidget);
         seatLabel->setGeometry(278, 134, 300, 38);
-//        seatLabel->setText(response.interface.results[i].seatNumber);
-        seatLabel->setText(QString::number(notboardingFilledNum + 1));
+        seatLabel->setText(results[i].seatNumber);
         seatLabel->setFixedSize(300, 38);
         seatLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -361,9 +374,9 @@ int FlightEnquires::query()
 
     response = HttpAPI::instance()->get(request);
 
-    for (int i = 0; i < response.interface.validSize; i++) {
-        qDebug() << response.interface.results[i].isSameBoardingNumber << "\t\t" << response.interface.results[i].updateTime << "\t\t" << response.interface.results[i].boardingNumber;
-    }
+//    for (int i = 0; i < response.interface.validSize; i++) {
+//        qDebug() << response.interface.unboard[i].seatNumber;
+//    }
 
     ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
     ui->boardingPushButton->setText("已登机人数：" + QString::number(response.interface.dataInfo.boardingNum));
@@ -381,7 +394,7 @@ int FlightEnquires::query()
 
     tableFillGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 //    tableFillGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
-//    tableFillGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
+    tableFillGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 
     return Ui::DisplayType::DisplayNormal;
 }
