@@ -235,6 +235,22 @@ void FlightEnquires::tableFillGradually(const FlightReviewResponse &response, QT
         table->setRowHeight(widgetIndex, 186);
 
         QWidget *itemWidget = new QWidget();
+
+        if (response.interface.results[i].isSameBoardingNumber) {
+            QImage sameBoardingNumberBGImage;
+            sameBoardingNumberBGImage.load(":/6航班回查/Images/6航班回查/矩形-4365.png");
+            sameBoardingNumberBGImage = sameBoardingNumberBGImage.scaled(766
+                                                                         , 185
+                                                                         , Qt::IgnoreAspectRatio
+                                                                         , Qt::SmoothTransformation);
+            QPixmap sameBoardingNumberBGPixmap = QPixmap::fromImage(sameBoardingNumberBGImage);
+            QLabel *sameBoardingNumberBGLabel = new QLabel(itemWidget);
+            sameBoardingNumberBGLabel->setGeometry(0, 0, 766, 185);
+            sameBoardingNumberBGLabel->setPixmap(sameBoardingNumberBGPixmap);
+            sameBoardingNumberBGLabel->setFixedSize(766, 185);
+            sameBoardingNumberBGLabel->setAlignment(Qt::AlignCenter);
+        }
+
         QPixmap pixmap = getQPixmapSync(response.interface.results[i].photoPath);
         pixmap = pixmap.scaled(131
                                , 186
