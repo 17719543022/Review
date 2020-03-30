@@ -83,6 +83,13 @@ void FlightEnquires::statistics(QString flight)
     this->query();
 }
 
+void FlightEnquires::orgDepFillWithMQ(const QJsonArray &array)
+{
+    qDebug() << "FlightEnquires::orgDepFillWithMQ invoked..";
+
+
+}
+
 FlightEnquires::~FlightEnquires()
 {
     delete ui;
@@ -370,12 +377,13 @@ int FlightEnquires::query()
 {
     FlightReviewRequest request;
     request.input = flight;
-    request.queryType = 0;
+    // queryType写死为3,以后0/1/2都不用了
+    request.queryType = 3;
 
     response = HttpAPI::instance()->get(request);
 
 //    for (int i = 0; i < response.interface.validSize; i++) {
-//        qDebug() << response.interface.unboard[i].seatNumber;
+//        qDebug() << "boardingStatus: " << response.interface.boarded[i].boardingStatus << "\t\tboardingTime" << response.interface.boarded[i].boardingTime;
 //    }
 
     ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
