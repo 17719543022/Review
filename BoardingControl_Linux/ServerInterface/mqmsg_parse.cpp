@@ -72,7 +72,7 @@ void MsgParse::recive_msg(QByteArray &byte_jsonMsg)
                 if (jo_jsonMsg["msg"].isArray()) {
                     QJsonArray array;
                     array = jo_jsonMsg["msg"].toArray();
-                    optType302(array, array.size());
+                    optType302(array);
                 } else {
                     qWarning()<<"recived mq msg  Parsed, <optType=302>, but <msg> param error, only  'JsonArry' supported!";
                 }
@@ -90,33 +90,9 @@ void MsgParse::recive_msg(QByteArray &byte_jsonMsg)
     }
 }
 
-void MsgParse::optType302(QJsonArray &array, int size)
+void MsgParse::optType302(QJsonArray &array)
 {
-    for (int i = 0; i < size; i++) {
-        QJsonObject msg = array.at(i).toObject();
-
-        if (0 == QString::compare(msg.value("boardingGate").toString()
-                                  , LocalSettings::config->value("Device/boardingGate").toString())) {
-
-
-            QJsonArray content = msg["content"].toArray();
-            for (int j = 0; j < content.size(); j++) {
-                if (0 == QString::compare(content.at(j).toObject().value("flightNumber").toString()
-                                          , "AB1250")) {
-                    m_depository_new.id = content.at(j).toObject().value("id").toString();
-                    m_depository_new.cardNo = content.at(j).toObject().value("cardNo").toString();
-                    m_depository_new.passengerName = content.at(j).toObject().value("passengerName").toString();
-                    m_depository_new.flightNumber = content.at(j).toObject().value("flightNumber").toString();
-                    m_depository_new.boardingNumber = content.at(j).toObject().value("boardingNumber").toString();
-                    m_depository_new.seatNumber = content.at(j).toObject().value("seatNumber").toString();
-                    m_depository_new.photoPath = content.at(j).toObject().value("photoPath").toString();
-                    m_depository_new.boardingStatus = content.at(j).toObject().value("boardingStatus").toInt();
-                    m_depository_new.repeatFlag = content.at(j).toObject().value("repeatFlag").toInt();
-                    m_depository_new.updateTime = content.at(j).toObject().value("updateTime").toString();
-                }
-            }
-        }
-    }
+    m_new_repository = array;
 
     emit recived_mq_msg(302);
 }

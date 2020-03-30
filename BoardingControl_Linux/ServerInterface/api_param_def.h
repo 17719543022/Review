@@ -962,25 +962,5 @@ typedef struct {                                                                
 }msg301;                                                                                                                                                                                                    /**/
 /*******************************************************************************************************/
 
-/*302-新增建库数据****************************************************************************************/
-typedef struct {
-    QString boardingNumber {""};
-    int boardingStatus {-1};
-    QString cardNo {""};
-    QString flightNumber {""};
-    QString id {""};
-    QString passengerName {""};
-    QString photoPath {""};
-    int repeatFlag {-1};
-    QString seatNumber {""};
-    QString updateTime {""};
-} content302;
-
-typedef struct {
-    QString boardingGate {""};
-    content302 content;
-} msg302;
-/*******************************************************************************************************/
-
 #endif // API_PARAM_DEF_H
 

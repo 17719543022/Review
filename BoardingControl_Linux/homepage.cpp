@@ -35,13 +35,31 @@ HomePage::HomePage(QWidget *parent) :
     connect(timeLine, SIGNAL(frameChanged(int)), this, SLOT(frameChange(int)));
     connect(this, SIGNAL(timeLineStart()), timeLine, SLOT(start()));//use connection to be compatible with multiThread;
 
-
-    MsgParse *msg = new MsgParse(this);
+    initMqServer();
 }
 
 HomePage::~HomePage()
 {
     delete ui;
+}
+
+void HomePage::initMqServer()
+{
+    m_pMQmsg = new MsgParse(this);
+
+    connect(m_pMQmsg, &MsgParse::recived_mq_msg, this, &HomePage::on_recivedMQmsg);
+}
+
+void HomePage::on_recivedMQmsg(int type)
+{
+    switch (type) {
+    case 302:
+        m_FlightEnquires->orgDepFillWithMQ(m_pMQmsg->m_new_repository);
+        break;
+
+    default:
+        break;
+    }
 }
 
 void HomePage::on_Button_RealtimeBoarding_clicked()

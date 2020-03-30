@@ -44,7 +44,7 @@ private:
     */
 
     //302-服务器通知新增建库数据
-    void RUN_IN_CALLBACK optType302(QJsonArray &array, int size);
+    void RUN_IN_CALLBACK optType302(QJsonArray &array);
 
 signals:
     void recived_mq_msg(int type);
@@ -57,7 +57,7 @@ public:
     content109 m_remove_repository;       //删库消息
     content300 m_face_identify_res;       //识别结果推送
     content301 m_ppl_num;      //航班的登机人数
-    content302 m_depository_new;
+    QJsonArray m_new_repository;
 
 private:
     QMutex m_mutex;

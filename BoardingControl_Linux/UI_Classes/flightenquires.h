@@ -43,7 +43,11 @@ class FlightEnquires : public QWidget
 
 public:
     explicit FlightEnquires(QWidget *parent = Q_NULLPTR);
+
     void statistics(QString flight);
+
+    void orgDepFillWithMQ(const QJsonArray &array);
+
     ~FlightEnquires();
 
 private slots:

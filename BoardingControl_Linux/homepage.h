@@ -2,6 +2,7 @@
 #define HOMEPAGE_H
 
 #include <QMainWindow>
+#include "ServerInterface/mqmsg_parse.h"
 
 namespace Ui {
 class HomePage;
@@ -21,6 +22,12 @@ public:
     explicit HomePage(QWidget *parent = 0);
     ~HomePage();
 
+private:
+    void initMqServer();
+
+private slots:
+    void on_recivedMQmsg(int type);
+
 private slots:
     void on_Button_RealtimeBoarding_clicked();
 
@@ -39,6 +46,8 @@ signals:
 
 private:
     Ui::HomePage *ui{nullptr};
+
+    MsgParse *m_pMQmsg{nullptr};
 
     RealtimeBoarding *m_RealtimeBoarding{nullptr};
     WorkflowRecording *m_WorkflowRecording{nullptr};
