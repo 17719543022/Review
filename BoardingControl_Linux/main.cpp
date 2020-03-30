@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
         qApp->exit();
     }
 
-//   HomePage w;
-//   w.show();
+   HomePage w;
+   w.show();
 
 //    WorkflowRecording w;
 //    w.show();

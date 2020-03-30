@@ -10,8 +10,6 @@
 #define RUN_IN_CALLBACK
 #define CALLBACK
 
-static void CALLBACK msgRecivedCallBack(const char* jsonMsg, void* userData);
-
 class MsgParse : public AmqpImp
 {
     Q_OBJECT
@@ -23,6 +21,8 @@ public:
 
 private:
     void initAmqp();
+
+    static void CALLBACK msgRecivedCallBack(const char* jsonMsg, void* userData);
 
     void RUN_IN_CALLBACK recive_msg(QByteArray &byte_jsonMsg);
 
@@ -41,8 +41,11 @@ private:
     void RUN_IN_CALLBACK optType300(QJsonObject &object);
     //301-航班的登机人数
     void RUN_IN_CALLBACK optType301(QJsonObject &object);
-
     */
+
+    //302-服务器通知新增建库数据
+    void RUN_IN_CALLBACK optType302(QJsonArray &array, int size);
+
 signals:
     void recived_mq_msg(int type);
 
@@ -54,6 +57,7 @@ public:
     content109 m_remove_repository;       //删库消息
     content300 m_face_identify_res;       //识别结果推送
     content301 m_ppl_num;      //航班的登机人数
+    content302 m_depository_new;
 
 private:
     QMutex m_mutex;

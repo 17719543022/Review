@@ -393,7 +393,7 @@ int FlightEnquires::query()
     }
 
     tableFillGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
-//    tableFillGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
+    tableFillGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
     tableFillGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 
     return Ui::DisplayType::DisplayNormal;
