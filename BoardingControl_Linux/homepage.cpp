@@ -89,10 +89,11 @@ void HomePage::on_Button_WorkflowRecording_clicked()
 
 void HomePage::on_Button_FlightEnquires_clicked()
 {
-     m_FlightEnquires->show();
-      m_RealtimeBoarding->hide();
-     m_WorkflowRecording->hide();
-     m_PortraitCollection->hide();
+    m_FlightEnquires->show();
+    m_FlightEnquires->statistics("AB1250");
+    m_RealtimeBoarding->hide();
+    m_WorkflowRecording->hide();
+    m_PortraitCollection->hide();
 
 }
 

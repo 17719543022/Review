@@ -385,12 +385,6 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         }
     }
 
-    for (int i = 0; i < response.interface.validSize; i++) {
-        if (tab == Ui::DisplayTab::DepositoryTab) {
-            qDebug() << "boardingNumber: " << response.interface.results[i].boardingNumber << "updateTime" << response.interface.results[i].updateTime;
-        }
-    }
-
     int widgetIndex = 0;
     int resultIndex = 0;
 
@@ -508,7 +502,7 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         seatLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
-        if (isStatisticsMode) {
+        if (isStatisticsMode && (tab == Ui::DisplayTab::DepositoryTab)) {
             RemovePushButton *removePushButton = new RemovePushButton(itemWidget, widgetIndex);
             removePushButton->setGeometry(600, 134, 140, 40);
             removePushButton->setText("删    除");
