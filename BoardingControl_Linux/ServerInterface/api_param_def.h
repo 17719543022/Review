@@ -124,7 +124,7 @@ struct FlightReviewInterface {
         msg = QString();
         num = -1;
         total = -1;
-        validSize = -1;
+        validSize = 0;
     }
 
     void doUpdate(QJsonDocument &doc) {

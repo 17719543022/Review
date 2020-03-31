@@ -23,6 +23,7 @@ public:
     ~HomePage();
 
 private:
+    void initTranslationWidget();
     void initMqServer();
 
 private slots:

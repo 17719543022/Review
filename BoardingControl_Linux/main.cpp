@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
 //    WorkflowRecording w;
 //    w.show();
 
-    FlightEnquires f;
-    f.show();
+//    FlightEnquires f;
+//    f.show();
 //    f.statistics("AB1250");
 
     return a.exec();

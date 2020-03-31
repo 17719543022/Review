@@ -46,7 +46,7 @@ public:
 
     void statistics(QString flight);
 
-    void orgDepFillWithMQ(const QJsonArray &array);
+    void fillOrgDepWithMQ(const QJsonArray &msg);
 
     ~FlightEnquires();
 
@@ -70,7 +70,7 @@ private slots:
 private:
     int query();
 
-    void tableFillGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab);
+    void fillTableGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab);
 
     QPixmap getQPixmapSync(QString str);
 

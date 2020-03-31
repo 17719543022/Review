@@ -35,12 +35,21 @@ HomePage::HomePage(QWidget *parent) :
     connect(timeLine, SIGNAL(frameChanged(int)), this, SLOT(frameChange(int)));
     connect(this, SIGNAL(timeLineStart()), timeLine, SLOT(start()));//use connection to be compatible with multiThread;
 
+    initTranslationWidget();
     initMqServer();
 }
 
 HomePage::~HomePage()
 {
     delete ui;
+}
+
+void HomePage::initTranslationWidget()
+{
+    m_RealtimeBoarding = new RealtimeBoarding(ui->centralWidget);
+    m_FlightEnquires = new FlightEnquires(ui->centralWidget);
+    m_WorkflowRecording = new WorkflowRecording(ui->centralWidget);
+    m_PortraitCollection = new PortraitCollection(ui->centralWidget);
 }
 
 void HomePage::initMqServer()
@@ -54,7 +63,7 @@ void HomePage::on_recivedMQmsg(int type)
 {
     switch (type) {
     case 302:
-        m_FlightEnquires->orgDepFillWithMQ(m_pMQmsg->m_new_repository);
+        m_FlightEnquires->fillOrgDepWithMQ(m_pMQmsg->m_new_repository);
         break;
 
     default:

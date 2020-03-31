@@ -41,7 +41,7 @@ void MsgParse::initAmqp()
 
 void CALLBACK MsgParse::msgRecivedCallBack(const char* jsonMsg, void* userData)
 {
-    qDebug() << "mg_msg: " << QString(jsonMsg);
+//    qDebug() << "mg_msg: " << QString(jsonMsg);
 
     MsgParse *this_data = static_cast<MsgParse*>(userData);
     QByteArray byte_JsonMsg(jsonMsg);
