@@ -539,6 +539,8 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         table->setCellWidget(widgetIndex, 0, splitWidget);
         widgetIndex = widgetIndex + 1;
     }
+
+    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(on_removeRow_clicked(int)));
 }
 
 int FlightEnquires::query()
