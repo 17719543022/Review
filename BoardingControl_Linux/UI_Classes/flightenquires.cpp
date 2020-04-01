@@ -8,13 +8,6 @@
 #include "messagedialog.h"
 #include "settings.h"
 
-RemovePushButton::RemovePushButton(QWidget *parent, int index) :
-    QPushButton (parent),
-    index(index)
-{
-
-}
-
 FlightEnquires::FlightEnquires(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FlightEnquires),
@@ -503,7 +496,7 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         if (isStatisticsMode && (tab == Ui::DisplayTab::DepositoryTab)) {
-            RemovePushButton *removePushButton = new RemovePushButton(itemWidget, widgetIndex);
+            QPushButton *removePushButton = new QPushButton(itemWidget);
             removePushButton->setGeometry(600, 134, 140, 40);
             removePushButton->setText("删    除");
             removePushButton->setFixedSize(140, 40);

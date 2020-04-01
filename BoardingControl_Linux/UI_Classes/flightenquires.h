@@ -22,21 +22,6 @@ enum DisplayType {
 };
 }
 
-//QSignalMapper 或者  QObject::sender()
-class RemovePushButton : public QPushButton
-{
-    Q_OBJECT
-
-public:
-    explicit RemovePushButton(QWidget *parent = Q_NULLPTR, int index = 0);
-
-signals:
-    void removeRow(int index);
-
-private:
-    int index;
-};
-
 class FlightEnquires : public QWidget
 {
     Q_OBJECT
