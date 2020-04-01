@@ -274,10 +274,10 @@ void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
                 }
             }
         }
-
-        ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
-        fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
     }
+
+    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
+    fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 }
 
 FlightEnquires::~FlightEnquires()
@@ -359,7 +359,21 @@ void FlightEnquires::on_notBoardingSlider_changed(int p)
 
 void FlightEnquires::on_removeRow_clicked(int widgetIndex)
 {
-     qDebug() << "FlightEnquires::on_removeRow_clicked: " << widgetIndex;
+     for (int i = widgetIndex/2; i < response.interface.validSize && i < 1000; i++) {
+        response.interface.results[i] = response.interface.results[i + 1];
+     }
+     response.interface.validSize -= 1;
+
+     ui->orgDepTableWidget->scrollToTop();
+     while (ui->orgDepTableWidget->rowCount() >0 ) {
+         ui->orgDepTableWidget->removeRow(0);
+     }
+
+     orgDepFilledNum = 0;
+     orgDepFillIndex = 0;
+
+     ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
+     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 }
 
 QPixmap FlightEnquires::getQPixmapSync(QString str)
