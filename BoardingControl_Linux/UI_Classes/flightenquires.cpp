@@ -8,6 +8,26 @@
 #include "messagedialog.h"
 #include "settings.h"
 
+ButtonWidget::ButtonWidget(QWidget *parent, bool isStatisticsMode, Ui::DisplayTab tab, int widgetIndex)
+    : QWidget(parent),
+      isStatisticsMode(isStatisticsMode),
+      widgetIndex(widgetIndex)
+{
+    QSignalMapper *signalMapper = new QSignalMapper();
+    if (isStatisticsMode && (tab == Ui::DisplayTab::DepositoryTab)) {
+        QPushButton *removePushButton = new QPushButton(this);
+        removePushButton->setGeometry(600, 134, 140, 40);
+        removePushButton->setText("删    除");
+        removePushButton->setFixedSize(140, 40);
+        removePushButton->setStyleSheet("image: 0; border: 0; border-radius: 4; background: rgb(255, 0, 0); font: 19pt; color: rgb(255, 255, 255);");
+
+        connect(removePushButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(removePushButton, widgetIndex);
+    }
+
+    connect(signalMapper, SIGNAL(mapped(int)), parent, SLOT(on_removeRow_clicked(int)));
+}
+
 FlightEnquires::FlightEnquires(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FlightEnquires),
@@ -425,7 +445,7 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         table->insertRow(widgetIndex);
         table->setRowHeight(widgetIndex, 186);
 
-        QWidget *itemWidget = new QWidget();
+        QWidget *itemWidget = new ButtonWidget(this, isStatisticsMode, tab, widgetIndex);
 
         if (results[i].isSameBoardingNumber) {
             QImage sameBoardingNumberBGImage;
@@ -495,17 +515,6 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         seatLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         seatLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
-        if (isStatisticsMode && (tab == Ui::DisplayTab::DepositoryTab)) {
-            QPushButton *removePushButton = new QPushButton(itemWidget);
-            removePushButton->setGeometry(600, 134, 140, 40);
-            removePushButton->setText("删    除");
-            removePushButton->setFixedSize(140, 40);
-            removePushButton->setStyleSheet("image: 0; border: 0; border-radius: 4; background: rgb(255, 0, 0); font: 19pt; color: rgb(255, 255, 255);");
-
-            connect(removePushButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
-            signalMapper->setMapping(removePushButton, widgetIndex);
-        }
-
         table->setCellWidget(widgetIndex, 0, itemWidget);
         batch += 1;
         widgetIndex += 1;
@@ -532,8 +541,6 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         table->setCellWidget(widgetIndex, 0, splitWidget);
         widgetIndex = widgetIndex + 1;
     }
-
-    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(on_removeRow_clicked(int)));
 }
 
 int FlightEnquires::query()
