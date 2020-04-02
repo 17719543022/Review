@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include "messagedialog.h"
 #include "settings.h"
+#include <QUuid>
 
 ButtonWidget::ButtonWidget(QWidget *parent, bool isStatisticsMode, Ui::DisplayTab tab, int widgetIndex)
     : QWidget(parent),
@@ -359,21 +360,34 @@ void FlightEnquires::on_notBoardingSlider_changed(int p)
 
 void FlightEnquires::on_removeRow_clicked(int widgetIndex)
 {
-     for (int i = widgetIndex/2; i < response.interface.validSize && i < 1000; i++) {
+    LibDeleteRequest libDelReq;
+    LibDeleteResponse libDelRsp;
+    QString uuid = QUuid::createUuid().toString();
+    uuid.remove("{").remove("}").remove("-");
+    libDelReq.reqId = uuid;
+    libDelReq.flightNo = response.interface.results[widgetIndex/2].flightNumber;
+    libDelReq.gateNo = LocalSettings::config->value("Device/gateNo").toString();
+    libDelReq.boardingGate = LocalSettings::config->value("Device/boardingGate").toString();
+    libDelReq.deviceCode = LocalSettings::config->value("Device/deviceId").toString();
+    libDelReq.id = response.interface.results[widgetIndex/2].id;
+
+    for (int i = widgetIndex/2; i < response.interface.validSize && i < 1000; i++) {
         response.interface.results[i] = response.interface.results[i + 1];
-     }
-     response.interface.validSize -= 1;
+    }
+    response.interface.validSize -= 1;
 
-     ui->orgDepTableWidget->scrollToTop();
-     while (ui->orgDepTableWidget->rowCount() >0 ) {
-         ui->orgDepTableWidget->removeRow(0);
-     }
+    ui->orgDepTableWidget->scrollToTop();
+    while (ui->orgDepTableWidget->rowCount() >0 ) {
+        ui->orgDepTableWidget->removeRow(0);
+    }
 
-     orgDepFilledNum = 0;
-     orgDepFillIndex = 0;
+    orgDepFilledNum = 0;
+    orgDepFillIndex = 0;
 
-     ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
-     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
+    fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+
+    libDelRsp = HttpAPI::instance()->removeSpecific(libDelReq);
 }
 
 QPixmap FlightEnquires::getQPixmapSync(QString str)

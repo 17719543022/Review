@@ -506,6 +506,36 @@ struct FlightReviewResponse {
     }
 };
 
+struct LibDeleteRequest {
+    QString reqId;
+    QString flightNo;
+    QString gateNo;
+    QString boardingGate;
+    QString deviceCode;
+    QString id;
+
+    LibDeleteRequest() {
+        reqId = QString();
+        flightNo = QString();
+        gateNo = QString();
+        boardingGate = QString();
+        deviceCode = QString();
+        id = QString();
+    }
+};
+
+struct LibDeleteResponse {
+    int status;
+    QString reqId;
+    QString msg;
+
+    LibDeleteResponse() {
+        status = -1;
+        reqId = QString();
+        msg = QString();
+    }
+};
+
 /******************************************************************************************************/
 
 /* 2.3.24 人员回查-安检、登机口接口************************************************************************/

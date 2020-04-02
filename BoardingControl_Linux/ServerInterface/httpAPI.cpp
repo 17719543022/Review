@@ -21,6 +21,7 @@ HttpAPI::HttpAPI(QObject *parent) : QObject(parent)
     flowReviewUrl = "/api/v1/face/data/flowback-query";
     flightReviewServer = LocalSettings::config->value("Server/flightReviewServer").toString();
     flightReviewUrl = "/api/v1/face/boarding/passenger-query";
+    libDeleteUrl = "/api/v1/face/boarding/lib-delete";
 
     Init();
 }
@@ -276,6 +277,58 @@ FlightReviewResponse HttpAPI::get(const FlightReviewRequest& request)
         return result;
     } catch (std::exception &ex) {
         qCritical() << ex.what();
+
+        return result;
+    }
+}
+
+LibDeleteResponse HttpAPI::removeSpecific(const LibDeleteRequest& request)
+{
+    LibDeleteResponse result;
+
+    try {
+        QByteArray bytes;
+        QJsonObject json;
+
+        json.insert("reqId", request.reqId);
+        json.insert("flightNo", request.flightNo);
+        json.insert("gateNo", request.gateNo);
+        json.insert("boardingGate", request.boardingGate);
+        json.insert("deviceCode", request.deviceCode);
+        json.insert("id", request.id);
+
+        qDebug() << "LibDeleteRequest: " << json;
+
+        bytes.append(QJsonDocument(json).toJson());
+
+        char *response;
+        int resLen = 0;
+        int res = -1;
+
+        res = LIBPostSynEx(flightReviewServer.toLatin1().data(), libDeleteUrl.toLatin1().data(), bytes.data(), &response, &resLen, true);
+        if (res != 0 || resLen == 0) {
+            qCritical() << QString("LIBPostSynEx failed, res: %1").arg(res) << QThread::currentThread();
+            return result;
+        }
+
+        QByteArray array = QByteArray(response, resLen);
+
+        if (array != nullptr) {
+            QJsonParseError jsonParseError;
+            QJsonDocument document = QJsonDocument::fromJson(array, &jsonParseError);
+
+//            qDebug() << "document: " << document;
+
+            if (!document.isNull() && jsonParseError.error == QJsonParseError::NoError) {
+                result.reqId = document.object().value("reqId").toString();
+                result.status = document.object().value("status").toInt();
+                result.msg = document.object().value("msg").toString();
+            }
+        }
+
+        return  result;
+    } catch (std::exception &e) {
+        qCritical() << e.what();
 
         return result;
     }

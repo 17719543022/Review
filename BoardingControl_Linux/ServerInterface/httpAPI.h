@@ -16,6 +16,7 @@ public:
     Return_Flight_Plan_Param getFlightPlan(const Request_Flight_Plan_Param& );
     FlightReviewResponse get(const FlightReviewRequest& request);
     FlowReviewResponse get(const FlowReviewRequest& request);
+    LibDeleteResponse removeSpecific(const LibDeleteRequest& request);
 
 private:
     int Init();
@@ -32,6 +33,7 @@ private:
     QString flowReviewUrl;
     QString flightReviewServer;
     QString flightReviewUrl;
+    QString libDeleteUrl;
 };
 
 inline HttpAPI* HttpAPI::instance()
