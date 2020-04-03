@@ -29,15 +29,24 @@ WorkflowRecording::~WorkflowRecording()
     delete ui;
 }
 
-void WorkflowRecording::on_flowBabyPushButton_clicked()
+QPixmap WorkflowRecording::getQPixmapSync(QString str)
 {
-    isBabyMode = !isBabyMode;
+    const QUrl url = QUrl::fromUserInput(str);
 
-    if (isBabyMode) {
-        ui->flowBabyPushButton->setStyleSheet("image: url(:/4全流程记录/Images/4全流程记录/勾选.png);");
-    } else {
-        ui->flowBabyPushButton->setStyleSheet("image: url(:/4全流程记录/Images/4全流程记录/未勾选.png);");
-    }
+    QNetworkRequest request(url);
+    QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
+    QNetworkReply* reply = naManager->get(request);
+
+    QEventLoop eventLoop;
+    connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
+    eventLoop.exec(QEventLoop::ExcludeUserInputEvents);
+
+    QByteArray byteArray = reply->readAll();
+
+    QPixmap pixmap;
+    pixmap.loadFromData(byteArray);
+
+    return pixmap;
 }
 
 void WorkflowRecording::on_flowQueryPushButton_clicked()
@@ -75,16 +84,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         transferLabel->setAlignment(Qt::AlignCenter);
         transferLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QImage transferPhotoImage;
-        transferPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
-        transferPhotoImage = transferPhotoImage.scaled(150
-                                                       , 198
-                                                       , Qt::IgnoreAspectRatio
-                                                       , Qt::SmoothTransformation);
-        QPixmap transferPhotoPixmap = QPixmap::fromImage(transferPhotoImage);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[0].transferInfo.photoPath);
+        pixmap = pixmap.scaled(150
+                               , 198
+                               , Qt::IgnoreAspectRatio
+                               , Qt::SmoothTransformation);
         QLabel *transferPhotoLabel = new QLabel(transferWidget);
         transferPhotoLabel->setGeometry(180, 0, 150, 226);
-        transferPhotoLabel->setPixmap(transferPhotoPixmap);
+        transferPhotoLabel->setPixmap(pixmap);
         transferPhotoLabel->setFixedSize(150, 226);
         transferPhotoLabel->setAlignment(Qt::AlignCenter);
 
@@ -104,21 +111,22 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *transferGateValueLabel = new QLabel(transferWidget);
         transferGateValueLabel->setGeometry(474, 14, 292, 38);
-        transferGateValueLabel->setText("2号自助验证闸机");
+        transferGateValueLabel->setText(response.interface.result[0].transferInfo.gateNo);
         transferGateValueLabel->setFixedSize(292, 38);
         transferGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         transferGateValueLabel->setStyleSheet("iamge: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *transferTimeValueLabel_1 = new QLabel(transferWidget);
         transferTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        transferTimeValueLabel_1->setText("2019／09／12");
+        QString collectTime = response.interface.result[0].transferInfo.collectTime;
+        transferTimeValueLabel_1->setText(collectTime.left(4) + "／" + collectTime.mid(4, 2) + "／" + collectTime.mid(6, 2));
         transferTimeValueLabel_1->setFixedSize(292, 38);
         transferTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         transferTimeValueLabel_1->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *transferTimeValueLabel_2 = new QLabel(transferWidget);
         transferTimeValueLabel_2->setGeometry(474, 102, 292, 38);
-        transferTimeValueLabel_2->setText("15：32：26");
+        transferTimeValueLabel_2->setText(collectTime.mid(8, 2) + "" + collectTime.mid(10, 2) + "" + collectTime.mid(12, 2));
         transferTimeValueLabel_2->setFixedSize(292, 38);
         transferTimeValueLabel_2->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         transferTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -172,16 +180,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         securityLabel->setAlignment(Qt::AlignCenter);
         securityLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QImage securityPhotoImage;
-        securityPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
-        securityPhotoImage = securityPhotoImage.scaled(150
-                                                       , 198
-                                                       , Qt::IgnoreAspectRatio
-                                                       , Qt::SmoothTransformation);
-        QPixmap securityPhotoPixmap = QPixmap::fromImage(securityPhotoImage);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[0].securityInfo.photoPath);
+        pixmap = pixmap.scaled(150
+                               , 198
+                               , Qt::IgnoreAspectRatio
+                               , Qt::SmoothTransformation);
         QLabel *securityPhotoLabel = new QLabel(securityWidget);
         securityPhotoLabel->setGeometry(180, 0, 150, 226);
-        securityPhotoLabel->setPixmap(securityPhotoPixmap);
+        securityPhotoLabel->setPixmap(pixmap);
         securityPhotoLabel->setFixedSize(150, 226);
         securityPhotoLabel->setAlignment(Qt::AlignCenter);
 
@@ -201,21 +207,22 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *securityGateValueLabel = new QLabel(securityWidget);
         securityGateValueLabel->setGeometry(474, 14, 292, 38);
-        securityGateValueLabel->setText("2号自助验证闸机");
+        securityGateValueLabel->setText(response.interface.result[0].securityInfo.gateNo);
         securityGateValueLabel->setFixedSize(292, 38);
         securityGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         securityGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *securityTimeValueLabel_1 = new QLabel(securityWidget);
         securityTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        securityTimeValueLabel_1->setText("2019／09／12");
+        QString passTime = response.interface.result[0].securityInfo.passTime;
+        securityTimeValueLabel_1->setText(passTime.left(4) + "／" + passTime.mid(4, 2) + "／" + passTime.mid(6, 2));
         securityTimeValueLabel_1->setFixedSize(292, 38);
         securityTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         securityTimeValueLabel_1->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *securityTimeValueLabel_2 = new QLabel(securityWidget);
         securityTimeValueLabel_2->setGeometry(474, 102, 292, 38);
-        securityTimeValueLabel_2->setText("15：32：26");
+        securityTimeValueLabel_2->setText(passTime.mid(8, 2) + "：" + passTime.mid(10, 2) + "：" + passTime.mid(12, 2));
         securityTimeValueLabel_2->setFixedSize(292, 38);
         securityTimeValueLabel_2->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         securityTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -268,16 +275,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         reviewLabel->setAlignment(Qt::AlignCenter);
         reviewLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QImage reviewPhotoImage;
-        reviewPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
-        reviewPhotoImage = reviewPhotoImage.scaled(150
-                                                     , 198
-                                                     , Qt::IgnoreAspectRatio
-                                                     , Qt::SmoothTransformation);
-        QPixmap reviewPhotoPixmap = QPixmap::fromImage(reviewPhotoImage);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[0].reviewInfo.photoPath);
+        pixmap = pixmap.scaled(150
+                               , 198
+                               , Qt::IgnoreAspectRatio
+                               , Qt::SmoothTransformation);
         QLabel *reviewPhotoLabel = new QLabel(reviewWidget);
         reviewPhotoLabel->setGeometry(180, 0, 150, 226);
-        reviewPhotoLabel->setPixmap(reviewPhotoPixmap);
+        reviewPhotoLabel->setPixmap(pixmap);
         reviewPhotoLabel->setFixedSize(150, 226);
         reviewPhotoLabel->setAlignment(Qt::AlignCenter);
 
@@ -297,21 +302,22 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *reviewGateValueLabel = new QLabel(reviewWidget);
         reviewGateValueLabel->setGeometry(474, 14, 292, 38);
-        reviewGateValueLabel->setText("2号自助验证闸机");
+        reviewGateValueLabel->setText(response.interface.result[0].reviewInfo.gateNo);
         reviewGateValueLabel->setFixedSize(292, 38);
         reviewGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         reviewGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *reviewTimeValueLabel_1 = new QLabel(reviewWidget);
         reviewTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        reviewTimeValueLabel_1->setText("2019／09／12");
+        QString passTime = response.interface.result[0].reviewInfo.passTime;
+        reviewTimeValueLabel_1->setText(passTime.left(4) + "／" + passTime.mid(4, 2)+ "／" + passTime.mid(6, 2));
         reviewTimeValueLabel_1->setFixedSize(292, 38);
         reviewTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         reviewTimeValueLabel_1->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *reviewTimeValueLabel_2 = new QLabel(reviewWidget);
         reviewTimeValueLabel_2->setGeometry(474, 102, 292, 38);
-        reviewTimeValueLabel_2->setText("15：32：26");
+        reviewTimeValueLabel_2->setText(passTime.mid(8, 2) + "：" + passTime.mid(10, 2) + "：" + passTime.mid(12, 2));
         reviewTimeValueLabel_2->setFixedSize(292, 38);
         reviewTimeValueLabel_2->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         reviewTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -362,16 +368,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         boardingLabel->setAlignment(Qt::AlignCenter);
         boardingLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QImage boardingPhotoImage;
-        boardingPhotoImage.load(":/6航班回查/Images/6航班回查/照片.png");
-        boardingPhotoImage = boardingPhotoImage.scaled(150
-                                                       , 198
-                                                       , Qt::IgnoreAspectRatio
-                                                       , Qt::SmoothTransformation);
-        QPixmap boardingPhotoPixmap = QPixmap::fromImage(boardingPhotoImage);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[0].boardingInfo.photoPath);
+        pixmap = pixmap.scaled(150
+                               , 198
+                               , Qt::IgnoreAspectRatio
+                               , Qt::SmoothTransformation);
         QLabel *boardingPhotoLabel = new QLabel(boardingWidget);
         boardingPhotoLabel->setGeometry(180, 0, 150, 226);
-        boardingPhotoLabel->setPixmap(boardingPhotoPixmap);
+        boardingPhotoLabel->setPixmap(pixmap);
         boardingPhotoLabel->setFixedSize(150, 226);
         boardingPhotoLabel->setAlignment(Qt::AlignCenter);
 
@@ -391,21 +395,22 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *boardingGateValueLabel = new QLabel(boardingWidget);
         boardingGateValueLabel->setGeometry(474, 14, 292, 38);
-        boardingGateValueLabel->setText("2号自助验证闸机");
+        boardingGateValueLabel->setText(response.interface.result[0].boardingInfo.gateNo);
         boardingGateValueLabel->setFixedSize(292, 38);
         boardingGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         boardingGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *boardingTimeValueLabel_1 = new QLabel(boardingWidget);
         boardingTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        boardingTimeValueLabel_1->setText("2019／09／12");
+        QString passTime = response.interface.result[0].boardingInfo.passTime;
+        boardingTimeValueLabel_1->setText(passTime.left(4) + "／" + passTime.mid(4, 2) + "／" + passTime.mid(6, 2));
         boardingTimeValueLabel_1->setFixedSize(292, 38);
         boardingTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         boardingTimeValueLabel_1->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *boardingTimeValueLabel_2 = new QLabel(boardingWidget);
         boardingTimeValueLabel_2->setGeometry(474, 102, 292, 38);
-        boardingTimeValueLabel_2->setText("15：32：26");
+        boardingTimeValueLabel_2->setText(passTime.mid(8, 2) + "：" + passTime.mid(10, 2) + "：" + passTime.mid(12, 2));
         boardingTimeValueLabel_2->setFixedSize(292, 38);
         boardingTimeValueLabel_2->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         boardingTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");

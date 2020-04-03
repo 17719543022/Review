@@ -18,7 +18,7 @@ public:
 
 
 private slots:
-    void on_flowBabyPushButton_clicked();
+    QPixmap getQPixmapSync(QString str);
 
     void on_flowQueryPushButton_clicked();
 

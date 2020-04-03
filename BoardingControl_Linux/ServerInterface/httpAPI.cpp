@@ -97,7 +97,6 @@ int HttpAPI::Init()
 
         char *headchr3 = header3.data();
         QString url3 = flightReviewServer + flightReviewUrl;
-        qDebug() << "flightReviewServer + flightReviewUrl: " << url3;
         char *url3chr = url3.toLatin1().data();
 
         res = LIBSetHeaderEx(url3chr, headchr3);
@@ -347,10 +346,10 @@ FlowReviewResponse HttpAPI::get(const FlowReviewRequest& request)
         json.insert("reqId", uuid);
         // isFuzzyQuery的填写规则是,如果是通过身份证查询则填0,通过机票加航班号查询时,手动输入填1,刷票输入填0
         // flightDay的填写规则是,如果用扫码枪扫入,则将机票年月日的日填入,如果手动输入则为-1,查询历史所有
-        if (request.input.contains("/", Qt::CaseSensitive)) {
+        if (request.input.contains("#", Qt::CaseSensitive)) {
             json.insert("cardId", "");
-            json.insert("flightNo", request.input.section("/", 0, 0));
-            json.insert("boardingNumber", request.input.section("/", 1, 1));
+            json.insert("flightNo", request.input.section("#", 0, 0));
+            json.insert("boardingNumber", request.input.section("#", 1, 1));
             json.insert("isFuzzyQuery", 1);
         } else {
             json.insert("cardId", request.input);
@@ -359,6 +358,7 @@ FlowReviewResponse HttpAPI::get(const FlowReviewRequest& request)
             json.insert("isFuzzyQuery", 0);
         }
         json.insert("flightDay", "-1");
+
         bytes.append(QJsonDocument(json).toJson());
 
         char *response;
@@ -381,15 +381,9 @@ FlowReviewResponse HttpAPI::get(const FlowReviewRequest& request)
             QJsonParseError jsonParseError;
             QJsonDocument document = QJsonDocument::fromJson(array, &jsonParseError);
 
-//            qDebug() << "document: " << document;
-
             if(!document.isNull() && jsonParseError.error == QJsonParseError::NoError)
             {
                 result.update(document);
-            }
-
-            if (LocalSettings::config->value("GateConnect/isPrintResponse").toBool()){
-                qDebug() << "HTTP FLOW REVIEW RESPONSE: \n" << document;
             }
         }
 

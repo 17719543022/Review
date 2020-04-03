@@ -114,55 +114,6 @@ image: url(:/2系统首页/Images/2系统首页/返回.png);</string>
 image: 0;
 background: 0;</string>
     </property>
-    <widget class="QPushButton" name="flowBabyPushButton">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>34</y>
-       <width>34</width>
-       <height>34</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border: 0;
-image: 0;
-background: 0;
-image: url(:/4全流程记录/Images/4全流程记录/未勾选.png);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="flowBabyLabel">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>31</y>
-       <width>91</width>
-       <height>38</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>20</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border: 0;
-image: 0;
-background: 0;
-font-style: Microsoft YaHei;
-color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>婴儿票</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
     <widget class="QPushButton" name="flowQueryPushButton">
      <property name="geometry">
       <rect>
