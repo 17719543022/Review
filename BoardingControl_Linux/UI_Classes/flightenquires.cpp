@@ -288,7 +288,14 @@ FlightEnquires::~FlightEnquires()
 
 void FlightEnquires::on_queryPushButton_clicked()
 {
-    flight = ui->queryLineEdit->text();
+    flight = ui->queryLineEdit->text().toUpper();
+
+    if (flight.length() == 0) {
+        MessageDialog msg(this, nullptr, "请输入有效信息!", 1);
+        msg.exec();
+
+        return;
+    }
 
     ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
     ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
@@ -299,7 +306,7 @@ void FlightEnquires::on_queryPushButton_clicked()
     ui->notboardingTableWidget->hide();
 
     if (Ui::DisplayType::DisplayNullErr == query()) {
-         MessageDialog msg(this, NULL, "请输入正确的航班号!", 1);
+         MessageDialog msg(this, nullptr, "请输入正确的航班号!", 1);
          msg.exec();
      }
 }

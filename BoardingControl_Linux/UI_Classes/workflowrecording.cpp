@@ -2,6 +2,7 @@
 #include "ui_workflowrecording.h"
 #include "ServerInterface/httpAPI.h"
 #include <QGridLayout>
+#include "messagedialog.h"
 
 WorkflowRecording::WorkflowRecording(QWidget *parent) :
     QWidget(parent),
@@ -67,7 +68,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
     }
 
     FlowReviewRequest request;
-    request.input = ui->flowQueryLineEdit->text();
+    request.input = ui->flowQueryLineEdit->text().toUpper();
+
+    if ((request.input.length() == 0) || (request.input.length() > 18)) {
+        MessageDialog msg(this, nullptr, "请输入有效信息!", 1);
+        msg.exec();
+
+        return;
+    }
 
     FlowReviewResponse response = HttpAPI::instance()->get(request);
 
