@@ -46,11 +46,26 @@ QPixmap WorkflowRecording::getQPixmapSync(QString str)
     QPixmap pixmap;
     pixmap.loadFromData(byteArray);
 
+    if (pixmap.isNull()) {
+        QImage zhaoImage;
+        zhaoImage.load(":/4全流程记录/Images/4全流程记录/照片-.png");
+        zhaoImage = zhaoImage.scaled(150
+                                     , 226
+                                     , Qt::IgnoreAspectRatio
+                                     , Qt::SmoothTransformation);
+        pixmap = QPixmap::fromImage(zhaoImage);
+    }
+
     return pixmap;
 }
 
 void WorkflowRecording::on_flowQueryPushButton_clicked()
 {
+    ui->flowTableWidget->scrollToTop();
+    while (ui->flowTableWidget->rowCount() > 0 ) {
+        ui->flowTableWidget->removeRow(0);
+    }
+
     FlowReviewRequest request;
     request.input = ui->flowQueryLineEdit->text();
 
@@ -79,7 +94,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         transferWidget->setFixedSize(766, 226);
         QLabel *transferLabel = new QLabel(transferWidget);
         transferLabel->setGeometry(0, 0, 180, 226);
-        transferLabel->setText("人证验证");
+        transferLabel->setText("中转/经停\n采集");
         transferLabel->setFixedSize(180, 226);
         transferLabel->setAlignment(Qt::AlignCenter);
         transferLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
@@ -126,13 +141,20 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *transferTimeValueLabel_2 = new QLabel(transferWidget);
         transferTimeValueLabel_2->setGeometry(474, 102, 292, 38);
-        transferTimeValueLabel_2->setText(collectTime.mid(8, 2) + "" + collectTime.mid(10, 2) + "" + collectTime.mid(12, 2));
+        transferTimeValueLabel_2->setText(collectTime.mid(8, 2) + "：" + collectTime.mid(10, 2) + "：" + collectTime.mid(12, 2));
         transferTimeValueLabel_2->setFixedSize(292, 38);
         transferTimeValueLabel_2->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         transferTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage transferModalImage;
-        transferModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+        int sourceType = response.interface.result[0].transferInfo.sourceType;
+        if (sourceType == 0 || sourceType == 3) {
+            transferModalImage.load(":/4全流程记录/Images/4全流程记录/中转采集.png");
+        } else if (sourceType == 1 || sourceType == 4) {
+            transferModalImage.load(":/4全流程记录/Images/4全流程记录/经停采集.png");
+        } else {
+            transferModalImage.load(":/4全流程记录/Images/4全流程记录/备降采集2.png");
+        }
         transferModalImage = transferModalImage.scaled(169
                                                        , 50
                                                        , Qt::IgnoreAspectRatio
@@ -228,7 +250,46 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         securityTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage securityModalImage;
-        securityModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+        int passType = response.interface.result[0].securityInfo.passType;
+        int passStatus = response.interface.result[0].securityInfo.passStatus;
+        switch (passType) {
+        case 0:
+        case 2:
+            switch (passStatus) {
+            case 0:
+                securityModalImage.load(":/4全流程记录/Images/4全流程记录/系统验证通过.png");
+                break;
+            case 1:
+                securityModalImage.load(":/4全流程记录/Images/4全流程记录/系统验证不通过.png");
+                break;
+            case 3:
+                securityModalImage.load(":/4全流程记录/Images/4全流程记录/证件失效.png");
+                break;
+            default:
+                securityModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+                break;
+            }
+            break;
+        case 1:
+            switch (passStatus) {
+            case 0:
+                securityModalImage.load(":/4全流程记录/Images/4全流程记录/人工验证通过.png");
+                break;
+            case 1:
+                securityModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+                break;
+            default:
+                securityModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+                break;
+            }
+            break;
+        case 3:
+            securityModalImage.load(":/4全流程记录/Images/4全流程记录/人工验证通过.png");
+            break;
+        default:
+            securityModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+            break;
+        }
         securityModalImage = securityModalImage.scaled(169
                                                        , 50
                                                        , Qt::IgnoreAspectRatio
@@ -323,7 +384,43 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         reviewTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage reviewModalImage;
-        reviewModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+        int passType = response.interface.result[0].reviewInfo.passType;
+        int passStatus = response.interface.result[0].reviewInfo.passStatus;
+        switch (passType) {
+        case 0:
+        case 2:
+            switch (passStatus) {
+            case 0:
+                reviewModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+                break;
+            case 1:
+                reviewModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+                break;
+            default:
+                reviewModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+                break;
+            }
+            break;
+        case 1:
+            switch (passStatus) {
+            case 0:
+                reviewModalImage.load(":/4全流程记录/Images/4全流程记录/人工复核通过.png");
+                break;
+            case 1:
+                reviewModalImage.load(":/4全流程记录/Images/4全流程记录/icon_ylj.png");
+                break;
+            default:
+                reviewModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+                break;
+            }
+            break;
+        case 3:
+            reviewModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+            break;
+        default:
+            reviewModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+            break;
+        }
         reviewModalImage = reviewModalImage.scaled(169
                                                      , 50
                                                      , Qt::IgnoreAspectRatio
@@ -416,6 +513,29 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         boardingTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage boardingModalImage;
+        int passType = response.interface.result[0].boardingInfo.passType;
+        int passStatus = response.interface.result[0].boardingInfo.passStatus;
+        switch (passType) {
+        case 0:
+            if (passStatus == 0) {
+                boardingModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
+            } else {
+                boardingModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+            }
+            break;
+        case 1:
+            if (passStatus == 0) {
+                boardingModalImage.load(":/4全流程记录/Images/4全流程记录/人工复核通过.png");
+            } else {
+                boardingModalImage.load(":/4全流程记录/Images/4全流程记录/icon_wjl.png");
+            }
+            break;
+        case 2:
+            boardingModalImage.load(":/4全流程记录/Images/4全流程记录/icon_ylj.png");
+            break;
+        default:
+            break;
+        }
         boardingModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
         boardingModalImage = boardingModalImage.scaled(169
                                                        , 50

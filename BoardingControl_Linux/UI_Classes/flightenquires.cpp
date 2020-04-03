@@ -102,7 +102,7 @@ void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
 {
     ui->orgDepTableWidget->scrollToTop();
 
-    while (ui->orgDepTableWidget->rowCount() >0 ) {
+    while (ui->orgDepTableWidget->rowCount() > 0 ) {
         ui->orgDepTableWidget->removeRow(0);
     }
 
@@ -377,7 +377,7 @@ void FlightEnquires::on_removeRow_clicked(int widgetIndex)
     response.interface.validSize -= 1;
 
     ui->orgDepTableWidget->scrollToTop();
-    while (ui->orgDepTableWidget->rowCount() >0 ) {
+    while (ui->orgDepTableWidget->rowCount() > 0 ) {
         ui->orgDepTableWidget->removeRow(0);
     }
 
@@ -406,6 +406,16 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
 
     QPixmap pixmap;
     pixmap.loadFromData(byteArray);
+
+    if (pixmap.isNull()) {
+        QImage zhaoImage;
+        zhaoImage.load(":/4全流程记录/Images/4全流程记录/照片-.png");
+        zhaoImage = zhaoImage.scaled(150
+                                     , 226
+                                     , Qt::IgnoreAspectRatio
+                                     , Qt::SmoothTransformation);
+        pixmap = QPixmap::fromImage(zhaoImage);
+    }
 
     return pixmap;
 }

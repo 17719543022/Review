@@ -31,6 +31,8 @@
         <file>Images/4全流程记录/证件失效-拷贝.png</file>
         <file>Images/4全流程记录/证件失效.png</file>
         <file>Images/4全流程记录/采集成功.png</file>
+        <file>Images/4全流程记录/icon_wjl.png</file>
+        <file>Images/4全流程记录/icon_ylj.png</file>
     </qresource>
     <qresource prefix="/2系统首页">
         <file>Images/2系统首页/下拉窗口/人像采集-拷贝.png</file>
