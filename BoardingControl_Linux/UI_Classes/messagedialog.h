@@ -3,18 +3,44 @@
 
 #include <QMessageBox>
 #include "ui_messagedialog.h"
+#include "ServerInterface/api_param_def.h"
+#include <QSignalMapper>
 
 class QGridLayout;
 class QLabel;
 namespace Ui {
     class MessageDialog;
 } // namespace Ui
+
+class FlowButtonWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    FlowButtonWidget(QWidget *parent = Q_NULLPTR
+            , int widgetIndex = 0
+            , QString flightNo = QString()
+            , QString boardingNumber = QString()
+            , QString flightDay = QString());
+
+private:
+    int widgetIndex;
+    QString flightNo;
+    QString boardingNumber;
+    QString flightDay;
+};
+
 class MessageDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit MessageDialog(QWidget *parent = 0, const QString &title = NULL, const QString &text = NULL, int buttonNum = 2);
+    explicit MessageDialog(QWidget *parent = nullptr
+            , const QString &title = nullptr
+            , const QString &text = nullptr
+            , int buttonNum = 2
+            , int flowNum = 1
+            , const FlowReviewResponse &response = FlowReviewResponse());
     ~MessageDialog();
 
 
@@ -29,6 +55,7 @@ public:
     void addWidget(QWidget *pWidget);
 public slots:
     void close_this(int n);
+    void clicked(int);
 
 private slots:
     void on_pushButton_YES_clicked();

@@ -197,11 +197,25 @@ QPushButton:pressed{image: url(:/2系统首页/Images/2系统首页/弹窗/取�
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+    <widget class="QTableWidget" name="flowTableWidget">
+     <property name="geometry">
+      <rect>
+       <x>55</x>
+       <y>100</y>
+       <width>440</width>
+       <height>210</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
     <zorder>label_txt</zorder>
     <zorder>pushButton_YES</zorder>
     <zorder>pushButton_NO</zorder>
     <zorder>label_title</zorder>
     <zorder>pushButton_X</zorder>
+    <zorder>flowTableWidget</zorder>
    </widget>
   </widget>
  </widget>

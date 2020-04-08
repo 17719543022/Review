@@ -665,6 +665,7 @@ struct FlowReviewInterface {
     int status;
     QString reqId;
     QString msg;
+    int flowNum;
     FlowReviewResult result[10];
     int isBaby;
 
@@ -672,6 +673,7 @@ struct FlowReviewInterface {
         status = -1;
         reqId = QString();
         msg = QString();
+        flowNum = 0;
         isBaby = -1;
     }
 
@@ -691,6 +693,7 @@ struct FlowReviewInterface {
             QJsonValue resultObj = docObj.value("result");
             if (!resultObj.isNull() && resultObj.isArray()) {
                 QJsonArray array = resultObj.toArray();
+                flowNum = array.size();
                 for (int i = 0; i < array.size() && i < 10; i++) {
                     QJsonValue userInfo = array.at(i).toObject().value("userInfo");
                     if (!userInfo.isNull()) {

@@ -83,17 +83,29 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         qDebug() << "Queried Passenger Not Found!!";
     }
 
-    if (response.interface.result[0].hasUserInfo) {
-        ui->passengerNameLabel_2->setText(response.interface.result[0].userInfo.passengerName);
-        ui->passengerCodeLabel_2->setText(response.interface.result[0].userInfo.certificateNumber);
-        ui->passengerFlightLabel_2->setText(response.interface.result[0].userInfo.flightNo);
-        ui->boardingNumberLabel_2->setText(response.interface.result[0].userInfo.seatId);
+    int flowIndex = 0;
+    if (response.interface.flowNum > 1) {
+        MessageDialog msg(this, "请选择旅客", "", 0, response.interface.flowNum, response);
+        flowIndex = msg.exec();
+
+        if (flowIndex < 65535) {
+            return;
+        } else {
+            flowIndex -= 65535;
+        }
+    }
+
+    if (response.interface.result[flowIndex].hasUserInfo) {
+        ui->passengerNameLabel_2->setText(response.interface.result[flowIndex].userInfo.passengerName);
+        ui->passengerCodeLabel_2->setText(response.interface.result[flowIndex].userInfo.certificateNumber);
+        ui->passengerFlightLabel_2->setText(response.interface.result[flowIndex].userInfo.flightNo);
+        ui->boardingNumberLabel_2->setText(response.interface.result[flowIndex].userInfo.seatId);
     }
 
     int widgetIndex = 0;
 
     // 中转/经停采集
-    if (response.interface.result[0].hasTransferInfo) {
+    if (response.interface.result[flowIndex].hasTransferInfo) {
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
         ui->flowTableWidget->insertRow(widgetIndex);
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
@@ -107,7 +119,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         transferLabel->setAlignment(Qt::AlignCenter);
         transferLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QPixmap pixmap = getQPixmapSync(response.interface.result[0].transferInfo.photoPath);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[flowIndex].transferInfo.photoPath);
         pixmap = pixmap.scaled(150
                                , 198
                                , Qt::IgnoreAspectRatio
@@ -134,14 +146,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *transferGateValueLabel = new QLabel(transferWidget);
         transferGateValueLabel->setGeometry(474, 14, 292, 38);
-        transferGateValueLabel->setText(response.interface.result[0].transferInfo.gateNo);
+        transferGateValueLabel->setText(response.interface.result[flowIndex].transferInfo.gateNo);
         transferGateValueLabel->setFixedSize(292, 38);
         transferGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         transferGateValueLabel->setStyleSheet("iamge: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *transferTimeValueLabel_1 = new QLabel(transferWidget);
         transferTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        QString collectTime = response.interface.result[0].transferInfo.collectTime;
+        QString collectTime = response.interface.result[flowIndex].transferInfo.collectTime;
         transferTimeValueLabel_1->setText(collectTime.left(4) + "／" + collectTime.mid(4, 2) + "／" + collectTime.mid(6, 2));
         transferTimeValueLabel_1->setFixedSize(292, 38);
         transferTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -155,7 +167,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         transferTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage transferModalImage;
-        int sourceType = response.interface.result[0].transferInfo.sourceType;
+        int sourceType = response.interface.result[flowIndex].transferInfo.sourceType;
         if (sourceType == 0 || sourceType == 3) {
             transferModalImage.load(":/4全流程记录/Images/4全流程记录/中转采集.png");
         } else if (sourceType == 1 || sourceType == 4) {
@@ -178,10 +190,10 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         widgetIndex = widgetIndex + 1;
     }
 
-    if (response.interface.result[0].hasTransferInfo
-            && (response.interface.result[0].hasSecurityInfo
-                || response.interface.result[0].hasReviewInfo
-                || response.interface.result[0].hasBoardingInfo)) {
+    if (response.interface.result[flowIndex].hasTransferInfo
+            && (response.interface.result[flowIndex].hasSecurityInfo
+                || response.interface.result[flowIndex].hasReviewInfo
+                || response.interface.result[flowIndex].hasBoardingInfo)) {
         ui->flowTableWidget->setRowHeight(widgetIndex, 2);
         ui->flowTableWidget->insertRow(widgetIndex);
         ui->flowTableWidget->setRowHeight(widgetIndex, 2);
@@ -196,7 +208,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
     }
 
     // 人证验证
-    if (response.interface.result[0].hasSecurityInfo) {
+    if (response.interface.result[flowIndex].hasSecurityInfo) {
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
         ui->flowTableWidget->insertRow(widgetIndex);
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
@@ -210,7 +222,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         securityLabel->setAlignment(Qt::AlignCenter);
         securityLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QPixmap pixmap = getQPixmapSync(response.interface.result[0].securityInfo.photoPath);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[flowIndex].securityInfo.photoPath);
         pixmap = pixmap.scaled(150
                                , 198
                                , Qt::IgnoreAspectRatio
@@ -237,14 +249,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *securityGateValueLabel = new QLabel(securityWidget);
         securityGateValueLabel->setGeometry(474, 14, 292, 38);
-        securityGateValueLabel->setText(response.interface.result[0].securityInfo.gateNo);
+        securityGateValueLabel->setText(response.interface.result[flowIndex].securityInfo.gateNo);
         securityGateValueLabel->setFixedSize(292, 38);
         securityGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         securityGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *securityTimeValueLabel_1 = new QLabel(securityWidget);
         securityTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        QString passTime = response.interface.result[0].securityInfo.passTime;
+        QString passTime = response.interface.result[flowIndex].securityInfo.passTime;
         securityTimeValueLabel_1->setText(passTime.left(4) + "／" + passTime.mid(4, 2) + "／" + passTime.mid(6, 2));
         securityTimeValueLabel_1->setFixedSize(292, 38);
         securityTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -258,8 +270,8 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         securityTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage securityModalImage;
-        int passType = response.interface.result[0].securityInfo.passType;
-        int passStatus = response.interface.result[0].securityInfo.passStatus;
+        int passType = response.interface.result[flowIndex].securityInfo.passType;
+        int passStatus = response.interface.result[flowIndex].securityInfo.passStatus;
         switch (passType) {
         case 0:
         case 2:
@@ -313,9 +325,9 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         widgetIndex = widgetIndex + 1;
     }
 
-    if (response.interface.result[0].hasSecurityInfo
-            && (response.interface.result[0].hasReviewInfo
-                || response.interface.result[0].hasBoardingInfo)) {
+    if (response.interface.result[flowIndex].hasSecurityInfo
+            && (response.interface.result[flowIndex].hasReviewInfo
+                || response.interface.result[flowIndex].hasBoardingInfo)) {
         ui->flowTableWidget->setRowHeight(widgetIndex, 2);
         ui->flowTableWidget->insertRow(widgetIndex);
         ui->flowTableWidget->setRowHeight(widgetIndex, 2);
@@ -330,7 +342,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
     }
 
     // 通道复核
-    if (response.interface.result[0].hasReviewInfo) {
+    if (response.interface.result[flowIndex].hasReviewInfo) {
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
         ui->flowTableWidget->insertRow(widgetIndex);
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
@@ -344,7 +356,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         reviewLabel->setAlignment(Qt::AlignCenter);
         reviewLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QPixmap pixmap = getQPixmapSync(response.interface.result[0].reviewInfo.photoPath);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[flowIndex].reviewInfo.photoPath);
         pixmap = pixmap.scaled(150
                                , 198
                                , Qt::IgnoreAspectRatio
@@ -371,14 +383,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *reviewGateValueLabel = new QLabel(reviewWidget);
         reviewGateValueLabel->setGeometry(474, 14, 292, 38);
-        reviewGateValueLabel->setText(response.interface.result[0].reviewInfo.gateNo);
+        reviewGateValueLabel->setText(response.interface.result[flowIndex].reviewInfo.gateNo);
         reviewGateValueLabel->setFixedSize(292, 38);
         reviewGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         reviewGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *reviewTimeValueLabel_1 = new QLabel(reviewWidget);
         reviewTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        QString passTime = response.interface.result[0].reviewInfo.passTime;
+        QString passTime = response.interface.result[flowIndex].reviewInfo.passTime;
         reviewTimeValueLabel_1->setText(passTime.left(4) + "／" + passTime.mid(4, 2)+ "／" + passTime.mid(6, 2));
         reviewTimeValueLabel_1->setFixedSize(292, 38);
         reviewTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -392,8 +404,8 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         reviewTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage reviewModalImage;
-        int passType = response.interface.result[0].reviewInfo.passType;
-        int passStatus = response.interface.result[0].reviewInfo.passStatus;
+        int passType = response.interface.result[flowIndex].reviewInfo.passType;
+        int passStatus = response.interface.result[flowIndex].reviewInfo.passStatus;
         switch (passType) {
         case 0:
         case 2:
@@ -444,8 +456,8 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         widgetIndex = widgetIndex + 1;
     }
 
-    if (response.interface.result[0].hasReviewInfo
-            && response.interface.result[0].hasBoardingInfo) {
+    if (response.interface.result[flowIndex].hasReviewInfo
+            && response.interface.result[flowIndex].hasBoardingInfo) {
         ui->flowTableWidget->setRowHeight(widgetIndex, 2);
         ui->flowTableWidget->insertRow(widgetIndex);
         ui->flowTableWidget->setRowHeight(widgetIndex, 2);
@@ -460,7 +472,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
     }
 
     // 登机口复核
-    if (response.interface.result[0].hasBoardingInfo) {
+    if (response.interface.result[flowIndex].hasBoardingInfo) {
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
         ui->flowTableWidget->insertRow(widgetIndex);
         ui->flowTableWidget->setRowHeight(widgetIndex, 226);
@@ -473,7 +485,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         boardingLabel->setAlignment(Qt::AlignCenter);
         boardingLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 20pt; color: rgb(0, 228, 255);");
 
-        QPixmap pixmap = getQPixmapSync(response.interface.result[0].boardingInfo.photoPath);
+        QPixmap pixmap = getQPixmapSync(response.interface.result[flowIndex].boardingInfo.photoPath);
         pixmap = pixmap.scaled(150
                                , 198
                                , Qt::IgnoreAspectRatio
@@ -500,14 +512,14 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *boardingGateValueLabel = new QLabel(boardingWidget);
         boardingGateValueLabel->setGeometry(474, 14, 292, 38);
-        boardingGateValueLabel->setText(response.interface.result[0].boardingInfo.gateNo);
+        boardingGateValueLabel->setText(response.interface.result[flowIndex].boardingInfo.gateNo);
         boardingGateValueLabel->setFixedSize(292, 38);
         boardingGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         boardingGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *boardingTimeValueLabel_1 = new QLabel(boardingWidget);
         boardingTimeValueLabel_1->setGeometry(474, 58, 292, 38);
-        QString passTime = response.interface.result[0].boardingInfo.passTime;
+        QString passTime = response.interface.result[flowIndex].boardingInfo.passTime;
         boardingTimeValueLabel_1->setText(passTime.left(4) + "／" + passTime.mid(4, 2) + "／" + passTime.mid(6, 2));
         boardingTimeValueLabel_1->setFixedSize(292, 38);
         boardingTimeValueLabel_1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -521,8 +533,8 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         boardingTimeValueLabel_2->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QImage boardingModalImage;
-        int passType = response.interface.result[0].boardingInfo.passType;
-        int passStatus = response.interface.result[0].boardingInfo.passStatus;
+        int passType = response.interface.result[flowIndex].boardingInfo.passType;
+        int passStatus = response.interface.result[flowIndex].boardingInfo.passStatus;
         switch (passType) {
         case 0:
             if (passStatus == 0) {
