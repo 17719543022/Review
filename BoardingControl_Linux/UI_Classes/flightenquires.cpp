@@ -288,6 +288,15 @@ FlightEnquires::~FlightEnquires()
 
 void FlightEnquires::on_queryPushButton_clicked()
 {
+    ui->orgDepTableWidget->scrollToTop();
+
+    while (ui->orgDepTableWidget->rowCount() > 0 ) {
+        ui->orgDepTableWidget->removeRow(0);
+    }
+
+    orgDepFilledNum = 0;
+    orgDepFillIndex = 0;
+
     flight = ui->queryLineEdit->text().toUpper();
 
     if (flight.length() == 0) {
