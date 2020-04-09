@@ -8,6 +8,7 @@
 #include "messagedialog.h"
 #include "settings.h"
 #include <QUuid>
+#include <QPixmapCache>
 
 ButtonWidget::ButtonWidget(QWidget *parent, bool isStatisticsMode, Ui::DisplayTab tab, int widgetIndex)
     : QWidget(parent),
@@ -288,14 +289,28 @@ FlightEnquires::~FlightEnquires()
 
 void FlightEnquires::on_queryPushButton_clicked()
 {
+    ui->orgDepTableWidget->clear();
     ui->orgDepTableWidget->scrollToTop();
-
-    while (ui->orgDepTableWidget->rowCount() > 0 ) {
+    while (ui->orgDepTableWidget->rowCount() > 0) {
         ui->orgDepTableWidget->removeRow(0);
+    }
+    ui->boardingTableWidget->clear();
+    ui->boardingTableWidget->scrollToTop();
+    while (ui->boardingTableWidget->rowCount() > 0) {
+        ui->boardingTableWidget->removeRow(0);
+    }
+    ui->notboardingTableWidget->clear();
+    ui->notboardingTableWidget->scrollToTop();
+    while (ui->notboardingTableWidget->rowCount() > 0) {
+        ui->notboardingTableWidget->removeRow(0);
     }
 
     orgDepFilledNum = 0;
     orgDepFillIndex = 0;
+    boardingFilledNum = 0;
+    boardingFillIndex = 0;
+    notboardingFilledNum = 0;
+    notboardingFillIndex = 0;
 
     flight = ui->queryLineEdit->text().toUpper();
 
@@ -326,9 +341,38 @@ void FlightEnquires::on_orgDepPushButton_clicked()
     ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
     ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
 
-    ui->orgDepTableWidget->show();
+//    ui->orgDepTableWidget->show();
+//    ui->boardingTableWidget->hide();
+//    ui->notboardingTableWidget->hide();
+    ui->boardingTableWidget->clear();
+    ui->boardingTableWidget->scrollToTop();
+    while (ui->boardingTableWidget->rowCount() > 0) {
+        ui->boardingTableWidget->removeRow(0);
+    }
     ui->boardingTableWidget->hide();
+
+    ui->notboardingTableWidget->clear();
+    ui->notboardingTableWidget->scrollToTop();
+    while (ui->notboardingTableWidget->rowCount() > 0) {
+        ui->notboardingTableWidget->removeRow(0);
+    }
     ui->notboardingTableWidget->hide();
+
+    ui->orgDepTableWidget->clear();
+    ui->orgDepTableWidget->scrollToTop();
+    while (ui->orgDepTableWidget->rowCount() > 0) {
+        ui->orgDepTableWidget->removeRow(0);
+    }
+    ui->orgDepTableWidget->show();
+
+    orgDepFilledNum = 0;
+    orgDepFillIndex = 0;
+    boardingFilledNum = 0;
+    boardingFillIndex = 0;
+    notboardingFilledNum = 0;
+    notboardingFillIndex = 0;
+
+    fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 }
 
 void FlightEnquires::on_boardingPushButton_clicked()
@@ -337,9 +381,38 @@ void FlightEnquires::on_boardingPushButton_clicked()
     ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
     ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
 
+//    ui->orgDepTableWidget->hide();
+//    ui->boardingTableWidget->show();
+//    ui->notboardingTableWidget->hide();
+    ui->orgDepTableWidget->clear();
+    ui->orgDepTableWidget->scrollToTop();
+    while (ui->orgDepTableWidget->rowCount() > 0 ) {
+        ui->orgDepTableWidget->removeRow(0);
+    }
     ui->orgDepTableWidget->hide();
-    ui->boardingTableWidget->show();
+
+    ui->notboardingTableWidget->clear();
+    ui->notboardingTableWidget->scrollToTop();
+    while (ui->notboardingTableWidget->rowCount() > 0 ) {
+        ui->notboardingTableWidget->removeRow(0);
+    }
     ui->notboardingTableWidget->hide();
+
+    ui->boardingTableWidget->clear();
+    ui->boardingTableWidget->scrollToTop();
+    while (ui->boardingTableWidget->rowCount() > 0 ) {
+        ui->boardingTableWidget->removeRow(0);
+    }
+    ui->boardingTableWidget->show();
+
+    orgDepFilledNum = 0;
+    orgDepFillIndex = 0;
+    boardingFilledNum = 0;
+    boardingFillIndex = 0;
+    notboardingFilledNum = 0;
+    notboardingFillIndex = 0;
+
+    fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
 }
 
 void FlightEnquires::on_notboardingPushButton_clicked()
@@ -348,9 +421,38 @@ void FlightEnquires::on_notboardingPushButton_clicked()
     ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
     ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
 
+//    ui->orgDepTableWidget->hide();
+//    ui->boardingTableWidget->hide();
+//    ui->notboardingTableWidget->show();
+    ui->orgDepTableWidget->clear();
+    ui->orgDepTableWidget->scrollToTop();
+    while (ui->orgDepTableWidget->rowCount() > 0) {
+        ui->orgDepTableWidget->removeRow(0);
+    }
     ui->orgDepTableWidget->hide();
+
+    ui->boardingTableWidget->clear();
+    ui->boardingTableWidget->scrollToTop();
+    while (ui->boardingTableWidget->rowCount() > 0) {
+        ui->boardingTableWidget->removeRow(0);
+    }
     ui->boardingTableWidget->hide();
+
+    ui->notboardingTableWidget->clear();
+    ui->notboardingTableWidget->scrollToTop();
+    while (ui->notboardingTableWidget->rowCount() > 0) {
+        ui->notboardingTableWidget->removeRow(0);
+    }
     ui->notboardingTableWidget->show();
+
+    orgDepFilledNum = 0;
+    orgDepFillIndex = 0;
+    boardingFilledNum = 0;
+    boardingFillIndex = 0;
+    notboardingFilledNum = 0;
+    notboardingFillIndex = 0;
+
+    fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 }
 
 void FlightEnquires::on_orgDepSlider_changed(int p)
@@ -421,6 +523,7 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
     QByteArray byteArray = reply->readAll();
 
     QPixmap pixmap;
+    QPixmapCache::clear();
     pixmap.loadFromData(byteArray);
 
     if (pixmap.isNull()) {
@@ -625,8 +728,8 @@ int FlightEnquires::query()
     }
 
     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
-    fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
-    fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
+//    fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
+//    fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 
     return Ui::DisplayType::DisplayNormal;
 }
