@@ -8,7 +8,6 @@
 #include "messagedialog.h"
 #include "settings.h"
 #include <QUuid>
-#include <QPixmapCache>
 
 ButtonWidget::ButtonWidget(QWidget *parent, bool isStatisticsMode, Ui::DisplayTab tab, int widgetIndex)
     : QWidget(parent),
@@ -523,7 +522,6 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
     QByteArray byteArray = reply->readAll();
 
     QPixmap pixmap;
-    QPixmapCache::clear();
     pixmap.loadFromData(byteArray);
 
     if (pixmap.isNull()) {
