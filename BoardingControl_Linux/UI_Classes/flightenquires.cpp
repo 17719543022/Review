@@ -9,22 +9,20 @@
 #include "settings.h"
 #include <QUuid>
 
-ButtonWidget::ButtonWidget(QWidget *parent, bool isStatisticsMode, Ui::DisplayTab tab, int widgetIndex)
+ButtonWidget::ButtonWidget(QWidget *parent, int widgetIndex)
     : QWidget(parent),
-      isStatisticsMode(isStatisticsMode),
       widgetIndex(widgetIndex)
 {
     QSignalMapper *signalMapper = new QSignalMapper();
-    if (isStatisticsMode && (tab == Ui::DisplayTab::DepositoryTab)) {
-        QPushButton *removePushButton = new QPushButton(this);
-        removePushButton->setGeometry(600, 134, 140, 40);
-        removePushButton->setText("删    除");
-        removePushButton->setFixedSize(140, 40);
-        removePushButton->setStyleSheet("image: 0; border: 0; border-radius: 4; background: rgb(255, 0, 0); font: 19pt; color: rgb(255, 255, 255);");
 
-        connect(removePushButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(removePushButton, widgetIndex);
-    }
+    QPushButton *removePushButton = new QPushButton(this);
+    removePushButton->setGeometry(600, 134, 140, 40);
+    removePushButton->setText("删    除");
+    removePushButton->setFixedSize(140, 40);
+    removePushButton->setStyleSheet("image: 0; border: 0; border-radius: 4; background: rgb(255, 0, 0); font: 19pt; color: rgb(255, 255, 255);");
+
+    connect(removePushButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    signalMapper->setMapping(removePushButton, widgetIndex);
 
     connect(signalMapper, SIGNAL(mapped(int)), parent, SLOT(on_removeRow_clicked(int)));
 }
@@ -89,13 +87,54 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
 
 void FlightEnquires::statistics(QString flight)
 {
-    this->flight = flight;
+    this->flight = flight.toUpper();
     this->isStatisticsMode = true;
 
     ui->inputWidget->hide();
-    this->on_orgDepPushButton_clicked();
 
-    this->query();
+    ui->orgDepTableWidget->clear();
+    ui->orgDepTableWidget->scrollToTop();
+    while (ui->orgDepTableWidget->rowCount() > 0) {
+        ui->orgDepTableWidget->removeRow(0);
+    }
+    ui->boardingTableWidget->clear();
+    ui->boardingTableWidget->scrollToTop();
+    while (ui->boardingTableWidget->rowCount() > 0) {
+        ui->boardingTableWidget->removeRow(0);
+    }
+    ui->notboardingTableWidget->clear();
+    ui->notboardingTableWidget->scrollToTop();
+    while (ui->notboardingTableWidget->rowCount() > 0) {
+        ui->notboardingTableWidget->removeRow(0);
+    }
+
+    orgDepFilledNum = 0;
+    orgDepFillIndex = 0;
+    boardingFilledNum = 0;
+    boardingFillIndex = 0;
+    notboardingFilledNum = 0;
+    notboardingFillIndex = 0;
+
+    if (flight.length() == 0) {
+        qDebug() << "flight: " << flight;
+        MessageDialog msg(this, nullptr, "请输入有效信息!", 1);
+        msg.exec();
+
+        return;
+    }
+
+    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
+    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+
+    ui->orgDepTableWidget->show();
+    ui->boardingTableWidget->hide();
+    ui->notboardingTableWidget->hide();
+
+    if (Ui::DisplayType::DisplayNullErr == query()) {
+         MessageDialog msg(this, nullptr, "请输入正确的航班号!", 1);
+         msg.exec();
+     }
 }
 
 void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
@@ -487,11 +526,63 @@ void FlightEnquires::on_removeRow_clicked(int widgetIndex)
     libDelReq.boardingGate = LocalSettings::config->value("Device/boardingGate").toString();
     libDelReq.deviceCode = LocalSettings::config->value("Device/deviceId").toString();
     libDelReq.id = response.interface.results[widgetIndex/2].id;
+    libDelReq.date = QDateTime::currentDateTime().toString("yyyy-MM-dd");
 
-    for (int i = widgetIndex/2; i < response.interface.validSize && i < 1000; i++) {
+    libDelRsp = HttpAPI::instance()->removeSpecific(libDelReq);
+
+    if (libDelRsp.status != 0) {
+        qDebug() << "libDelRsp.status: " << libDelRsp.status;
+        MessageDialog msg(this, nullptr, "删除底库失败!", 1);
+        msg.exec();
+
+        return;
+    }
+
+    QString flightNoClicked = response.interface.results[widgetIndex/2].flightNumber;
+    QString boardingNumberClicked = response.interface.results[widgetIndex/2].boardingNumber;
+
+    for (int i = widgetIndex/2; i < response.interface.validSize - 1 && i < 1000; i++) {
         response.interface.results[i] = response.interface.results[i + 1];
     }
+    response.interface.results[response.interface.validSize - 1] = FlightReviewResult();
     response.interface.validSize -= 1;
+
+    FlightReviewResult partener;
+    int count = 0;
+    int index = -1;
+    for (int i = 0; i < response.interface.validSize; i++) {
+        if ((response.interface.results[i].flightNumber == flightNoClicked)
+                && (response.interface.results[i].boardingNumber == boardingNumberClicked)) {
+            count += 1;
+            index = i;
+        }
+    }
+
+    if (count == 1) {
+        partener = response.interface.results[index];
+        partener.isSameBoardingNumber = false;
+
+        for (int i = index; i < response.interface.validSize - 1; i++) {
+            response.interface.results[i] = response.interface.results[i + 1];
+        }
+        response.interface.results[response.interface.validSize - 1] = FlightReviewResult();
+        response.interface.validSize -= 1;
+
+        for (int i = 0; i < response.interface.validSize; i++) {
+            if (partener.updateTime > response.interface.results[i].updateTime && !response.interface.results[i].isSameBoardingNumber) {
+                for (int k = response.interface.validSize - 1; k >= i; k--) {
+                    response.interface.results[k + 1] = response.interface.results[k];
+                }
+                response.interface.results[i] = partener;
+                response.interface.validSize += 1;
+                break;
+            }
+            if (i == response.interface.validSize - 1) {
+                response.interface.results[i] = partener;
+                response.interface.validSize += 1;
+            }
+        }
+    }
 
     ui->orgDepTableWidget->scrollToTop();
     while (ui->orgDepTableWidget->rowCount() > 0 ) {
@@ -503,8 +594,6 @@ void FlightEnquires::on_removeRow_clicked(int widgetIndex)
 
     ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
-
-    libDelRsp = HttpAPI::instance()->removeSpecific(libDelReq);
 }
 
 QPixmap FlightEnquires::getQPixmapSync(QString str)
@@ -600,7 +689,12 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         table->insertRow(widgetIndex);
         table->setRowHeight(widgetIndex, 186);
 
-        QWidget *itemWidget = new ButtonWidget(this, isStatisticsMode, tab, widgetIndex);
+        QWidget *itemWidget = nullptr;
+        if ((tab == Ui::DisplayTab::DepositoryTab) && results[i].isSameBoardingNumber && isStatisticsMode) {
+            itemWidget = new ButtonWidget(this, widgetIndex);
+        } else {
+            itemWidget = new QWidget(this);
+        }
 
         if (results[i].isSameBoardingNumber) {
             QImage sameBoardingNumberBGImage;
@@ -611,6 +705,7 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
                                                                          , Qt::SmoothTransformation);
             QPixmap sameBoardingNumberBGPixmap = QPixmap::fromImage(sameBoardingNumberBGImage);
             QLabel *sameBoardingNumberBGLabel = new QLabel(itemWidget);
+            sameBoardingNumberBGLabel->lower();
             sameBoardingNumberBGLabel->setGeometry(0, 0, 766, 185);
             sameBoardingNumberBGLabel->setPixmap(sameBoardingNumberBGPixmap);
             sameBoardingNumberBGLabel->setFixedSize(766, 185);
@@ -723,6 +818,8 @@ int FlightEnquires::query()
         ui->notboardingTableWidget->clear();
 
         return Ui::DisplayType::DisplayNullErr;
+    } else {
+        ui->queryLineEdit->clear();
     }
 
     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);

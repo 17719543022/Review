@@ -513,6 +513,7 @@ struct LibDeleteRequest {
     QString boardingGate;
     QString deviceCode;
     QString id;
+    QString date;
 
     LibDeleteRequest() {
         reqId = QString();
@@ -521,6 +522,7 @@ struct LibDeleteRequest {
         boardingGate = QString();
         deviceCode = QString();
         id = QString();
+        date = QString();
     }
 };
 

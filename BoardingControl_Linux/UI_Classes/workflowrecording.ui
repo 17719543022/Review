@@ -256,6 +256,9 @@ border-radius: 4px;</string>
          <pointsize>18</pointsize>
         </font>
        </property>
+       <property name="maxLength">
+        <number>18</number>
+       </property>
        <property name="placeholderText">
         <string>请输入身份证号或航班号#序号</string>
        </property>

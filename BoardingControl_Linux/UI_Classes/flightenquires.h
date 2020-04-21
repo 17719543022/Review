@@ -28,13 +28,9 @@ class ButtonWidget : public QWidget
 
 public:
     ButtonWidget(QWidget *parent = Q_NULLPTR
-            , bool isStatisticsMode = false
-            , Ui::DisplayTab tab = Ui::DisplayTab::DepositoryTab
             , int widgetIndex = 0);
 
 private:
-    bool isStatisticsMode;
-    Ui::DisplayTab tab;
     int widgetIndex;
 };
 

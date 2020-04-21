@@ -80,7 +80,12 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
     FlowReviewResponse response = HttpAPI::instance()->get(request);
 
     if (!response.founded) {
-        qDebug() << "Queried Passenger Not Found!!";
+        MessageDialog msg(this, nullptr, "请输入有效信息!", 1);
+        msg.exec();
+
+        return;
+    } else {
+        ui->flowQueryLineEdit->clear();
     }
 
     int flowIndex = 0;

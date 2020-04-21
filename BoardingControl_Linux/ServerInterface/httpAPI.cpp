@@ -295,6 +295,7 @@ LibDeleteResponse HttpAPI::removeSpecific(const LibDeleteRequest& request)
         json.insert("boardingGate", request.boardingGate);
         json.insert("deviceCode", request.deviceCode);
         json.insert("id", request.id);
+        json.insert("date", request.date);
 
         qDebug() << "LibDeleteRequest: " << json;
 
