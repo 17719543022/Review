@@ -279,36 +279,10 @@ border-radius: 4px;</string>
 border: 0;
 background: 0;</string>
      </property>
-     <widget class="QLabel" name="passengerLabel">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>180</width>
-        <height>158</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 228, 255);</string>
-      </property>
-      <property name="text">
-       <string>始发旅客</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="passengerNameLabel_1">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>35</x>
         <y>0</y>
         <width>120</width>
         <height>38</height>
@@ -329,7 +303,7 @@ background: 0;</string>
      <widget class="QLabel" name="passengerCodeLabel_1">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>35</x>
         <y>60</y>
         <width>120</width>
         <height>38</height>
@@ -353,7 +327,7 @@ background: 0;</string>
      <widget class="QLabel" name="passengerFlightLabel_1">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>35</x>
         <y>120</y>
         <width>120</width>
         <height>38</height>
@@ -377,7 +351,7 @@ background: 0;</string>
      <widget class="QLabel" name="boardingNumberLabel_1">
       <property name="geometry">
        <rect>
-        <x>430</x>
+        <x>354</x>
         <y>120</y>
         <width>121</width>
         <height>38</height>
@@ -401,7 +375,7 @@ background: 0;</string>
      <widget class="QLabel" name="passengerNameLabel_2">
       <property name="geometry">
        <rect>
-        <x>305</x>
+        <x>160</x>
         <y>0</y>
         <width>280</width>
         <height>38</height>
@@ -424,9 +398,9 @@ background: 0;</string>
      <widget class="QLabel" name="passengerCodeLabel_2">
       <property name="geometry">
        <rect>
-        <x>305</x>
+        <x>160</x>
         <y>60</y>
-        <width>280</width>
+        <width>350</width>
         <height>38</height>
        </rect>
       </property>
@@ -447,7 +421,7 @@ background: 0;</string>
      <widget class="QLabel" name="boardingNumberLabel_2">
       <property name="geometry">
        <rect>
-        <x>550</x>
+        <x>476</x>
         <y>120</y>
         <width>220</width>
         <height>38</height>
@@ -470,9 +444,9 @@ background: 0;</string>
      <widget class="QLabel" name="passengerFlightLabel_2">
       <property name="geometry">
        <rect>
-        <x>305</x>
+        <x>160</x>
         <y>120</y>
-        <width>121</width>
+        <width>150</width>
         <height>38</height>
        </rect>
       </property>
@@ -490,27 +464,6 @@ background: 0;</string>
        <string/>
       </property>
      </widget>
-    </widget>
-    <widget class="QLabel" name="splitLabel">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>278</y>
-       <width>740</width>
-       <height>2</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">image: 0;
-background: 0;
-border-radius: 0;
-border-width: 1px;
-border-style: dashed;
-border-color: rgb(135, 183, 194);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
     </widget>
     <widget class="QTableWidget" name="flowTableWidget">
      <property name="geometry">

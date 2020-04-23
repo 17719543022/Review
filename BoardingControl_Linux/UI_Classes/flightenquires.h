@@ -6,6 +6,7 @@
 #include "ServerInterface/api_param_def.h"
 #include <QPushButton>
 #include <QSignalMapper>
+#include <QNetworkAccessManager>
 
 namespace Ui {
 class FlightEnquires;
@@ -75,6 +76,8 @@ private:
     Ui::FlightEnquires *ui;
 
     QSignalMapper *signalMapper;
+
+    QNetworkAccessManager *naManager;
 
     FlightReviewResponse response;
 

@@ -66,11 +66,15 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
     while (ui->flowTableWidget->rowCount() > 0 ) {
         ui->flowTableWidget->removeRow(0);
     }
+    ui->passengerNameLabel_2->clear();
+    ui->passengerCodeLabel_2->clear();
+    ui->passengerFlightLabel_2->clear();
+    ui->boardingNumberLabel_2->clear();
 
     FlowReviewRequest request;
     request.input = ui->flowQueryLineEdit->text().toUpper();
 
-    if ((request.input.length() == 0) || (request.input.length() > 18)) {
+    if ((!request.input.contains("#", Qt::CaseSensitive)) && (request.input.length() != 18)) {
         MessageDialog msg(this, nullptr, "请输入有效信息!", 1);
         msg.exec();
 
@@ -80,7 +84,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
     FlowReviewResponse response = HttpAPI::instance()->get(request);
 
     if (!response.founded) {
-        MessageDialog msg(this, nullptr, "请输入有效信息!", 1);
+        MessageDialog msg(this, nullptr, "没有该旅客的信息!", 1);
         msg.exec();
 
         return;
@@ -151,7 +155,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *transferGateValueLabel = new QLabel(transferWidget);
         transferGateValueLabel->setGeometry(474, 14, 292, 38);
-        transferGateValueLabel->setText(response.interface.result[flowIndex].transferInfo.gateNo);
+        transferGateValueLabel->setText(response.interface.result[flowIndex].transferInfo.channelName);
         transferGateValueLabel->setFixedSize(292, 38);
         transferGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         transferGateValueLabel->setStyleSheet("iamge: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -191,24 +195,11 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         transferModalLabel->setPixmap(transferModalPixmap);
         transferModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
 
-        ui->flowTableWidget->setCellWidget(widgetIndex, 0, transferWidget);
-        widgetIndex = widgetIndex + 1;
-    }
-
-    if (response.interface.result[flowIndex].hasTransferInfo
-            && (response.interface.result[flowIndex].hasSecurityInfo
-                || response.interface.result[flowIndex].hasReviewInfo
-                || response.interface.result[flowIndex].hasBoardingInfo)) {
-        ui->flowTableWidget->setRowHeight(widgetIndex, 2);
-        ui->flowTableWidget->insertRow(widgetIndex);
-        ui->flowTableWidget->setRowHeight(widgetIndex, 2);
-
-        QWidget *splitWidget = new QWidget();
-        QLabel *splitLabel = new QLabel(splitWidget);
+        QLabel *splitLabel = new QLabel(transferWidget);
         splitLabel->setGeometry(13, 0, 740, 2);
         splitLabel->setStyleSheet("image: 0; background: 0; border-radius: 0; border-width: 1px; border-style: dashed; border-color: rgb(135, 183, 194);");
 
-        ui->flowTableWidget->setCellWidget(widgetIndex, 0, splitWidget);
+        ui->flowTableWidget->setCellWidget(widgetIndex, 0, transferWidget);
         widgetIndex = widgetIndex + 1;
     }
 
@@ -254,7 +245,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *securityGateValueLabel = new QLabel(securityWidget);
         securityGateValueLabel->setGeometry(474, 14, 292, 38);
-        securityGateValueLabel->setText(response.interface.result[flowIndex].securityInfo.gateNo);
+        securityGateValueLabel->setText(response.interface.result[flowIndex].securityInfo.channelName);
         securityGateValueLabel->setFixedSize(292, 38);
         securityGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         securityGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -326,23 +317,11 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         securityModalLabel->setPixmap(securityModalPixmap);
         securityModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
 
-        ui->flowTableWidget->setCellWidget(widgetIndex, 0, securityWidget);
-        widgetIndex = widgetIndex + 1;
-    }
-
-    if (response.interface.result[flowIndex].hasSecurityInfo
-            && (response.interface.result[flowIndex].hasReviewInfo
-                || response.interface.result[flowIndex].hasBoardingInfo)) {
-        ui->flowTableWidget->setRowHeight(widgetIndex, 2);
-        ui->flowTableWidget->insertRow(widgetIndex);
-        ui->flowTableWidget->setRowHeight(widgetIndex, 2);
-
-        QWidget *splitWidget = new QWidget();
-        QLabel *splitLabel = new QLabel(splitWidget);
+        QLabel *splitLabel = new QLabel(securityWidget);
         splitLabel->setGeometry(13, 0, 740, 2);
         splitLabel->setStyleSheet("image: 0; background: 0; border-radius: 0; border-width: 1px; border-style: dashed; border-color: rgb(135, 183, 194);");
 
-        ui->flowTableWidget->setCellWidget(widgetIndex, 0, splitWidget);
+        ui->flowTableWidget->setCellWidget(widgetIndex, 0, securityWidget);
         widgetIndex = widgetIndex + 1;
     }
 
@@ -388,7 +367,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *reviewGateValueLabel = new QLabel(reviewWidget);
         reviewGateValueLabel->setGeometry(474, 14, 292, 38);
-        reviewGateValueLabel->setText(response.interface.result[flowIndex].reviewInfo.gateNo);
+        reviewGateValueLabel->setText(response.interface.result[flowIndex].reviewInfo.channelName);
         reviewGateValueLabel->setFixedSize(292, 38);
         reviewGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         reviewGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -457,22 +436,11 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         reviewModalLabel->setPixmap(reviewModalPixmap);
         reviewModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
 
-        ui->flowTableWidget->setCellWidget(widgetIndex, 0, reviewWidget);
-        widgetIndex = widgetIndex + 1;
-    }
-
-    if (response.interface.result[flowIndex].hasReviewInfo
-            && response.interface.result[flowIndex].hasBoardingInfo) {
-        ui->flowTableWidget->setRowHeight(widgetIndex, 2);
-        ui->flowTableWidget->insertRow(widgetIndex);
-        ui->flowTableWidget->setRowHeight(widgetIndex, 2);
-
-        QWidget *splitWidget = new QWidget();
-        QLabel *splitLabel = new QLabel(splitWidget);
+        QLabel *splitLabel = new QLabel(reviewWidget);
         splitLabel->setGeometry(13, 0, 740, 2);
         splitLabel->setStyleSheet("image: 0; background: 0; border-radius: 0; border-width: 1px; border-style: dashed; border-color: rgb(135, 183, 194);");
 
-        ui->flowTableWidget->setCellWidget(widgetIndex, 0, splitWidget);
+        ui->flowTableWidget->setCellWidget(widgetIndex, 0, reviewWidget);
         widgetIndex = widgetIndex + 1;
     }
 
@@ -517,7 +485,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
 
         QLabel *boardingGateValueLabel = new QLabel(boardingWidget);
         boardingGateValueLabel->setGeometry(474, 14, 292, 38);
-        boardingGateValueLabel->setText(response.interface.result[flowIndex].boardingInfo.gateNo);
+        boardingGateValueLabel->setText(response.interface.result[flowIndex].boardingInfo.channelName);
         boardingGateValueLabel->setFixedSize(292, 38);
         boardingGateValueLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         boardingGateValueLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
@@ -561,7 +529,6 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         default:
             break;
         }
-        boardingModalImage.load(":/4全流程记录/Images/4全流程记录/系统复核通过.png");
         boardingModalImage = boardingModalImage.scaled(169
                                                        , 50
                                                        , Qt::IgnoreAspectRatio
@@ -572,6 +539,10 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         boardingModalLabel->setFixedSize(169, 50);
         boardingModalLabel->setPixmap(boardingModalPixmap);
         boardingModalLabel->setStyleSheet("image: 0; border: 0; background: 0;");
+
+        QLabel *splitLabel = new QLabel(boardingWidget);
+        splitLabel->setGeometry(13, 0, 740, 2);
+        splitLabel->setStyleSheet("image: 0; background: 0; border-radius: 0; border-width: 1px; border-style: dashed; border-color: rgb(135, 183, 194);");
 
         ui->flowTableWidget->setCellWidget(widgetIndex, 0, boardingWidget);
     }
