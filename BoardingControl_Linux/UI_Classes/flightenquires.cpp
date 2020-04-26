@@ -138,7 +138,48 @@ void FlightEnquires::statistics(QString flight)
      }
 }
 
-void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
+bool FlightEnquires::isAlreadyExist(const QJsonValue &json)
+{
+    bool exist = false;
+
+    for (int i = 0; i < response.interface.validSize; i++) {
+        if (0 == QString::compare(response.interface.results[i].id, json.toObject().value("id").toString())) {
+            response.interface.results[i].boardingNumber = json.toObject().value("boardingNumber").toString();
+            response.interface.results[i].boardingStatus = json.toObject().value("boardingStatus").toInt();
+            response.interface.results[i].cardNo = json.toObject().value("cardNo").toString();
+            response.interface.results[i].flightNumber = json.toObject().value("flightNumber").toString();
+            response.interface.results[i].id = json.toObject().value("id").toString();
+            response.interface.results[i].passengerName = json.toObject().value("passengerName").toString();
+            response.interface.results[i].photoPath = json.toObject().value("photoPath").toString();
+            response.interface.results[i].repeatFlag = json.toObject().value("repeatFlag").toInt();
+            response.interface.results[i].seatNumber = json.toObject().value("seatNumber").toString();
+            response.interface.results[i].updateTime = json.toObject().value("updateTime").toString();
+            response.interface.results[i].boardingTime = json.toObject().value("boardingTime").toString();
+
+            exist = true;
+        }
+
+        if (0 == QString::compare(response.interface.unboard[i].id, json.toObject().value("id").toString())) {
+            response.interface.unboard[i].boardingNumber = json.toObject().value("boardingNumber").toString();
+            response.interface.unboard[i].boardingStatus = json.toObject().value("boardingStatus").toInt();
+            response.interface.unboard[i].cardNo = json.toObject().value("cardNo").toString();
+            response.interface.unboard[i].flightNumber = json.toObject().value("flightNumber").toString();
+            response.interface.unboard[i].id = json.toObject().value("id").toString();
+            response.interface.unboard[i].passengerName = json.toObject().value("passengerName").toString();
+            response.interface.unboard[i].photoPath = json.toObject().value("photoPath").toString();
+            response.interface.unboard[i].repeatFlag = json.toObject().value("repeatFlag").toInt();
+            response.interface.unboard[i].seatNumber = json.toObject().value("seatNumber").toString();
+            response.interface.unboard[i].updateTime = json.toObject().value("updateTime").toString();
+            response.interface.unboard[i].boardingTime = json.toObject().value("boardingTime").toString();
+
+            exist = true;
+        }
+    }
+
+    return exist;
+}
+
+void FlightEnquires::fillDepAndUnboardWithMQ(const QJsonArray &msg)
 {
     ui->orgDepTableWidget->scrollToTop();
 
@@ -161,10 +202,15 @@ void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
             QString boardingNumber = content.at(j).toObject().value("boardingNumber").toString();
             QString flightNumber = content.at(j).toObject().value("flightNumber").toString();
 
-            if (0 != QString::compare(flightNumber, "AB1250")) {
+            if (0 != QString::compare(flightNumber, flight)) {
                 continue;
             }
 
+            if (isAlreadyExist(content.at(j))) {
+                continue;
+            }
+
+            // fill OrgDepository
             if (response.interface.validSize == 0) {
                 response.interface.results[0].boardingNumber = content.at(j).toObject().value("boardingNumber").toString();
                 response.interface.results[0].boardingStatus = content.at(j).toObject().value("boardingStatus").toInt();
@@ -178,8 +224,6 @@ void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
                 response.interface.results[0].updateTime = content.at(j).toObject().value("updateTime").toString();
                 response.interface.results[0].boardingTime = content.at(j).toObject().value("boardingTime").toString();
                 response.interface.results[0].isSameBoardingNumber = false;
-
-                response.interface.validSize += 1;
             } else {
                 bool isSameboardingNumber = false;
                 int sameBoardingNumber = 0;
@@ -259,8 +303,6 @@ void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
                     response.interface.results[0].updateTime = content.at(j).toObject().value("updateTime").toString();
                     response.interface.results[0].boardingTime = content.at(j).toObject().value("boardingTime").toString();
                     response.interface.results[0].isSameBoardingNumber = true;
-
-                    response.interface.validSize += 1;
                 } else {
                     for (int m = 0; m < response.interface.validSize; m++) {
                         if (updateTime > response.interface.results[m].updateTime && !response.interface.results[m].isSameBoardingNumber) {
@@ -290,8 +332,6 @@ void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
                             response.interface.results[m].updateTime = content.at(j).toObject().value("updateTime").toString();
                             response.interface.results[m].boardingTime = content.at(j).toObject().value("boardingTime").toString();
                             response.interface.results[m].isSameBoardingNumber = false;
-                            response.interface.validSize += 1;
-
                             break;
                         }
                         if (m == response.interface.validSize - 1) {
@@ -307,18 +347,283 @@ void FlightEnquires::fillOrgDepWithMQ(const QJsonArray &msg)
                             response.interface.results[response.interface.validSize].updateTime = content.at(j).toObject().value("updateTime").toString();
                             response.interface.results[response.interface.validSize].boardingTime = content.at(j).toObject().value("boardingTime").toString();
                             response.interface.results[response.interface.validSize].isSameBoardingNumber = false;
-                            response.interface.validSize += 1;
-
                             break;
                         }
                     }
                 }
             }
+
+            // fill Unboard
+            QString seatNumber = content.at(j).toObject().value("seatNumber").toString();
+            if (response.interface.validSize == 0) {
+                response.interface.unboard[0].boardingNumber = content.at(j).toObject().value("boardingNumber").toString();
+                response.interface.unboard[0].boardingStatus = content.at(j).toObject().value("boardingStatus").toInt();
+                response.interface.unboard[0].cardNo = content.at(j).toObject().value("cardNo").toString();
+                response.interface.unboard[0].flightNumber = content.at(j).toObject().value("flightNumber").toString();
+                response.interface.unboard[0].id = content.at(j).toObject().value("id").toString();
+                response.interface.unboard[0].passengerName = content.at(j).toObject().value("passengerName").toString();
+                response.interface.unboard[0].photoPath = content.at(j).toObject().value("photoPath").toString();
+                response.interface.unboard[0].repeatFlag = content.at(j).toObject().value("repeatFlag").toInt();
+                response.interface.unboard[0].seatNumber = content.at(j).toObject().value("seatNumber").toString();
+                response.interface.unboard[0].updateTime = content.at(j).toObject().value("updateTime").toString();
+                response.interface.unboard[0].boardingTime = content.at(j).toObject().value("boardingTime").toString();
+                response.interface.unboard[0].isSameBoardingNumber = false;
+            } else {
+                for (int m = 0; m < response.interface.validSize; m++) {
+                    if (seatNumber < response.interface.unboard[m].seatNumber) {
+                        for (int k = response.interface.validSize - 1; k >= m; k--) {
+                            response.interface.unboard[k + 1].boardingNumber = response.interface.unboard[k].boardingNumber;
+                            response.interface.unboard[k + 1].boardingStatus = response.interface.unboard[k].boardingStatus;
+                            response.interface.unboard[k + 1].cardNo = response.interface.unboard[k].cardNo;
+                            response.interface.unboard[k + 1].flightNumber = response.interface.unboard[k].flightNumber;
+                            response.interface.unboard[k + 1].id = response.interface.unboard[k].id;
+                            response.interface.unboard[k + 1].passengerName = response.interface.unboard[k].passengerName;
+                            response.interface.unboard[k + 1].photoPath = response.interface.unboard[k].photoPath;
+                            response.interface.unboard[k + 1].repeatFlag = response.interface.unboard[k].repeatFlag;
+                            response.interface.unboard[k + 1].seatNumber = response.interface.unboard[k].seatNumber;
+                            response.interface.unboard[k + 1].updateTime = response.interface.unboard[k].updateTime;
+                            response.interface.unboard[k + 1].boardingTime = response.interface.unboard[k].boardingTime;
+                            response.interface.unboard[k + 1].isSameBoardingNumber = response.interface.unboard[k].isSameBoardingNumber;
+                        }
+                        response.interface.unboard[m].boardingNumber = content.at(j).toObject().value("boardingNumber").toString();
+                        response.interface.unboard[m].boardingStatus = content.at(j).toObject().value("boardingStatus").toInt();
+                        response.interface.unboard[m].cardNo = content.at(j).toObject().value("cardNo").toString();
+                        response.interface.unboard[m].flightNumber = content.at(j).toObject().value("flightNumber").toString();
+                        response.interface.unboard[m].id = content.at(j).toObject().value("id").toString();
+                        response.interface.unboard[m].passengerName = content.at(j).toObject().value("passengerName").toString();
+                        response.interface.unboard[m].photoPath = content.at(j).toObject().value("photoPath").toString();
+                        response.interface.unboard[m].repeatFlag = content.at(j).toObject().value("repeatFlag").toInt();
+                        response.interface.unboard[m].seatNumber = content.at(j).toObject().value("seatNumber").toString();
+                        response.interface.unboard[m].updateTime = content.at(j).toObject().value("updateTime").toString();
+                        response.interface.unboard[m].boardingTime = content.at(j).toObject().value("boardingTime").toString();
+                        response.interface.unboard[m].isSameBoardingNumber = false;
+                        break;
+                    }
+                    if (m == response.interface.validSize - 1) {
+                        response.interface.unboard[response.interface.validSize].boardingNumber = content.at(j).toObject().value("boardingNumber").toString();
+                        response.interface.unboard[response.interface.validSize].boardingStatus = content.at(j).toObject().value("boardingStatus").toInt();
+                        response.interface.unboard[response.interface.validSize].cardNo = content.at(j).toObject().value("cardNo").toString();
+                        response.interface.unboard[response.interface.validSize].flightNumber = content.at(j).toObject().value("flightNumber").toString();
+                        response.interface.unboard[response.interface.validSize].id = content.at(j).toObject().value("id").toString();
+                        response.interface.unboard[response.interface.validSize].passengerName = content.at(j).toObject().value("passengerName").toString();
+                        response.interface.unboard[response.interface.validSize].photoPath = content.at(j).toObject().value("photoPath").toString();
+                        response.interface.unboard[response.interface.validSize].repeatFlag = content.at(j).toObject().value("repeatFlag").toInt();
+                        response.interface.unboard[response.interface.validSize].seatNumber = content.at(j).toObject().value("seatNumber").toString();
+                        response.interface.unboard[response.interface.validSize].updateTime = content.at(j).toObject().value("updateTime").toString();
+                        response.interface.unboard[response.interface.validSize].boardingTime = content.at(j).toObject().value("boardingTime").toString();
+                        response.interface.unboard[response.interface.validSize].isSameBoardingNumber = false;
+                    }
+                }
+            }
+            response.interface.validSize += 1;
+            response.interface.dataInfo.faceNums += 1;
         }
     }
 
-    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
+    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
+
+    int unBoardingNum = 0;
+    for (int i = 0; i < response.interface.validSize && i < 1000; i++) {
+        if ((response.interface.results[i].boardingStatus == 0) && (response.interface.results[i].id != "")) {
+            unBoardingNum += 1;
+        }
+    }
+    ui->notboardingPushButton->setText("未登机人数：" + QString::number(unBoardingNum));
+    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
+
+    ui->boardingTableWidget->hide();
+    ui->notboardingTableWidget->hide();
+    ui->orgDepTableWidget->show();
+
     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+}
+
+void FlightEnquires::fillBoardAndUnboardWithControl(QString flightNo
+                                                  , QString flightDay
+                                                  , int recheckType
+                                                  , const QJsonObject &userInfo
+                                                  , const QJsonObject &manualInfo)
+{
+    Q_UNUSED(flightNo)
+    Q_UNUSED(flightDay)
+
+    ui->boardingTableWidget->scrollToTop();
+
+    while (ui->boardingTableWidget->rowCount() > 0 ) {
+        ui->boardingTableWidget->removeRow(0);
+    }
+
+    boardingFilledNum = 0;
+    boardingFillIndex = 0;
+
+    QString flightNumber = "";
+    QString boardingNumber = "";
+    QString seatNumber = "";
+
+    if ((recheckType == 0) || (recheckType == 2)) {
+        flightNumber = userInfo.value("flightNumber").toString();
+        boardingNumber = userInfo.value("boardingNumber").toString();
+        seatNumber= userInfo.value("seatNumber").toString();
+    } else if ((recheckType == 1) || (recheckType == 3)) {
+        flightNumber = manualInfo.value("flightNo").toString();
+        boardingNumber = manualInfo.value("boardingNumber").toString();
+        seatNumber = manualInfo.value("seatId").toString();
+    } else {
+        qDebug() << "recheckType error: " << recheckType;
+        return;
+    }
+
+    // fill boarded
+    bool isRepeated = false;
+    for (int i = 0; i < response.interface.validSize; i++) {
+        if ((response.interface.boarded[i].flightNumber == flightNumber)
+                && (response.interface.boarded[i].boardingNumber == boardingNumber)
+                && (response.interface.boarded[i].seatNumber == seatNumber)) {
+            isRepeated = true;
+
+            QString tempBoardingNumber = response.interface.boarded[i].boardingNumber;
+            int tempBoardingStatus = 1;
+            QString tempCardNo = "";
+            QString tempPassengerName = "";
+            QString tempBasePhoto = "";
+            if ((recheckType == 0) || (recheckType == 2)) {
+                tempCardNo = userInfo.value("cardNo").toString();
+                tempPassengerName = userInfo.value("nameZh").toString();
+                tempBasePhoto = userInfo.value("basePhoto").toString();
+            }
+            if ((recheckType == 1) || (recheckType == 3)) {
+                tempCardNo = manualInfo.value("cardId").toString();
+                tempPassengerName = manualInfo.value("passengerName").toString();
+                tempBasePhoto = manualInfo.value("scenePhoto").toString();
+            }
+            QString tempFlightNumber = response.interface.boarded[i].flightNumber;
+            QString tempId = "";
+            QString tempPhotoPath = "";
+            int tempRepeatFlag = 0;
+            QString tempSeatNumber = response.interface.boarded[i].seatNumber;
+            QString tempUpdateTime = "";
+            QString tempBoardingTime = QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+            bool tempIsSameBoardingNumber = false;
+
+            for (int j = i; j > 0; j--) {
+                response.interface.boarded[j].boardingNumber = response.interface.boarded[j - 1].boardingNumber;
+                response.interface.boarded[j].boardingStatus = response.interface.boarded[j - 1].boardingStatus;
+                response.interface.boarded[j].cardNo = response.interface.boarded[j - 1].cardNo;
+                response.interface.boarded[j].flightNumber = response.interface.boarded[j - 1].flightNumber;
+                response.interface.boarded[j].id = response.interface.boarded[j - 1].id;
+                response.interface.boarded[j].passengerName = response.interface.boarded[j - 1].passengerName;
+                response.interface.boarded[j].photoPath = response.interface.boarded[j - 1].photoPath;
+                response.interface.boarded[j].basePhoto = response.interface.boarded[j - 1].basePhoto;
+                response.interface.boarded[j].repeatFlag = response.interface.boarded[j - 1].repeatFlag;
+                response.interface.boarded[j].seatNumber = response.interface.boarded[j - 1].seatNumber;
+                response.interface.boarded[j].updateTime = response.interface.boarded[j - 1].updateTime;
+                response.interface.boarded[j].boardingTime = response.interface.boarded[j - 1].boardingTime;
+                response.interface.boarded[j].isSameBoardingNumber = response.interface.boarded[j - 1].isSameBoardingNumber;
+            }
+
+            response.interface.boarded[0].boardingNumber = tempBoardingNumber;
+            response.interface.boarded[0].boardingStatus = tempBoardingStatus;
+            response.interface.boarded[0].cardNo = tempCardNo;
+            response.interface.boarded[0].flightNumber = tempFlightNumber;
+            response.interface.boarded[0].id = tempId;
+            response.interface.boarded[0].passengerName = tempPassengerName;
+            response.interface.boarded[0].photoPath = tempPhotoPath;
+            response.interface.boarded[0].basePhoto = tempBasePhoto;
+            response.interface.boarded[0].repeatFlag = tempRepeatFlag;
+            response.interface.boarded[0].seatNumber = tempSeatNumber;
+            response.interface.boarded[0].updateTime = tempUpdateTime;
+            response.interface.boarded[0].boardingTime = tempBoardingTime;
+            response.interface.boarded[0].isSameBoardingNumber = tempIsSameBoardingNumber;
+        }
+    }
+
+    if (!isRepeated) {
+        for (int i = response.interface.validSize; i > 0; i--) {
+            response.interface.boarded[i].boardingNumber = response.interface.boarded[i - 1].boardingNumber;
+            response.interface.boarded[i].boardingStatus = response.interface.boarded[i - 1].boardingStatus;
+            response.interface.boarded[i].cardNo = response.interface.boarded[i - 1].cardNo;
+            response.interface.boarded[i].flightNumber = response.interface.boarded[i - 1].flightNumber;
+            response.interface.boarded[i].id = response.interface.boarded[i - 1].id;
+            response.interface.boarded[i].passengerName = response.interface.boarded[i - 1].passengerName;
+            response.interface.boarded[i].photoPath = response.interface.boarded[i - 1].photoPath;
+            response.interface.boarded[i].basePhoto = response.interface.boarded[i - 1].basePhoto;
+            response.interface.boarded[i].repeatFlag = response.interface.boarded[i - 1].repeatFlag;
+            response.interface.boarded[i].seatNumber = response.interface.boarded[i - 1].seatNumber;
+            response.interface.boarded[i].updateTime = response.interface.boarded[i - 1].updateTime;
+            response.interface.boarded[i].boardingTime = response.interface.boarded[i - 1].boardingTime;
+            response.interface.boarded[i].isSameBoardingNumber = response.interface.boarded[i - 1].isSameBoardingNumber;
+        }
+
+        if ((recheckType == 0) || (recheckType == 2)) {
+            response.interface.boarded[0].boardingNumber = userInfo.value("boardingNumber").toString();
+            response.interface.boarded[0].cardNo = userInfo.value("cardNo").toString();
+            response.interface.boarded[0].flightNumber = userInfo.value("flightNumber").toString();
+            response.interface.boarded[0].passengerName = userInfo.value("nameZh").toString();
+            response.interface.boarded[0].seatNumber = userInfo.value("seatNumber").toString();
+            response.interface.boarded[0].basePhoto = userInfo.value("basePhoto").toString();
+        }
+        if ((recheckType == 1) || (recheckType == 3)) {
+            response.interface.boarded[0].boardingNumber = manualInfo.value("boardingNumber").toString();
+            response.interface.boarded[0].cardNo = manualInfo.value("cardId").toString();
+            response.interface.boarded[0].flightNumber = manualInfo.value("flightNo").toString();
+            response.interface.boarded[0].passengerName = manualInfo.value("passengerName").toString();
+            response.interface.boarded[0].seatNumber = manualInfo.value("seatId").toString();
+            response.interface.boarded[0].basePhoto = manualInfo.value("scenePhoto").toString();
+        }
+        response.interface.boarded[0].boardingStatus = 1;
+        response.interface.boarded[0].id = "";
+        response.interface.boarded[0].photoPath = "";
+        response.interface.boarded[0].repeatFlag = 0;
+        response.interface.boarded[0].updateTime = "";
+        response.interface.boarded[0].boardingTime = QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+        response.interface.boarded[0].isSameBoardingNumber = false;
+
+        response.interface.validSize += 1;
+        response.interface.dataInfo.boardingNum += 1;
+    }
+
+    // del Unboard
+    for (int i = 0; i < response.interface.validSize; i++) {
+        if ((response.interface.unboard[i].flightNumber == flightNumber)
+                && (response.interface.unboard[i].boardingNumber == boardingNumber)
+                && (response.interface.unboard[i].seatNumber == seatNumber)) {
+            for (int j = i; j < response.interface.validSize; j++) {
+                response.interface.unboard[j].boardingNumber = response.interface.unboard[j + 1].boardingNumber;
+                response.interface.unboard[j].boardingStatus = response.interface.unboard[j + 1].boardingStatus;
+                response.interface.unboard[j].cardNo = response.interface.unboard[j + 1].cardNo;
+                response.interface.unboard[j].flightNumber = response.interface.unboard[j + 1].flightNumber;
+                response.interface.unboard[j].id = response.interface.unboard[j + 1].id;
+                response.interface.unboard[j].passengerName = response.interface.unboard[j + 1].passengerName;
+                response.interface.unboard[j].photoPath = response.interface.unboard[j + 1].photoPath;
+                response.interface.unboard[j].repeatFlag = response.interface.unboard[j + 1].repeatFlag;
+                response.interface.unboard[j].seatNumber = response.interface.unboard[j + 1].seatNumber;
+                response.interface.unboard[j].updateTime = response.interface.unboard[j + 1].updateTime;
+                response.interface.unboard[j].boardingTime = response.interface.unboard[j + 1].boardingTime;
+                response.interface.unboard[j].isSameBoardingNumber = response.interface.unboard[j + 1].isSameBoardingNumber;
+            }
+        }
+    }
+
+    ui->boardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(255, 255, 255); background-color: rgb(88, 129, 157);");
+    ui->notboardingPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+    ui->orgDepPushButton->setStyleSheet("border: 0; border-radius: 4; color: rgb(0, 228, 255); background-color: rgb(0, 36, 60);");
+
+    int unBoardingNum = 0;
+    for (int i = 0; i < response.interface.validSize && i < 1000; i++) {
+        if ((response.interface.unboard[i].boardingStatus == 0) && (response.interface.results[i].id != "")) {
+            unBoardingNum += 1;
+        }
+    }
+    ui->boardingPushButton->setText("已登机人数：" + QString::number(response.interface.dataInfo.boardingNum));
+    ui->notboardingPushButton->setText("未登机人数：" + QString::number(unBoardingNum));
+
+    ui->notboardingTableWidget->hide();
+    ui->orgDepTableWidget->hide();
+    ui->boardingTableWidget->show();
+
+    fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
 }
 
 FlightEnquires::~FlightEnquires()
@@ -713,7 +1018,12 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
             sameBoardingNumberBGLabel->setAlignment(Qt::AlignCenter);
         }
 
-        QPixmap pixmap = getQPixmapSync(results[i].photoPath);
+        QPixmap pixmap = QPixmap();
+        if (results[i].basePhoto != QString()) {
+            pixmap.loadFromData(QByteArray::fromBase64(results[i].basePhoto.toLocal8Bit()));
+        } else {
+            pixmap = getQPixmapSync(results[i].photoPath);
+        }
         pixmap = pixmap.scaled(131
                                , 186
                                , Qt::IgnoreAspectRatio

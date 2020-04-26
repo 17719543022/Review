@@ -66,13 +66,13 @@ struct DataInfo {
     int transferNum;
 
     DataInfo() {
-        boardingNum = -1;
-        faceNums = -1;
-        manualNum = -1;
-        midwayNum = -1;
-        orgDepNum = -1;
-        recognizeNum = -1;
-        transferNum = -1;
+        boardingNum = 0;
+        faceNums = 0;
+        manualNum = 0;
+        midwayNum = 0;
+        orgDepNum = 0;
+        recognizeNum = 0;
+        transferNum = 0;
     }
 };
 
@@ -84,6 +84,7 @@ struct FlightReviewResult {
     QString id;
     QString passengerName;
     QString photoPath;
+    QString basePhoto;
     int repeatFlag;
     QString seatNumber;
     QString updateTime;
@@ -98,6 +99,7 @@ struct FlightReviewResult {
         id = QString();
         passengerName = QString();
         photoPath = QString();
+        basePhoto = QString();
         repeatFlag = -1;
         seatNumber = QString();
         updateTime = QString();

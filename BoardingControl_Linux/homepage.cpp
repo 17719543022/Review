@@ -63,7 +63,7 @@ void HomePage::on_recivedMQmsg(int type)
 {
     switch (type) {
     case 302:
-        m_FlightEnquires->fillOrgDepWithMQ(m_pMQmsg->m_new_repository);
+        m_FlightEnquires->fillDepAndUnboardWithMQ(m_pMQmsg->m_new_repository);
         break;
 
     default:
@@ -90,7 +90,7 @@ void HomePage::on_Button_WorkflowRecording_clicked()
 void HomePage::on_Button_FlightEnquires_clicked()
 {
     m_FlightEnquires->show();
-    m_FlightEnquires->statistics("AB1252");
+//    m_FlightEnquires->statistics("AB1252");
     m_RealtimeBoarding->hide();
     m_WorkflowRecording->hide();
     m_PortraitCollection->hide();

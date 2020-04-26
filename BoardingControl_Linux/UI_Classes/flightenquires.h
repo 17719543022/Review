@@ -44,7 +44,13 @@ public:
 
     void statistics(QString flight);
 
-    void fillOrgDepWithMQ(const QJsonArray &msg);
+    void fillDepAndUnboardWithMQ(const QJsonArray &msg);
+
+    void fillDepAndUnboardWithControl(QString flightNo
+                                      , QString flightDay
+                                      , int recheckType
+                                      , const QJsonObject &userInfo
+                                      , const QJsonObject &manualInfo);
 
     ~FlightEnquires();
 
@@ -71,6 +77,8 @@ private:
     void fillTableGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab);
 
     QPixmap getQPixmapSync(QString str);
+
+    bool isAlreadyExist(const QJsonValue &json);
 
 private:
     Ui::FlightEnquires *ui;
