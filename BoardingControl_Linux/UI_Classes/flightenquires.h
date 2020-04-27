@@ -46,11 +46,11 @@ public:
 
     void fillDepAndUnboardWithMQ(const QJsonArray &msg);
 
-    void fillDepAndUnboardWithControl(QString flightNo
-                                      , QString flightDay
-                                      , int recheckType
-                                      , const QJsonObject &userInfo
-                                      , const QJsonObject &manualInfo);
+    void fillBoardAndUnboardWithControl(QString flightNo
+                                        , QString flightDay
+                                        , int recheckType
+                                        , const QJsonObject &userInfo
+                                        , const QJsonObject &manualInfo);
 
     ~FlightEnquires();
 

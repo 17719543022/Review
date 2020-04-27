@@ -801,21 +801,21 @@ void FlightEnquires::on_notboardingPushButton_clicked()
 
 void FlightEnquires::on_orgDepSlider_changed(int p)
 {
-    if (p + 3 == orgDepFilledNum) {
+    if (p + 2 == orgDepFilledNum) {
         fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
     }
 }
 
 void FlightEnquires::on_boardingSlider_changed(int p)
 {
-    if (p + 3 == boardingFilledNum) {
+    if (p + 2 == boardingFilledNum) {
         fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
     }
 }
 
 void FlightEnquires::on_notBoardingSlider_changed(int p)
 {
-    if (p + 3 == notboardingFilledNum) {
+    if (p + 2 == notboardingFilledNum) {
         fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
     }
 }
@@ -965,7 +965,7 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
     }
 
     int batch = 0;
-    for (int i = resultIndex; (i < response.interface.validSize) && (batch < 4); i++) {
+    for (int i = resultIndex; (i < response.interface.validSize) && (batch < 3); i++) {
         if (tab == Ui::DisplayTab::DepositoryTab) {
             orgDepFillIndex += 1;
 
@@ -991,9 +991,9 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
             }
         }
 
-        table->setRowHeight(widgetIndex, 186);
+        table->setRowHeight(widgetIndex, 206);
         table->insertRow(widgetIndex);
-        table->setRowHeight(widgetIndex, 186);
+        table->setRowHeight(widgetIndex, 206);
 
         QWidget *itemWidget = nullptr;
         if ((tab == Ui::DisplayTab::DepositoryTab) && results[i].isSameBoardingNumber && isStatisticsMode) {
@@ -1006,15 +1006,15 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
             QImage sameBoardingNumberBGImage;
             sameBoardingNumberBGImage.load(":/6航班回查/Images/6航班回查/矩形-4365.png");
             sameBoardingNumberBGImage = sameBoardingNumberBGImage.scaled(766
-                                                                         , 185
+                                                                         , 206
                                                                          , Qt::IgnoreAspectRatio
                                                                          , Qt::SmoothTransformation);
             QPixmap sameBoardingNumberBGPixmap = QPixmap::fromImage(sameBoardingNumberBGImage);
             QLabel *sameBoardingNumberBGLabel = new QLabel(itemWidget);
             sameBoardingNumberBGLabel->lower();
-            sameBoardingNumberBGLabel->setGeometry(0, 0, 766, 185);
+            sameBoardingNumberBGLabel->setGeometry(0, 0, 766, 206);
             sameBoardingNumberBGLabel->setPixmap(sameBoardingNumberBGPixmap);
-            sameBoardingNumberBGLabel->setFixedSize(766, 185);
+            sameBoardingNumberBGLabel->setFixedSize(766, 206);
             sameBoardingNumberBGLabel->setAlignment(Qt::AlignCenter);
         }
 
@@ -1029,48 +1029,62 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
                                , Qt::IgnoreAspectRatio
                                , Qt::SmoothTransformation);
         QLabel *photoLabel = new QLabel(itemWidget);
-        photoLabel->setGeometry(30, 0, 131, 186);
+        photoLabel->setGeometry(30, 10, 131, 186);
         photoLabel->setPixmap(pixmap);
         photoLabel->setFixedSize(131, 186);
         photoLabel->setAlignment(Qt::AlignCenter);
 
         QLabel *nameTitleLabel = new QLabel(itemWidget);
-        nameTitleLabel->setGeometry(161, 14, 145, 38);
+        nameTitleLabel->setGeometry(161, 15, 145, 38);
         nameTitleLabel->setText("旅客姓名：");
         nameTitleLabel->setFixedSize(145, 38);
         nameTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         nameTitleLabel->setStyleSheet("image: 0; border: 0; background: 0; font: 19pt; color: rgb(255, 255, 255);");
 
         QLabel *nameLabel = new QLabel(itemWidget);
-        nameLabel->setGeometry(306, 14, 300, 38);
+        nameLabel->setGeometry(306, 15, 300, 38);
         nameLabel->setText(results[i].passengerName);
         nameLabel->setFixedSize(300, 38);
         nameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         nameLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
+        QLabel *cardTitleLabel = new QLabel(itemWidget);
+        cardTitleLabel->setGeometry(161, 60, 117, 38);
+        cardTitleLabel->setText("证件号：");
+        cardTitleLabel->setFixedSize(117, 38);
+        cardTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        cardTitleLabel->setStyleSheet("image: 0; border: 0; background: 0; font: 19pt; color: rgb(255, 255, 255);");
+
+        QLabel *cardLabel = new QLabel(itemWidget);
+        cardLabel->setGeometry(278, 60, 300, 38);
+        cardLabel->setText(results[i].cardNo);
+        cardLabel->setFixedSize(300, 38);
+        cardLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+        cardLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
+
         QLabel *flightTitleLabel = new QLabel(itemWidget);
-        flightTitleLabel->setGeometry(161, 74, 195, 38);
+        flightTitleLabel->setGeometry(161, 105, 195, 38);
         flightTitleLabel->setText("航班号／序号：");
         flightTitleLabel->setFixedSize(195, 38);
         flightTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         flightTitleLabel->setStyleSheet("image: 0; border: 0; background: 0; font: 19pt; color: rgb(255, 255, 255);");
 
         QLabel *flightLabel = new QLabel(itemWidget);
-        flightLabel->setGeometry(356, 74, 300, 38);
+        flightLabel->setGeometry(356, 105, 300, 38);
         flightLabel->setText(results[i].flightNumber + "/" + results[i].boardingNumber);
         flightLabel->setFixedSize(300, 38);
         flightLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         flightLabel->setStyleSheet("image: 0; border: 0; background: 0; font: bold 19pt; color: rgb(0, 228, 255);");
 
         QLabel *seatTitleLabel = new QLabel(itemWidget);
-        seatTitleLabel->setGeometry(161, 134, 117, 38);
+        seatTitleLabel->setGeometry(161, 150, 117, 38);
         seatTitleLabel->setText("座位号：");
         seatTitleLabel->setFixedSize(117, 38);
         seatTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         seatTitleLabel->setStyleSheet("image: 0; border: 0; background: 0; font: 19pt; color: rgb(255, 255, 255);");
 
         QLabel *seatLabel = new QLabel(itemWidget);
-        seatLabel->setGeometry(278, 134, 300, 38);
+        seatLabel->setGeometry(278, 150, 300, 38);
         seatLabel->setText(results[i].seatNumber);
         seatLabel->setFixedSize(300, 38);
         seatLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);

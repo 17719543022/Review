@@ -177,6 +177,7 @@ struct FlightReviewInterface {
             for (int i = 0; i < validSize && i < 1000; i++) {
                 QString time = array.at(i).toObject().value("updateTime").toString();
                 QString boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
+                QString id = array.at(i).toObject().value("id").toString();
                 if (i == 0) {
                     results[i].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
                     results[i].boardingStatus = array.at(i).toObject().value("boardingStatus").toInt();
@@ -194,7 +195,7 @@ struct FlightReviewInterface {
                     bool isSameboardingNumber = false;
                     int sameBoardingNumber = 0;
                     for (int j = 0; j < i; j++) {
-                        if (boardingNumber == results[j].boardingNumber) {
+                        if ((boardingNumber == results[j].boardingNumber) && (boardingNumber != "") && (id != "")) {
                             isSameboardingNumber = true;
                             sameBoardingNumber = j;
                             break;
