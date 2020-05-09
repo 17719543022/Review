@@ -440,6 +440,45 @@ void FlightEnquires::fillDepAndUnboardWithMQ(const QJsonArray &msg)
     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 }
 
+QString FlightEnquires::findPhotoPath(QString cardNumber
+                                      , QString flightNumber
+                                      , QString boardingNumber
+                                      , QString seatNumber)
+{
+    if (!cardNumber.isEmpty()) {
+        int count = 0;
+        int found = 0;
+        for (int i = 0; i < response.interface.validSize; i++) {
+            if (0 == QString::compare(cardNumber, response.interface.results[i].cardNo)) {
+                count += 1;
+                found = i;
+            }
+        }
+
+        if (count == 1) {
+            return response.interface.results[found].photoPath;
+        } else {
+            for (int i = 0; i < response.interface.validSize; i++) {
+                if ((0 == QString::compare(flightNumber, response.interface.results[i].flightNumber))
+                        &&(0 == QString::compare(boardingNumber, response.interface.results[i].boardingNumber))
+                        &&(0 == QString::compare(seatNumber, response.interface.results[i].seatNumber))) {
+                    return response.interface.results[i].photoPath;
+                }
+            }
+        }
+    } else {
+        for (int i = 0; i < response.interface.validSize; i++) {
+            if ((0 == QString::compare(flightNumber, response.interface.results[i].flightNumber))
+                    &&(0 == QString::compare(boardingNumber, response.interface.results[i].boardingNumber))
+                    &&(0 == QString::compare(seatNumber, response.interface.results[i].seatNumber))) {
+                return response.interface.results[i].photoPath;
+            }
+        }
+    }
+
+    return QString();
+}
+
 void FlightEnquires::fillBoardAndUnboardWithControl(QString flightNo
                                                   , QString flightDay
                                                   , int recheckType
@@ -461,15 +500,18 @@ void FlightEnquires::fillBoardAndUnboardWithControl(QString flightNo
     QString flightNumber = "";
     QString boardingNumber = "";
     QString seatNumber = "";
+    QString photoPath = "";
 
     if ((recheckType == 0) || (recheckType == 2)) {
         flightNumber = userInfo.value("flightNumber").toString();
         boardingNumber = userInfo.value("boardingNumber").toString();
-        seatNumber= userInfo.value("seatNumber").toString();
+        seatNumber = userInfo.value("seatNumber").toString();
+        photoPath = findPhotoPath(userInfo.value("cardNo").toString(), flightNumber, boardingNumber, seatNumber);
     } else if ((recheckType == 1) || (recheckType == 3)) {
         flightNumber = manualInfo.value("flightNo").toString();
         boardingNumber = manualInfo.value("boardingNumber").toString();
         seatNumber = manualInfo.value("seatId").toString();
+        photoPath = findPhotoPath(manualInfo.value("cardId").toString(), flightNumber, boardingNumber, seatNumber);
     } else {
         qDebug() << "recheckType error: " << recheckType;
         return;
@@ -500,7 +542,7 @@ void FlightEnquires::fillBoardAndUnboardWithControl(QString flightNo
             }
             QString tempFlightNumber = response.interface.boarded[i].flightNumber;
             QString tempId = "";
-            QString tempPhotoPath = "";
+            QString tempPhotoPath = photoPath;
             int tempRepeatFlag = 0;
             QString tempSeatNumber = response.interface.boarded[i].seatNumber;
             QString tempUpdateTime = "";
@@ -574,7 +616,7 @@ void FlightEnquires::fillBoardAndUnboardWithControl(QString flightNo
         }
         response.interface.boarded[0].boardingStatus = 1;
         response.interface.boarded[0].id = "";
-        response.interface.boarded[0].photoPath = "";
+        response.interface.boarded[0].photoPath = photoPath;
         response.interface.boarded[0].repeatFlag = 0;
         response.interface.boarded[0].updateTime = "";
         response.interface.boarded[0].boardingTime = QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
@@ -1019,11 +1061,7 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         }
 
         QPixmap pixmap = QPixmap();
-        if (results[i].basePhoto != QString()) {
-            pixmap.loadFromData(QByteArray::fromBase64(results[i].basePhoto.toLocal8Bit()));
-        } else {
-            pixmap = getQPixmapSync(results[i].photoPath);
-        }
+        pixmap = getQPixmapSync(results[i].photoPath);
         pixmap = pixmap.scaled(131
                                , 186
                                , Qt::IgnoreAspectRatio

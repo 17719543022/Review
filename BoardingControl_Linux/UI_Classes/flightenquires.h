@@ -80,6 +80,8 @@ private:
 
     bool isAlreadyExist(const QJsonValue &json);
 
+    QString findPhotoPath(QString cardNumber, QString flightNumber, QString boardingNumber, QString seatNumber);
+
 private:
     Ui::FlightEnquires *ui;
 
