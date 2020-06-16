@@ -108,7 +108,7 @@ void WorkflowRecording::on_flowQueryPushButton_clicked()
         ui->passengerNameLabel_2->setText(response.interface.result[flowIndex].userInfo.passengerName);
         ui->passengerCodeLabel_2->setText(response.interface.result[flowIndex].userInfo.certificateNumber);
         ui->passengerFlightLabel_2->setText(response.interface.result[flowIndex].userInfo.flightNo);
-        ui->boardingNumberLabel_2->setText(response.interface.result[flowIndex].userInfo.seatId);
+        ui->boardingNumberLabel_2->setText(response.interface.result[flowIndex].userInfo.boardingNumber);
     }
 
     int widgetIndex = 0;

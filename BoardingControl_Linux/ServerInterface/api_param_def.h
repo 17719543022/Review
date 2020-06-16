@@ -715,7 +715,7 @@ struct FlowReviewInterface {
                         result[i].hasUserInfo = false;
                     }
                     QJsonValue securityInfo = array.at(i).toObject().value("securityInfo");
-                    if (!securityInfo.isNull()) {
+                    if (!securityInfo.isNull() && !securityInfo.isUndefined()) {
                         result[i].hasSecurityInfo = true;
                         result[i].securityInfo.passType = securityInfo.toObject().value("passType").toInt();
                         result[i].securityInfo.passStatus = securityInfo.toObject().value("passStatus").toInt();
@@ -728,7 +728,7 @@ struct FlowReviewInterface {
                         result[i].hasSecurityInfo = false;
                     }
                     QJsonValue reviewInfo = array.at(i).toObject().value("reviewInfo");
-                    if (!reviewInfo.isNull()) {
+                    if (!reviewInfo.isNull() && !reviewInfo.isUndefined()) {
                         result[i].hasReviewInfo = true;
                         result[i].reviewInfo.passType = reviewInfo.toObject().value("passType").toInt();
                         result[i].reviewInfo.passStatus = reviewInfo.toObject().value("passStatus").toInt();
@@ -741,7 +741,7 @@ struct FlowReviewInterface {
                         result[i].hasReviewInfo = false;
                     }
                     QJsonValue transferInfo = array.at(i).toObject().value("transferInfo");
-                    if (!transferInfo.isNull()) {
+                    if (!transferInfo.isNull() && !transferInfo.isUndefined()) {
                         result[i].hasTransferInfo = true;
                         result[i].transferInfo.sourceType = transferInfo.toObject().value("sourceType").toInt();
                         result[i].transferInfo.photoPath = transferInfo.toObject().value("photoPath").toString();
@@ -753,7 +753,7 @@ struct FlowReviewInterface {
                         result[i].hasTransferInfo = false;
                     }
                     QJsonValue boardingInfo = array.at(i).toObject().value("boardingInfo");
-                    if (!boardingInfo.isNull()) {
+                    if (!boardingInfo.isNull() && !boardingInfo.isUndefined()) {
                         result[i].hasBoardingInfo = true;
                         result[i].boardingInfo.passType = boardingInfo.toObject().value("passType").toInt();
                         result[i].boardingInfo.passStatus = boardingInfo.toObject().value("passStatus").toInt();
