@@ -398,7 +398,7 @@ color: rgb(255, 255, 255);
 background-color: rgb(88, 129, 157);</string>
      </property>
      <property name="text">
-      <string>建库人数：0</string>
+      <string>航班人数：0</string>
      </property>
     </widget>
     <widget class="QPushButton" name="boardingPushButton">

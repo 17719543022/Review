@@ -431,7 +431,7 @@ void FlightEnquires::fillDepAndUnboardWithMQ(const QJsonArray &msg)
         }
     }
     ui->notboardingPushButton->setText("未登机人数：" + QString::number(unBoardingNum));
-    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
+    ui->orgDepPushButton->setText("航班人数：" + QString::number(response.interface.dataInfo.faceNums));
 
     ui->boardingTableWidget->hide();
     ui->notboardingTableWidget->hide();
@@ -940,7 +940,7 @@ void FlightEnquires::on_removeRow_clicked(int widgetIndex)
     orgDepFilledNum = 0;
     orgDepFillIndex = 0;
 
-    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.validSize));
+    ui->orgDepPushButton->setText("航班人数：" + QString::number(response.interface.validSize));
     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 }
 
@@ -1038,7 +1038,10 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
         table->setRowHeight(widgetIndex, 206);
 
         QWidget *itemWidget = nullptr;
-        if ((tab == Ui::DisplayTab::DepositoryTab) && results[i].isSameBoardingNumber && isStatisticsMode) {
+        if ((tab == Ui::DisplayTab::DepositoryTab)
+                && results[i].isSameBoardingNumber
+                && isStatisticsMode
+                && ((results[i].sourceType == 0) || (results[i].sourceType == 4) || (results[i].sourceType == 5) || (results[i].sourceType == 7))) {
             itemWidget = new ButtonWidget(this, widgetIndex);
         } else {
             itemWidget = new QWidget(this);
@@ -1167,7 +1170,7 @@ int FlightEnquires::query()
         }
     }
 
-    ui->orgDepPushButton->setText("建库人数：" + QString::number(response.interface.dataInfo.faceNums));
+    ui->orgDepPushButton->setText("航班人数：" + QString::number(response.interface.dataInfo.faceNums));
     ui->boardingPushButton->setText("已登机人数：" + QString::number(response.interface.dataInfo.boardingNum));
     ui->notboardingPushButton->setText("未登机人数：" + QString::number(unBoardingNum));
 
