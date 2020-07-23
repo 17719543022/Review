@@ -351,9 +351,9 @@ background: 0;</string>
      <widget class="QLabel" name="boardingNumberLabel_1">
       <property name="geometry">
        <rect>
-        <x>354</x>
+        <x>330</x>
         <y>120</y>
-        <width>121</width>
+        <width>71</width>
         <height>38</height>
        </rect>
       </property>
@@ -366,7 +366,7 @@ background: 0;</string>
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>序        号：</string>
+       <string>序号：</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -377,7 +377,7 @@ background: 0;</string>
        <rect>
         <x>160</x>
         <y>0</y>
-        <width>280</width>
+        <width>161</width>
         <height>38</height>
        </rect>
       </property>
@@ -421,9 +421,9 @@ background: 0;</string>
      <widget class="QLabel" name="boardingNumberLabel_2">
       <property name="geometry">
        <rect>
-        <x>476</x>
+        <x>405</x>
         <y>120</y>
-        <width>220</width>
+        <width>125</width>
         <height>38</height>
        </rect>
       </property>
@@ -446,7 +446,95 @@ background: 0;</string>
        <rect>
         <x>160</x>
         <y>120</y>
-        <width>150</width>
+        <width>161</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gateNoLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>0</y>
+        <width>121</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>登机口号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gateNoLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>454</x>
+        <y>0</y>
+        <width>301</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 228, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="seatIdLabel_1">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>120</y>
+        <width>95</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>19</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>座位号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="seatIdLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>120</y>
+        <width>121</width>
         <height>38</height>
        </rect>
       </property>

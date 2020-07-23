@@ -793,6 +793,7 @@ struct UserInfo {
     QString boardingNumber;
     QString flightDay;
     QString seatId;
+    QString gateNo;
     int isFocus;
 
     UserInfo() {
@@ -803,6 +804,7 @@ struct UserInfo {
         boardingNumber = QString();
         flightDay = QString();
         seatId = QString();
+        gateNo = QString();
         isFocus = -1;
     }
 };
@@ -872,6 +874,7 @@ struct FlowReviewInterface {
                         result[i].userInfo.boardingNumber = userInfo.toObject().value("boardingNumber").toString();
                         result[i].userInfo.flightDay = userInfo.toObject().value("flightDay").toString();
                         result[i].userInfo.seatId = userInfo.toObject().value("seatId").toString();
+                        result[i].userInfo.gateNo = userInfo.toObject().value("gateNo").toString();
                         result[i].userInfo.isFocus = userInfo.toObject().value("isFocus").toInt();
                     } else {
                         result[i].hasUserInfo = false;
