@@ -20,7 +20,8 @@ HttpAPI::HttpAPI(QObject *parent) : QObject(parent)
 //    flowReviewServer = LocalSettings::config->value("Server/flowReviewServer").toString();
     flowReviewServer = "http://192.168.10.25:9090/data-platform-server";
     flowReviewUrl = "/api/v1/face/data/flowback-query";
-    flightReviewServer = LocalSettings::config->value("Server/flightReviewServer").toString();
+//    flightReviewServer = LocalSettings::config->value("Server/flightReviewServer").toString();
+    flightReviewServer = "http://192.168.10.25:9090/boardinggate-server";
     flightReviewUrl = "/api/v1/face/boarding/passenger-query";
     libDeleteUrl = "/api/v1/face/boarding/lib-delete";
 
@@ -263,7 +264,7 @@ FlightReviewResponse HttpAPI::get(const FlightReviewRequest& request)
             QJsonParseError jsonParseError;
             QJsonDocument document = QJsonDocument::fromJson(array, &jsonParseError);
 
-//            qDebug() << "document: " << document;
+            qDebug() << "document: " << document;
 
             if(!document.isNull() && jsonParseError.error == QJsonParseError::NoError)
             {
