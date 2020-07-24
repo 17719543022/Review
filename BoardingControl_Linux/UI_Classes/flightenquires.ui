@@ -370,7 +370,7 @@ border-radius: 4px;</string>
     <property name="geometry">
      <rect>
       <x>15</x>
-      <y>311</y>
+      <y>361</y>
       <width>770</width>
       <height>39</height>
      </rect>
@@ -524,6 +524,11 @@ border-image: url(:/6航班回查/Images/6航班回查/过滤.png);</string>
      </property>
     </widget>
    </widget>
+   <zorder>flightWidget</zorder>
+   <zorder>passengersWidget</zorder>
+   <zorder>inputWidget</zorder>
+   <zorder>filterWidget</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
  </widget>
  <resources/>

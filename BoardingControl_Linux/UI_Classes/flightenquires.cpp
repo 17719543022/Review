@@ -9,22 +9,58 @@
 #include "settings.h"
 #include <QUuid>
 
-ButtonWidget::ButtonWidget(QWidget *parent, int widgetIndex)
+SingleButtonWidget::SingleButtonWidget(QWidget *parent, int widgetIndex, int isInterceptLabel)
     : QWidget(parent),
       widgetIndex(widgetIndex)
 {
     QSignalMapper *signalMapper = new QSignalMapper();
 
+    QPushButton *interuptPushButton = new QPushButton(this);
+    interuptPushButton->setGeometry(600, 17, 140, 40);
+    interuptPushButton->setFixedSize(140, 40);
+    if (isInterceptLabel == 0) {
+        interuptPushButton->setStyleSheet("border: 0; image: 0; background: 0; background-image: url(:/6航班回查/Images/6航班回查/标记拦截.png);");
+    } else {
+        interuptPushButton->setStyleSheet("border: 0; image: 0; background: 0; background-image: url(:/6航班回查/Images/6航班回查/取消拦截.png);");
+    }
+
+    connect(interuptPushButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    signalMapper->setMapping(interuptPushButton, widgetIndex);
+
+    connect(signalMapper, SIGNAL(mapped(int)), parent, SLOT(on_intercept_clicked(int)));
+}
+
+DoubleButtonWidget::DoubleButtonWidget(QWidget *parent, int widgetIndex, int isInterceptLabel)
+    : QWidget(parent)
+    , widgetIndex(widgetIndex)
+{
+    QSignalMapper *signalMapper1 = new QSignalMapper();
+
+    QPushButton *interuptPushButton = new QPushButton(this);
+    interuptPushButton->setGeometry(600, 17, 140, 40);
+    interuptPushButton->setFixedSize(140, 40);
+    if (isInterceptLabel == 0) {
+        interuptPushButton->setStyleSheet("border: 0; image: 0; background: 0; background-image: url(:/6航班回查/Images/6航班回查/标记拦截.png);");
+    } else {
+        interuptPushButton->setStyleSheet("border: 0; image: 0; background: 0; background-image: url(:/6航班回查/Images/6航班回查/取消拦截.png);");
+    }
+
+    connect(interuptPushButton, SIGNAL(clicked()), signalMapper1, SLOT(map()));
+    signalMapper1->setMapping(interuptPushButton, widgetIndex);
+
+    connect(signalMapper1, SIGNAL(mapped(int)), parent, SLOT(on_intercept_clicked(int)));
+
+    QSignalMapper *signalMapper2 = new QSignalMapper();
+
     QPushButton *removePushButton = new QPushButton(this);
     removePushButton->setGeometry(600, 148, 140, 40);
-    removePushButton->setText("删    除");
     removePushButton->setFixedSize(140, 40);
-    removePushButton->setStyleSheet("image: 0; border: 0; border-radius: 4; background: rgb(255, 0, 0); font: 19pt; color: rgb(255, 255, 255);");
+    removePushButton->setStyleSheet("border: 0; image: 0; background: 0; background-image: url(:/6航班回查/Images/6航班回查/删除.png);");
 
-    connect(removePushButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
-    signalMapper->setMapping(removePushButton, widgetIndex);
+    connect(removePushButton, SIGNAL(clicked()), signalMapper2, SLOT(map()));
+    signalMapper2->setMapping(removePushButton, widgetIndex);
 
-    connect(signalMapper, SIGNAL(mapped(int)), parent, SLOT(on_removeRow_clicked(int)));
+    connect(signalMapper2, SIGNAL(mapped(int)), parent, SLOT(on_removeRow_clicked(int)));
 }
 
 FlightEnquires::FlightEnquires(QWidget *parent) :
@@ -961,6 +997,11 @@ void FlightEnquires::on_removeRow_clicked(int widgetIndex)
     fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
 }
 
+void FlightEnquires::on_intercept_clicked(int widgetIndex)
+{
+    qDebug() << "widgetIndex: " << widgetIndex << "intercepted!";
+}
+
 QPixmap FlightEnquires::getQPixmapSync(QString str)
 {
     const QUrl url = QUrl::fromUserInput(str);
@@ -1065,7 +1106,9 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
                 && results[i].isSameBoardingNumber
                 && isStatisticsMode
                 && ((results[i].sourceType == 0) || (results[i].sourceType == 4) || (results[i].sourceType == 5) || (results[i].sourceType == 7))) {
-            itemWidget = new ButtonWidget(this, widgetIndex);
+            itemWidget = new DoubleButtonWidget(this, widgetIndex, results[i].isInterceptLabel);
+        } else if (tab == Ui::DisplayTab::DepositoryTab) {
+            itemWidget = new SingleButtonWidget(this, widgetIndex, results[i].isInterceptLabel);
         } else {
             itemWidget = new QWidget(this);
         }

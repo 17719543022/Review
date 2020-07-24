@@ -90,6 +90,7 @@ struct FlightReviewResult {
     QString updateTime;
     QString boardingTime;
     int sourceType;
+    int isInterceptLabel;
     bool isSameBoardingNumber;
 
     FlightReviewResult() {
@@ -106,6 +107,7 @@ struct FlightReviewResult {
         updateTime = QString();
         boardingTime = QString();
         sourceType = 255;
+        isInterceptLabel = 0;
         isSameBoardingNumber = true;
     }
 };
@@ -195,6 +197,7 @@ struct FlightReviewInterface {
                     sortings[i].updateTime = array.at(i).toObject().value("updateTime").toString();
                     sortings[i].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                     sortings[i].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                    sortings[i].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                     sortings[i].isSameBoardingNumber = false;
                 } else {
                     bool isSameboardingNumber = false;
@@ -220,6 +223,7 @@ struct FlightReviewInterface {
                         QString tempUpdateTime = sortings[sameBoardingNumber].updateTime;
                         QString tempBoardingTime = sortings[sameBoardingNumber].boardingTime;
                         int tempSourceType = sortings[sameBoardingNumber].sourceType;
+                        int tempIsInterceptLabel = sortings[sameBoardingNumber].isInterceptLabel;
 
                         for (int k = i; k > 0; k--) {
                             if (k > sameBoardingNumber + 1) {
@@ -235,6 +239,7 @@ struct FlightReviewInterface {
                                 sortings[k].updateTime = sortings[k - 1].updateTime;
                                 sortings[k].boardingTime = sortings[k - 1].boardingTime;
                                 sortings[k].sourceType = sortings[k - 1].sourceType;
+                                sortings[k].isInterceptLabel = sortings[k - 1].isInterceptLabel;
                                 sortings[k].isSameBoardingNumber = sortings[k - 1].isSameBoardingNumber;
                             } else if (k >= 2) {
                                 sortings[k].boardingNumber = sortings[k - 2].boardingNumber;
@@ -249,6 +254,7 @@ struct FlightReviewInterface {
                                 sortings[k].updateTime = sortings[k - 2].updateTime;
                                 sortings[k].boardingTime = sortings[k - 2].boardingTime;
                                 sortings[k].sourceType = sortings[k - 2].sourceType;
+                                sortings[k].isInterceptLabel = sortings[k - 2].isInterceptLabel;
                                 sortings[k].isSameBoardingNumber = sortings[k - 2].isSameBoardingNumber;
                             }
                         }
@@ -265,6 +271,7 @@ struct FlightReviewInterface {
                         sortings[1].updateTime = tempUpdateTime;
                         sortings[1].boardingTime = tempBoardingTime;
                         sortings[1].sourceType = tempSourceType;
+                        sortings[1].isInterceptLabel = tempIsInterceptLabel;
                         sortings[1].isSameBoardingNumber = true;
 
                         sortings[0].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
@@ -279,6 +286,7 @@ struct FlightReviewInterface {
                         sortings[0].updateTime = array.at(i).toObject().value("updateTime").toString();
                         sortings[0].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                         sortings[0].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                        sortings[0].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                         sortings[0].isSameBoardingNumber = true;
                     } else {
                         for (int j = 0; j < i; j++) {
@@ -296,6 +304,7 @@ struct FlightReviewInterface {
                                     sortings[k + 1].updateTime = sortings[k].updateTime;
                                     sortings[k + 1].boardingTime = sortings[k].boardingTime;
                                     sortings[k + 1].sourceType = sortings[k].sourceType;
+                                    sortings[k + 1].isInterceptLabel = sortings[k].isInterceptLabel;
                                     sortings[k + 1].isSameBoardingNumber = sortings[k].isSameBoardingNumber;
                                 }
                                 sortings[j].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
@@ -310,6 +319,7 @@ struct FlightReviewInterface {
                                 sortings[j].updateTime = array.at(i).toObject().value("updateTime").toString();
                                 sortings[j].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                                 sortings[j].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                                sortings[j].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                                 sortings[j].isSameBoardingNumber = false;
                                 break;
                             }
@@ -326,6 +336,7 @@ struct FlightReviewInterface {
                                 sortings[i].updateTime = array.at(i).toObject().value("updateTime").toString();
                                 sortings[i].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                                 sortings[i].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                                sortings[i].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                                 sortings[i].isSameBoardingNumber = false;
                             }
                         }
@@ -402,6 +413,7 @@ struct FlightReviewInterface {
                             results[k].updateTime = sortings[k - 1].updateTime;
                             results[k].boardingTime = sortings[k - 1].boardingTime;
                             results[k].sourceType = sortings[k - 1].sourceType;
+                            results[k].isInterceptLabel = sortings[k - 1].isInterceptLabel;
                             results[k].isSameBoardingNumber = sortings[k - 1].isSameBoardingNumber;
                         }
                         results[0].boardingNumber = sortings[j].boardingNumber;
@@ -416,6 +428,7 @@ struct FlightReviewInterface {
                         results[0].updateTime = sortings[j].updateTime;
                         results[0].boardingTime = sortings[j].boardingTime;
                         results[0].sourceType = sortings[j].sourceType;
+                        results[0].isInterceptLabel = sortings[j].isInterceptLabel;
                         results[0].isSameBoardingNumber = sortings[j].isSameBoardingNumber;
                     }
                 }
@@ -437,6 +450,7 @@ struct FlightReviewInterface {
                             results[k].updateTime = sortings[k - 1].updateTime;
                             results[k].boardingTime = sortings[k - 1].boardingTime;
                             results[k].sourceType = sortings[k - 1].sourceType;
+                            results[k].isInterceptLabel = sortings[k - 1].isInterceptLabel;
                             results[k].isSameBoardingNumber = sortings[k - 1].isSameBoardingNumber;
                         }
                         results[0].boardingNumber = sortings[j].boardingNumber;
@@ -451,6 +465,7 @@ struct FlightReviewInterface {
                         results[0].updateTime = sortings[j].updateTime;
                         results[0].boardingTime = sortings[j].boardingTime;
                         results[0].sourceType = sortings[j].sourceType;
+                        results[0].isInterceptLabel = sortings[j].isInterceptLabel;
                         results[0].isSameBoardingNumber = sortings[j].isSameBoardingNumber;
                     }
                 }
@@ -470,6 +485,7 @@ struct FlightReviewInterface {
                     results[i].updateTime = sortings[i].updateTime;
                     results[i].boardingTime = sortings[i].boardingTime;
                     results[i].sourceType = sortings[i].sourceType;
+                    results[i].isInterceptLabel = sortings[i].isInterceptLabel;
                     results[i].isSameBoardingNumber = sortings[i].isSameBoardingNumber;
                 }
             }
@@ -496,6 +512,7 @@ struct FlightReviewInterface {
                     boarded[i].updateTime = array.at(i).toObject().value("updateTime").toString();
                     boarded[i].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                     boarded[i].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                    boarded[i].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                     boarded[i].isSameBoardingNumber = false;
                 } else {
                     for (int j = 0; j < i; j++) {
@@ -513,6 +530,7 @@ struct FlightReviewInterface {
                                 boarded[k + 1].updateTime = boarded[k].updateTime;
                                 boarded[k + 1].boardingTime = boarded[k].boardingTime;
                                 boarded[k + 1].sourceType = boarded[k].sourceType;
+                                boarded[k + 1].isInterceptLabel = boarded[k].isInterceptLabel;
                                 boarded[k + 1].isSameBoardingNumber = boarded[k].isSameBoardingNumber;
                             }
                             boarded[j].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
@@ -527,6 +545,7 @@ struct FlightReviewInterface {
                             boarded[j].updateTime = array.at(i).toObject().value("updateTime").toString();
                             boarded[j].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                             boarded[j].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                            boarded[j].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                             boarded[j].isSameBoardingNumber = false;
                             break;
                         }
@@ -543,6 +562,7 @@ struct FlightReviewInterface {
                             boarded[i].updateTime = array.at(i).toObject().value("updateTime").toString();
                             boarded[i].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                             boarded[i].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                            boarded[i].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                             boarded[i].isSameBoardingNumber = false;
                         }
                     }
@@ -571,6 +591,7 @@ struct FlightReviewInterface {
                     unboard[i].updateTime = array.at(i).toObject().value("updateTime").toString();
                     unboard[i].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                     unboard[i].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                    unboard[i].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                     unboard[i].isSameBoardingNumber = false;
                 } else {
                     for (int j = 0; j < i; j++) {
@@ -588,6 +609,7 @@ struct FlightReviewInterface {
                                 unboard[k + 1].updateTime = unboard[k].updateTime;
                                 unboard[k + 1].boardingTime = unboard[k].boardingTime;
                                 unboard[k + 1].sourceType = unboard[k].sourceType;
+                                unboard[k + 1].isInterceptLabel = unboard[k].isInterceptLabel;
                                 unboard[k + 1].isSameBoardingNumber = unboard[k].isSameBoardingNumber;
                             }
                             unboard[j].boardingNumber = array.at(i).toObject().value("boardingNumber").toString();
@@ -602,6 +624,7 @@ struct FlightReviewInterface {
                             unboard[j].updateTime = array.at(i).toObject().value("updateTime").toString();
                             unboard[j].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                             unboard[j].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                            unboard[j].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                             unboard[j].isSameBoardingNumber = false;
                             break;
                         }
@@ -618,6 +641,7 @@ struct FlightReviewInterface {
                             unboard[i].updateTime = array.at(i).toObject().value("updateTime").toString();
                             unboard[i].boardingTime = array.at(i).toObject().value("boardingTime").toString();
                             unboard[i].sourceType = array.at(i).toObject().value("sourceType").toInt();
+                            unboard[i].isInterceptLabel = array.at(i).toObject().value("isInterceptLabel").toInt();
                             unboard[i].isSameBoardingNumber = false;
                         }
                     }

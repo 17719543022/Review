@@ -23,13 +23,27 @@ enum DisplayType {
 };
 }
 
-class ButtonWidget : public QWidget
+class SingleButtonWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    ButtonWidget(QWidget *parent = Q_NULLPTR
-            , int widgetIndex = 0);
+    SingleButtonWidget(QWidget *parent = Q_NULLPTR
+            , int widgetIndex = 0
+            , int isInterceptLabel = 0);
+
+private:
+    int widgetIndex;
+};
+
+class DoubleButtonWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    DoubleButtonWidget(QWidget *parent = Q_NULLPTR
+            , int widgetIndex = 0
+            , int isInterceptLabel = 0);
 
 private:
     int widgetIndex;
@@ -69,9 +83,11 @@ private slots:
 
     void on_notBoardingSlider_changed(int p);
 
+    void on_filterPushButton_clicked();
+
     void on_removeRow_clicked(int);
 
-    void on_filterPushButton_clicked();
+    void on_intercept_clicked(int);
 
 private:
     int query();
