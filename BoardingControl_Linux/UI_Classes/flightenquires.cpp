@@ -16,7 +16,7 @@ ButtonWidget::ButtonWidget(QWidget *parent, int widgetIndex)
     QSignalMapper *signalMapper = new QSignalMapper();
 
     QPushButton *removePushButton = new QPushButton(this);
-    removePushButton->setGeometry(600, 134, 140, 40);
+    removePushButton->setGeometry(600, 148, 140, 40);
     removePushButton->setText("删    除");
     removePushButton->setFixedSize(140, 40);
     removePushButton->setStyleSheet("image: 0; border: 0; border-radius: 4; background: rgb(255, 0, 0); font: 19pt; color: rgb(255, 255, 255);");
@@ -37,12 +37,14 @@ FlightEnquires::FlightEnquires(QWidget *parent) :
     boardingFilledNum(0),
     boardingFillIndex(0),
     notboardingFilledNum(0),
-    notboardingFillIndex(0)
+    notboardingFillIndex(0),
+    boardingNumberForSlider(QString())
 {
     signalMapper = new QSignalMapper(this);
     naManager = new QNetworkAccessManager(this);
 
     ui->setupUi(this);
+    ui->filterWidget->hide();
     this->hide();
 
     ui->orgDepTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -92,6 +94,9 @@ void FlightEnquires::statistics(QString flight)
     this->isStatisticsMode = true;
 
     ui->inputWidget->hide();
+    ui->flightWidget->setGeometry(15, 7, 770, 308);
+    ui->tabWidget->setGeometry(15, 318, 770, 39);
+    ui->filterWidget->show();
 
     ui->orgDepTableWidget->clear();
     ui->orgDepTableWidget->scrollToTop();
@@ -844,21 +849,33 @@ void FlightEnquires::on_notboardingPushButton_clicked()
 void FlightEnquires::on_orgDepSlider_changed(int p)
 {
     if (p + 2 == orgDepFilledNum) {
-        fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+        if (boardingNumberForSlider == QString()) {
+            fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab);
+        } else {
+            fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab, boardingNumberForSlider);
+        }
     }
 }
 
 void FlightEnquires::on_boardingSlider_changed(int p)
 {
     if (p + 2 == boardingFilledNum) {
-        fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
+        if (boardingNumberForSlider == QString()) {
+            fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab);
+        } else {
+            fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab, boardingNumberForSlider);
+        }
     }
 }
 
 void FlightEnquires::on_notBoardingSlider_changed(int p)
 {
     if (p + 2 == notboardingFilledNum) {
-        fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
+        if (boardingNumberForSlider == QString()) {
+            fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
+        } else {
+            fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab, boardingNumberForSlider);
+        }
     }
 }
 
@@ -974,8 +991,10 @@ QPixmap FlightEnquires::getQPixmapSync(QString str)
     return pixmap;
 }
 
-void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab)
+void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab, QString boardingNumber)
 {
+    boardingNumberForSlider = boardingNumber;
+
     FlightReviewResult results[1000];
 
     for (int i = 0; i < response.interface.validSize; i++) {
@@ -1031,6 +1050,10 @@ void FlightEnquires::fillTableGradually(const FlightReviewResponse &response, QT
                   && results[i].boardingStatus == 0)) {
                 continue;
             }
+        }
+
+        if (!boardingNumber.isEmpty() && (boardingNumber != results[i].boardingNumber)) {
+            continue;
         }
 
         table->setRowHeight(widgetIndex, 206);
@@ -1223,4 +1246,42 @@ int FlightEnquires::query()
 //    fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab);
 
     return Ui::DisplayType::DisplayNormal;
+}
+
+void FlightEnquires::on_filterPushButton_clicked()
+{
+    ui->orgDepTableWidget->clear();
+    ui->orgDepTableWidget->scrollToTop();
+    while (ui->orgDepTableWidget->rowCount() > 0) {
+        ui->orgDepTableWidget->removeRow(0);
+    }
+    ui->boardingTableWidget->clear();
+    ui->boardingTableWidget->scrollToTop();
+    while (ui->boardingTableWidget->rowCount() > 0) {
+        ui->boardingTableWidget->removeRow(0);
+    }
+    ui->notboardingTableWidget->clear();
+    ui->notboardingTableWidget->scrollToTop();
+    while (ui->notboardingTableWidget->rowCount() > 0) {
+        ui->notboardingTableWidget->removeRow(0);
+    }
+
+    orgDepFilledNum = 0;
+    orgDepFillIndex = 0;
+    boardingFilledNum = 0;
+    boardingFillIndex = 0;
+    notboardingFilledNum = 0;
+    notboardingFillIndex = 0;
+
+    if (ui->orgDepTableWidget->isVisible()) {
+        fillTableGradually(response, ui->orgDepTableWidget, Ui::DisplayTab::DepositoryTab, ui->filterLineEdit->text());
+    }
+
+    if (ui->boardingTableWidget->isVisible()) {
+        fillTableGradually(response, ui->boardingTableWidget, Ui::DisplayTab::BoardingTab, ui->filterLineEdit->text());
+    }
+
+    if (ui->notboardingTableWidget->isVisible()) {
+        fillTableGradually(response, ui->notboardingTableWidget, Ui::DisplayTab::NotBoardingTab, ui->filterLineEdit->text());
+    }
 }

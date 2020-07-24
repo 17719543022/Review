@@ -85,6 +85,7 @@
         <file>3实时登机/Images/3实时登机/3.2.1/参考/3.2-3.2.1  实时登机  .jpg</file>
         <file>Images/6航班回查/中转.png</file>
         <file>Images/6航班回查/过站.png</file>
+        <file>Images/6航班回查/过滤.png</file>
     </qresource>
     <qresource prefix="/2系统首页">
         <file>Images/2系统首页/下拉窗口/人像采集-拷贝.png</file>
@@ -155,6 +156,7 @@
         <file>Images/6航班回查/矩形-4365.png</file>
         <file>Images/6航班回查/中转.png</file>
         <file>Images/6航班回查/过站.png</file>
+        <file>Images/6航班回查/过滤.png</file>
     </qresource>
     <qresource prefix="/3实时登机">
         <file>Images/3实时登机/3.0-3.2/3.0-3.1  实时登机  .jpg</file>

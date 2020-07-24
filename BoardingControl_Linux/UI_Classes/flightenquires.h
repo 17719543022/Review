@@ -71,10 +71,12 @@ private slots:
 
     void on_removeRow_clicked(int);
 
+    void on_filterPushButton_clicked();
+
 private:
     int query();
 
-    void fillTableGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab);
+    void fillTableGradually(const FlightReviewResponse &response, QTableWidget *table, Ui::DisplayTab tab, QString boardingNumber = QString());
 
     QPixmap getQPixmapSync(QString str);
 
@@ -106,6 +108,8 @@ private:
     int notboardingFilledNum;
 
     int notboardingFillIndex;
+
+    QString boardingNumberForSlider;
 };
 
 #endif // FLIGHTENQUIRES_H

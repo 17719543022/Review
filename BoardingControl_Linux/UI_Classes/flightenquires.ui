@@ -370,7 +370,7 @@ border-radius: 4px;</string>
     <property name="geometry">
      <rect>
       <x>15</x>
-      <y>361</y>
+      <y>311</y>
       <width>770</width>
       <height>39</height>
      </rect>
@@ -451,6 +451,76 @@ background-color: rgb(0, 36, 60);</string>
      </property>
      <property name="text">
       <string>未登机人数：0</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="filterWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>361</y>
+      <width>770</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <widget class="QWidget" name="filterLineWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>0</y>
+       <width>666</width>
+       <height>39</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background-color: rgb(88, 129, 157);
+color: rgb(255, 255, 255);
+border-radius: 4px;</string>
+     </property>
+     <widget class="QLineEdit" name="filterLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>4</x>
+        <y>0</y>
+        <width>658</width>
+        <height>39</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="maxLength">
+       <number>10</number>
+      </property>
+      <property name="placeholderText">
+       <string>请输入旅客序列号</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="filterPushButton">
+     <property name="geometry">
+      <rect>
+       <x>677</x>
+       <y>0</y>
+       <width>91</width>
+       <height>39</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0;
+image: 0;
+background: 0;
+border-image: url(:/6航班回查/Images/6航班回查/过滤.png);</string>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
